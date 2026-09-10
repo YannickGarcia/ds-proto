@@ -2,14 +2,14 @@
 
 import { CaretDown, Check, MagnifyingGlass, Users } from "@/components/icons";
 import { useMemo, useState } from "react";
-import { Avatar } from "@/components/geist/avatar";
-import { Button } from "@/components/geist/button";
-import { Input } from "@/components/geist/input";
+import { Avatar } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/geist/popover";
+} from "@/components/ui/popover";
 import { people, TEAMS } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -53,7 +53,7 @@ export function ScopeSelector({
           variant="secondary"
           prefix={<Users aria-hidden="true" />}
           suffix={<CaretDown aria-hidden="true" />}
-          className="geist-tabular-nums"
+          className="tabular-nums"
         >
           {selected.length} {selected.length === 1 ? "person" : "people"}
         </Button>
@@ -107,7 +107,7 @@ export function ScopeSelector({
           </div>
         </div>
 
-        <ul className="geist-no-scrollbar max-h-[264px] overflow-y-auto overscroll-contain p-1">
+        <ul className="no-scrollbar max-h-[264px] overflow-y-auto overscroll-contain p-1">
           {filtered.map((person) => {
             const isSelected = selected.includes(person.id);
             return (
@@ -116,7 +116,7 @@ export function ScopeSelector({
                   type="button"
                   onClick={() => toggle(person.id)}
                   className={cn(
-                    "flex h-9 w-full items-center gap-2.5 rounded-[var(--geist-radius)] px-2 outline-none",
+                    "flex h-9 w-full items-center gap-2.5 rounded-[var(--radius)] px-2 outline-none",
                     "transition-colors duration-100 hover:bg-[var(--ds-gray-alpha-200)]",
                     "focus-visible:shadow-[var(--ds-focus-ring)]",
                   )}

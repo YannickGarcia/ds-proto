@@ -5,9 +5,9 @@ import {
   ShareNetwork,
 } from "@/components/icons";
 import type { ComponentProps, ReactNode } from "react";
-import { Button } from "@/components/geist/button";
-import { Card, CardContent, CardFooter } from "@/components/geist/card";
-import { Tooltip } from "@/components/geist/tooltip";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Tooltip } from "@/components/ui/tooltip";
 import { monthTicks } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -93,7 +93,7 @@ export function InfoAction({ children }: { children: ReactNode }) {
         type="button"
         aria-label="About this metric"
         className={cn(
-          "inline-flex size-8 touch-manipulation items-center justify-center rounded-[var(--geist-radius)]",
+          "inline-flex size-8 touch-manipulation items-center justify-center rounded-[var(--radius)]",
           "text-[var(--ds-gray-700)] outline-none transition-colors duration-150",
           "hover:bg-[var(--ds-gray-alpha-200)] hover:text-[var(--ds-gray-1000)]",
           "focus-visible:shadow-[var(--ds-focus-ring)]",
@@ -115,7 +115,7 @@ export function ChartCardHeadline({
 }) {
   return (
     <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 px-5 pb-4">
-      <span className="geist-tabular-nums text-heading-16 text-pretty text-[var(--ds-gray-1000)]">
+      <span className="tabular-nums text-heading-16 text-pretty text-[var(--ds-gray-1000)]">
         {value}
       </span>
       {children ? (
@@ -202,7 +202,7 @@ export function ChartLegend({
           )}
           <span className="min-w-0 truncate">{item.label}</span>
           {item.value ? (
-            <span className="geist-tabular-nums text-[var(--ds-gray-1000)]">
+            <span className="tabular-nums text-[var(--ds-gray-1000)]">
               {item.value}
             </span>
           ) : null}

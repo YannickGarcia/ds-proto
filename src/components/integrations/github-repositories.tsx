@@ -2,29 +2,29 @@
 
 import Link from "next/link";
 import { Fragment, useMemo, useState } from "react";
-import { Badge } from "@/components/geist/badge";
-import { Banner } from "@/components/geist/banner";
-import { Button } from "@/components/geist/button";
-import { Card } from "@/components/geist/card";
-import { EmptyState } from "@/components/geist/empty-state";
-import { Input } from "@/components/geist/input";
+import { Badge } from "@/components/ui/badge";
+import { Banner } from "@/components/ui/banner";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Input } from "@/components/ui/input";
 import {
   Menu,
   MenuContent,
   MenuItem,
   MenuSeparator,
   MenuTrigger,
-} from "@/components/geist/menu";
+} from "@/components/ui/menu";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/geist/select";
-import { SegmentedControl } from "@/components/geist/segmented-control";
-import { Skeleton } from "@/components/geist/skeleton";
-import { Switch } from "@/components/geist/switch";
+} from "@/components/ui/select";
+import { SegmentedControl } from "@/components/ui/segmented-control";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Switch } from "@/components/ui/switch";
 import {
   Table,
   TableBody,
@@ -33,8 +33,8 @@ import {
   TableHeaderCell,
   TableRow,
   type SortDirection,
-} from "@/components/geist/table";
-import { Tooltip } from "@/components/geist/tooltip";
+} from "@/components/ui/table";
+import { Tooltip } from "@/components/ui/tooltip";
 import {
   ArrowsClockwise,
   CaretRight,
@@ -564,11 +564,11 @@ function InstanceGroup({
                   </span>
                 </button>
               </TableCell>
-              <TableCell className="geist-tabular-nums text-[var(--ds-gray-900)]">
+              <TableCell className="tabular-nums text-[var(--ds-gray-900)]">
                 {downloaded} / {total}
               </TableCell>
               <TableCell colSpan={3} />
-              <TableCell className="geist-tabular-nums text-[var(--ds-gray-900)]">
+              <TableCell className="tabular-nums text-[var(--ds-gray-900)]">
                 {active} / {repos.length}
               </TableCell>
               <TableCell />
@@ -614,7 +614,7 @@ function RepoRow({
           <span className="font-medium">{repo.name}</span>
         </Link>
       </TableCell>
-      <TableCell className="geist-tabular-nums">
+      <TableCell className="tabular-nums">
         <Tooltip
           content={`${repo.prsDownloaded} downloaded of ${repo.prsTotal} known pull requests.`}
         >
@@ -623,7 +623,7 @@ function RepoRow({
           </span>
         </Tooltip>
       </TableCell>
-      <TableCell className="geist-tabular-nums whitespace-nowrap text-[var(--ds-gray-900)]">
+      <TableCell className="tabular-nums whitespace-nowrap text-[var(--ds-gray-900)]">
         <Tooltip content="Pull requests are complete up to this point. Times are shown in your local zone.">
           <span>{repo.syncedUntil}</span>
         </Tooltip>

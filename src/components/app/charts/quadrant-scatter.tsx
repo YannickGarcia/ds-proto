@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Avatar } from "@/components/geist/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import type { Person } from "@/lib/data";
 import { pct, points, usd } from "@/lib/format";
 import { cn } from "@/lib/utils";
@@ -42,7 +42,7 @@ const QUADRANTS: Quadrant[] = [
 /**
  * Quadrant scatter of delivery volume against cost efficiency, one avatar per
  * person. Bklit's `ScatterChart` is time-scaled on X and draws ring markers,
- * so this plot is laid out directly against the same Geist tokens.
+ * so this plot is laid out directly against the same tokens.
  */
 export function QuadrantScatter({ people }: { people: Person[] }) {
   const [active, setActive] = useState<string | null>(null);
@@ -58,7 +58,7 @@ export function QuadrantScatter({ people }: { people: Person[] }) {
       <div className="min-w-0 flex-1">
         <div
           className={cn(
-            "relative aspect-[16/9] min-h-[320px] w-full overflow-hidden rounded-[var(--geist-radius)]",
+            "relative aspect-[16/9] min-h-[320px] w-full overflow-hidden rounded-[var(--radius)]",
             "border border-[var(--border-subtle)] bg-[var(--ds-surface-primary)]",
           )}
           onMouseLeave={() => setActive(null)}
@@ -150,9 +150,9 @@ export function QuadrantScatter({ people }: { people: Person[] }) {
                 key={`tip-${person.id}`}
                 role="status"
                 className={cn(
-                  "pointer-events-none absolute z-30 w-[190px] rounded-[var(--geist-radius)]",
+                  "pointer-events-none absolute z-30 w-[190px] rounded-[var(--radius)]",
                   "surface-tertiary elevated border border-[var(--border-subtle)]",
-                  "px-2.5 py-2 animate-geist-fade-in",
+                  "px-2.5 py-2 animate-fade-in",
                 )}
                 style={{
                   left: `${8 + person.delivery * 0.84}%`,
@@ -171,19 +171,19 @@ export function QuadrantScatter({ people }: { people: Person[] }) {
                 <dl className="mt-1.5 flex flex-col gap-0.5 text-label-12">
                   <div className="flex justify-between gap-2">
                     <dt className="text-[var(--ds-gray-900)]">Delivery</dt>
-                    <dd className="geist-tabular-nums text-[var(--ds-gray-1000)]">
+                    <dd className="tabular-nums text-[var(--ds-gray-1000)]">
                       {points(person.deliveryPoints)} pts · {pct(person.delivery)}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-2">
                     <dt className="text-[var(--ds-gray-900)]">Cost / point</dt>
-                    <dd className="geist-tabular-nums text-[var(--ds-gray-1000)]">
+                    <dd className="tabular-nums text-[var(--ds-gray-1000)]">
                       {usd(person.costPerPoint, 2)}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-2">
                     <dt className="text-[var(--ds-gray-900)]">AI spend</dt>
-                    <dd className="geist-tabular-nums text-[var(--ds-gray-1000)]">
+                    <dd className="tabular-nums text-[var(--ds-gray-1000)]">
                       {usd(person.spend, 2)}
                     </dd>
                   </div>
@@ -200,9 +200,9 @@ export function QuadrantScatter({ people }: { people: Person[] }) {
         </div>
 
         <div className="mt-2 flex items-center justify-between text-label-12 text-[var(--ds-gray-900)]">
-          <span className="geist-tabular-nums">0%</span>
+          <span className="tabular-nums">0%</span>
           <span>Delivery</span>
-          <span className="geist-tabular-nums">100%</span>
+          <span className="tabular-nums">100%</span>
         </div>
       </div>
     </div>

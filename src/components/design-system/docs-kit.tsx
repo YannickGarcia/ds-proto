@@ -140,7 +140,7 @@ export function Specimens({
 
 export function Snippet({ code }: { code: string }) {
   return (
-    <pre className="geist-no-scrollbar overflow-x-auto rounded-xl border border-[var(--border-subtle)] bg-[var(--ds-surface-primary)] p-4">
+    <pre className="no-scrollbar overflow-x-auto rounded-xl border border-[var(--border-subtle)] bg-[var(--ds-surface-primary)] p-4">
       <code className="text-mono-13 text-[var(--ds-gray-1000)]">
         {code.trim()}
       </code>
@@ -160,7 +160,7 @@ export function DocsTable({
   rows: ReactNode[][];
 }) {
   return (
-    <div className="geist-no-scrollbar overflow-x-auto rounded-xl border border-[var(--border-subtle)]">
+    <div className="no-scrollbar overflow-x-auto rounded-xl border border-[var(--border-subtle)]">
       <table className="w-full border-collapse text-left">
         <thead>
           <tr className="bg-[var(--ds-surface-primary)]">

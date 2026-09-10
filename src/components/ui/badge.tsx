@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
-/** Geist Badge — subtle tinted pills built from the `--ds-*` colour scales. */
+/** Badge — subtle tinted pills built from the `--ds-*` colour scales. */
 const badgeVariants = cva(
   "inline-flex shrink-0 items-center gap-1 rounded-full border font-medium whitespace-nowrap [&_svg]:shrink-0",
   {

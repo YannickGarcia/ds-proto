@@ -13,7 +13,7 @@ const OPTIONS = [
 ] as const;
 
 /**
- * Geist theme switcher — a pill track with a spring-animated indicator,
+ * theme switcher — a pill track with a spring-animated indicator,
  * matching the control in Vercel's own footer.
  */
 export function ThemeSwitcher({ className }: { className?: string }) {
@@ -56,7 +56,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
           >
             {isActive ? (
               <motion.span
-                layoutId="geist-theme-indicator"
+                layoutId="theme-indicator"
                 className="absolute inset-0 rounded-full bg-[var(--ds-gray-alpha-200)]"
                 transition={{ type: "spring", stiffness: 500, damping: 40 }}
               />

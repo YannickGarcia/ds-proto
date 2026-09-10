@@ -1,11 +1,11 @@
 @AGENTS.md
 
-# Pensero prototype
+# ds-proto
 
 ## The design system page is part of every component change
 
 `/design-system` is the spec, not a demo gallery — it is what the product is
-tuned from. So a change to anything in `src/components/geist/` is not finished
+tuned from. So a change to anything in `src/components/ui/` is not finished
 until `src/components/design-system/` reflects it, **in the same change**.
 
 What to bring in line in the affected `DocsEntry`:
@@ -41,9 +41,8 @@ repeatedly fixed.
   1px below it, and the `border*` utilities are overridden to read the token.
   Never set a border width at a call site.
 - **Colour scales** climb in even OKLCH lightness, in both themes, so a step
-  means the same thing in any hue. This deliberately diverges from Geist,
-  whose scales are hand-tuned per colour and contain inversions and duplicate
-  values. Keep the ramp even when adding or adjusting a step.
+  means the same thing in any hue. Hand-tuned palettes drift into inversions
+  and duplicate values; keep the ramp even when adding or adjusting a step.
 - **Filled controls** label themselves with `--ds-surface-secondary`, never a
   literal white or black: step 800 is dark in light and light in dark, and the
   surface token flips with it.

@@ -1,7 +1,7 @@
 "use client";
 
 import { CaretLeft, CaretRight } from "@/components/icons";
-import { Button } from "@/components/geist/button";
+import { Button } from "@/components/ui/button";
 
 /**
  * Range-and-steppers pagination. States the span rather than listing page
@@ -26,7 +26,7 @@ export function Pagination({
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-3">
-      <p className="geist-tabular-nums text-label-13 text-[var(--ds-gray-900)]">
+      <p className="tabular-nums text-label-13 text-[var(--ds-gray-900)]">
         {from}–{to} of {total} {label}
       </p>
       <div className="flex items-center gap-1">
@@ -39,7 +39,7 @@ export function Pagination({
         >
           <CaretLeft aria-hidden="true" />
         </Button>
-        <span className="geist-tabular-nums px-2 text-label-13 text-[var(--ds-gray-900)]">
+        <span className="tabular-nums px-2 text-label-13 text-[var(--ds-gray-900)]">
           {page} / {pageCount}
         </span>
         <Button

@@ -11,7 +11,7 @@ import {
   Snippet,
   Token,
 } from "./docs-kit";
-import { Button } from "@/components/geist/button";
+import { Button } from "@/components/ui/button";
 import { BrandTintControls, BrandTintSnippet } from "./brand-tint-controls";
 
 /* -------------------------------------------------------------------------- */
@@ -22,7 +22,7 @@ function Scale({ name, steps }: { name: string; steps: number[] }) {
   return (
     <div className="flex flex-col gap-1.5">
       <span className="text-mono-12 text-[var(--ds-gray-900)]">{name}</span>
-      <div className="flex overflow-hidden rounded-[var(--geist-radius)] border border-[var(--border-subtle)]">
+      <div className="flex overflow-hidden rounded-[var(--radius)] border border-[var(--border-subtle)]">
         {steps.map((step) => (
           <div
             key={step}
@@ -46,7 +46,7 @@ function SwatchRow({
       {items.map((item) => (
         <div
           key={item.token}
-          className="flex items-center gap-3 rounded-[var(--geist-radius)] border border-[var(--border-subtle)] p-2.5"
+          className="flex items-center gap-3 rounded-[var(--radius)] border border-[var(--border-subtle)] p-2.5"
         >
           <span
             aria-hidden="true"
@@ -149,8 +149,8 @@ export function Foundations() {
         </DocsBlock>
 
         <DocsBlock
-          label="Even steps, and why we left Geist here"
-          hint="Every scale climbs in even OKLCH lightness, so a step means the same thing in any hue and a green badge carries the same weight as a red one. Geist's own scales are hand-tuned per colour and do not: in light, gray-400 is lighter than gray-300, blue-900 lighter than blue-800, purple-200 lighter than purple-100; in dark, amber-800 and amber-900 ship the same value and purple-600 and 700 are identical. Those read as mistakes on a ramp, so this is a deliberate divergence — one of the few."
+          label="Even steps"
+          hint="Every scale climbs in even OKLCH lightness, so a step means the same thing in any hue and a green badge carries the same weight as a red one. Hand-tuned palettes rarely do: they pick up inversions, where a step is lighter than the one before it, and outright duplicate values. Those read as mistakes on a ramp, so the ramp wins."
         >
           <DocsTable
             head={["Step", "Light L", "Dark L", "Stride"]}
@@ -373,7 +373,7 @@ export function Foundations() {
           hint="Fifteen steps, leaders first and the long tail in greys so it recedes."
         >
           <Example>
-            <div className="flex overflow-hidden rounded-[var(--geist-radius)] border border-[var(--border-subtle)]">
+            <div className="flex overflow-hidden rounded-[var(--radius)] border border-[var(--border-subtle)]">
               {Array.from({ length: 15 }, (_, index) => (
                 <div
                   key={index}
@@ -540,7 +540,7 @@ export function Foundations() {
         <BestPractice
           items={[
             <>
-              Apply <Token>geist-tabular-nums</Token> to any number a reader
+              Apply <Token>tabular-nums</Token> to any number a reader
               will compare — columns, deltas, KPI values. Proportional digits
               make equal values look unequal.
             </>,
@@ -688,7 +688,7 @@ export function Foundations() {
               {
                 r: "6px",
                 label: "6px — controls",
-                cls: "rounded-[var(--geist-radius)]",
+                cls: "rounded-[var(--radius)]",
               },
               { r: "8px", label: "8px — grouped controls", cls: "rounded-lg" },
               { r: "12px", label: "12px — cards, overlays", cls: "rounded-xl" },
@@ -708,7 +708,7 @@ export function Foundations() {
         <BestPractice
           items={[
             <>
-              <Token>--geist-radius</Token> (6px) is the default for anything
+              <Token>--radius</Token> (6px) is the default for anything
               interactive: buttons, inputs, menu items, nav rows.
             </>,
             <>
@@ -774,7 +774,7 @@ export function Foundations() {
                 </p>
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                   <Button variant="secondary">Control</Button>
-                  <span className="surface-tertiary elevated rounded-[var(--geist-radius)] border border-[var(--border-subtle)] px-2.5 py-1.5 text-label-12 text-[var(--ds-gray-1000)]">
+                  <span className="surface-tertiary elevated rounded-[var(--radius)] border border-[var(--border-subtle)] px-2.5 py-1.5 text-label-12 text-[var(--ds-gray-1000)]">
                     tertiary — a menu over it
                   </span>
                 </div>
@@ -930,7 +930,7 @@ export function Foundations() {
       >
         <DocsBlock
           label="Width"
-          hint="Every border in the product is one device pixel, and the alphas below are set for that width — halving the line from 1px to 0.5px halved its presence, so each was raised by roughly half to hold the same read. On a 2dppx display that is 0.5px — the fine rule Linear and Geist draw. Below 2dppx the browser has to antialias a half pixel, and at these alphas the line can fade to nothing, so those displays fall back to a true 1px. Nothing sets a border width directly; the utilities read the token."
+          hint="Every border in the product is one device pixel, and the alphas below are set for that width — halving the line from 1px to 0.5px halved its presence, so each was raised by roughly half to hold the same read. On a 2dppx display that is 0.5px — the fine rule Linear draws. Below 2dppx the browser has to antialias a half pixel, and at these alphas the line can fade to nothing, so those displays fall back to a true 1px. Nothing sets a border width directly; the utilities read the token."
         >
           <Snippet
             code={`:root { --border-width: 1px; }

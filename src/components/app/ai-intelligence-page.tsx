@@ -18,7 +18,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/geist/tabs";
+} from "@/components/ui/tabs";
 import { people } from "@/lib/data";
 import { useSearchParam } from "@/lib/use-search-param";
 

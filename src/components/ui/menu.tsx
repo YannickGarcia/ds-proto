@@ -5,8 +5,8 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Geist Menu — floating overlay surface, 12px radius, 32px rows,
- * entering with the Geist swift overlay curve.
+ * Menu — floating overlay surface, 12px radius, 32px rows,
+ * entering with the swift overlay curve.
  */
 export const Menu = MenuPrimitive.Root;
 export const MenuTrigger = MenuPrimitive.Trigger;
@@ -28,7 +28,7 @@ export function MenuContent({
           "z-50 min-w-[200px] overflow-hidden rounded-xl p-1",
           "surface-tertiary elevated border border-[var(--border-subtle)]",
           "origin-(--radix-dropdown-menu-content-transform-origin)",
-          "data-[state=open]:animate-geist-scale-in data-[state=closed]:animate-geist-fade-out",
+          "data-[state=open]:animate-scale-in data-[state=closed]:animate-fade-out",
           className,
         )}
         {...props}
@@ -45,7 +45,7 @@ export function MenuItem({
   return (
     <MenuPrimitive.Item
       className={cn(
-        "relative flex h-8 cursor-default select-none items-center gap-2 rounded-[var(--geist-radius)] px-2",
+        "relative flex h-8 cursor-default select-none items-center gap-2 rounded-[var(--radius)] px-2",
         "text-label-14 text-[var(--ds-gray-1000)] outline-none",
         "transition-colors duration-100",
         "data-[highlighted]:bg-[var(--ds-gray-alpha-200)]",
@@ -67,7 +67,7 @@ export function MenuRadioItem({
   return (
     <MenuPrimitive.RadioItem
       className={cn(
-        "relative flex h-8 cursor-default select-none items-center gap-2 rounded-[var(--geist-radius)] py-0 pr-2 pl-7",
+        "relative flex h-8 cursor-default select-none items-center gap-2 rounded-[var(--radius)] py-0 pr-2 pl-7",
         "text-label-14 text-[var(--ds-gray-1000)] outline-none transition-colors duration-100",
         "data-[highlighted]:bg-[var(--ds-gray-alpha-200)]",
         className,

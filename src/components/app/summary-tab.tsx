@@ -25,16 +25,16 @@ import {
   PercentStackedWeekChart,
   StackedWeekChart,
 } from "@/components/app/charts/stacked-week-chart";
-import { Button } from "@/components/geist/button";
-import { Input } from "@/components/geist/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Menu,
   MenuContent,
   MenuItem,
   MenuLabel,
   MenuTrigger,
-} from "@/components/geist/menu";
-import { SegmentedControl } from "@/components/geist/segmented-control";
+} from "@/components/ui/menu";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import {
   adoptionSummary,
   costSummary,
@@ -380,7 +380,7 @@ function EfficiencyAndCost({ range }: { range: string }) {
               >
                 <CaretLeft aria-hidden="true" />
               </Button>
-              <span className="geist-tabular-nums w-10 text-center text-button-14 text-[var(--ds-gray-1000)]">
+              <span className="tabular-nums w-10 text-center text-button-14 text-[var(--ds-gray-1000)]">
                 {year}
               </span>
               <Button

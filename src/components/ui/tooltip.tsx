@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 export const TooltipProvider = TooltipPrimitive.Provider;
 
-/** Geist Tooltip — floating overlay surface with a hairline border. */
+/** Tooltip — floating overlay surface with a hairline border. */
 export function Tooltip({
   content,
   children,
@@ -32,10 +32,10 @@ export function Tooltip({
           sideOffset={6}
           collisionPadding={16}
           className={cn(
-            "z-50 max-w-[320px] rounded-[var(--geist-radius)] px-2.5 py-2",
+            "z-50 max-w-[320px] rounded-[var(--radius)] px-2.5 py-2",
             "surface-tertiary elevated border border-[var(--border-subtle)]",
             "text-copy-13 text-[var(--ds-gray-1000)]",
-            "data-[state=delayed-open]:animate-geist-fade-in",
+            "data-[state=delayed-open]:animate-fade-in",
             className,
           )}
         >

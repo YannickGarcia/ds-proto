@@ -11,10 +11,10 @@ interface TabsState {
   value?: string;
 }
 
-const TabsStateContext = createContext<TabsState>({ layoutId: "geist-tabs" });
+const TabsStateContext = createContext<TabsState>({ layoutId: "tabs" });
 
 /**
- * Geist Tabs — text triggers with a hover pill and a sliding 2px underline,
+ * Tabs — text triggers with a hover pill and a sliding 2px underline,
  * riding a single shared bottom hairline.
  */
 export function Tabs({
@@ -24,7 +24,7 @@ export function Tabs({
   const id = useId();
   const state = useMemo<TabsState>(
     () => ({
-      layoutId: `geist-tab-underline-${id}`,
+      layoutId: `tab-underline-${id}`,
       value: props.value ?? props.defaultValue,
     }),
     [id, props.value, props.defaultValue],
@@ -55,7 +55,7 @@ export function TabsList({
       <TabsPrimitive.List
         data-slot="tabs-list"
         className={cn(
-          "geist-no-scrollbar flex items-center gap-1 overflow-x-auto",
+          "no-scrollbar flex items-center gap-1 overflow-x-auto",
           className,
         )}
         {...props}
@@ -83,7 +83,7 @@ export function TabsTrigger({
     >
       <span
         className={cn(
-          "inline-flex h-8 items-center rounded-[var(--geist-radius)] px-2 text-button-14",
+          "inline-flex h-8 items-center rounded-[var(--radius)] px-2 text-button-14",
           "text-[var(--ds-gray-900)] transition-colors duration-150",
           "group-hover:bg-[var(--ds-gray-alpha-200)] group-hover:text-[var(--ds-gray-1000)]",
           "group-data-[state=active]:text-[var(--ds-gray-1000)]",

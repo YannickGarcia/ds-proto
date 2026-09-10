@@ -4,8 +4,8 @@ import {
   ArrowUpRight,
   Check,
 } from "@/components/icons";
-import { Badge } from "@/components/geist/badge";
-import { Card } from "@/components/geist/card";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import {
   BestPractice,
   DocsBlock,
@@ -37,12 +37,12 @@ export function PatternsDocs() {
                 <span className="min-w-0 text-[11px] leading-4 font-medium tracking-[0.04em] text-[var(--ds-gray-900)] uppercase">
                   Agentic
                 </span>
-                <Badge variant="green" className="geist-tabular-nums gap-0.5 pr-2 pl-1.5">
+                <Badge variant="green" className="tabular-nums gap-0.5 pr-2 pl-1.5">
                   <ArrowUpRight aria-hidden="true" className="size-3" />
                   +8pp
                 </Badge>
               </div>
-              <span className="geist-tabular-nums block text-heading-32 text-[var(--ds-gray-1000)]">
+              <span className="tabular-nums block text-heading-32 text-[var(--ds-gray-1000)]">
                 82%
               </span>
               <span className="mt-1 block text-copy-13 text-[var(--ds-gray-900)]">
@@ -59,7 +59,7 @@ export function PatternsDocs() {
                   Within limits
                 </Badge>
               </div>
-              <span className="geist-tabular-nums block text-heading-32 text-[var(--ds-gray-1000)]">
+              <span className="tabular-nums block text-heading-32 text-[var(--ds-gray-1000)]">
                 $0
               </span>
               <span className="mt-1 block text-copy-13 text-[var(--ds-gray-900)]">

@@ -9,7 +9,7 @@ export const PopoverTrigger = PopoverPrimitive.Trigger;
 export const PopoverAnchor = PopoverPrimitive.Anchor;
 export const PopoverClose = PopoverPrimitive.Close;
 
-/** Geist Popover surface — same chrome as Menu, sized by its content. */
+/** Popover surface — same chrome as Menu, sized by its content. */
 export function PopoverContent({
   className,
   align = "start",
@@ -26,7 +26,7 @@ export function PopoverContent({
           "surface-tertiary elevated border border-[var(--border-subtle)]",
           "text-[var(--ds-gray-1000)] outline-none",
           "origin-(--radix-popover-content-transform-origin)",
-          "data-[state=open]:animate-geist-scale-in data-[state=closed]:animate-geist-fade-out",
+          "data-[state=open]:animate-scale-in data-[state=closed]:animate-fade-out",
           className,
         )}
         {...props}

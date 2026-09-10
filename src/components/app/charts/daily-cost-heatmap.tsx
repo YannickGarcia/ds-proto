@@ -123,7 +123,7 @@ export function DailyCostHeatmap({
 
   return (
     <HeatmapInteractionRoot>
-      <div className="geist-no-scrollbar overflow-x-auto pt-1 pb-1">
+      <div className="no-scrollbar overflow-x-auto pt-1 pb-1">
         <div className="min-w-[780px]">
           <HeatmapChart
             data={columns}

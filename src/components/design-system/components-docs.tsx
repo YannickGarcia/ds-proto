@@ -9,26 +9,26 @@ import {
   Trash,
 } from "@/components/icons";
 import { useState } from "react";
-import { Avatar } from "@/components/geist/avatar";
-import { Badge } from "@/components/geist/badge";
-import { Banner } from "@/components/geist/banner";
-import { Breadcrumb } from "@/components/geist/breadcrumb";
+import { Avatar } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Banner } from "@/components/ui/banner";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/geist/collapsible";
-import { EmptyState } from "@/components/geist/empty-state";
-import { Pagination } from "@/components/geist/pagination";
+} from "@/components/ui/collapsible";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Pagination } from "@/components/ui/pagination";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/geist/select";
-import { Skeleton } from "@/components/geist/skeleton";
-import { Switch } from "@/components/geist/switch";
+} from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Switch } from "@/components/ui/switch";
 import {
   Table,
   TableBody,
@@ -36,12 +36,12 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-} from "@/components/geist/table";
+} from "@/components/ui/table";
 import {
   BUTTON_SIZES,
   Button,
   type ButtonSize,
-} from "@/components/geist/button";
+} from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -49,8 +49,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/geist/card";
-import { Input } from "@/components/geist/input";
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Menu,
   MenuContent,
@@ -58,21 +58,21 @@ import {
   MenuLabel,
   MenuSeparator,
   MenuTrigger,
-} from "@/components/geist/menu";
+} from "@/components/ui/menu";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/geist/popover";
-import { SegmentedControl } from "@/components/geist/segmented-control";
+} from "@/components/ui/popover";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/geist/tabs";
-import { ThemeSwitcher } from "@/components/geist/theme-switcher";
-import { Tooltip } from "@/components/geist/tooltip";
+} from "@/components/ui/tabs";
+import { ThemeSwitcher } from "@/components/ui/theme-switcher";
+import { Tooltip } from "@/components/ui/tooltip";
 import {
   BestPractice,
   DocsBlock,
@@ -496,7 +496,7 @@ text   → --ds-{hue}-900`}
                 <Badge variant="green">+8pp</Badge>
               </CardHeader>
               <CardContent>
-                <p className="geist-tabular-nums text-heading-32 text-[var(--ds-gray-1000)]">
+                <p className="tabular-nums text-heading-32 text-[var(--ds-gray-1000)]">
                   841.9
                 </p>
                 <p className="mt-1 text-copy-13 text-[var(--ds-gray-900)]">
@@ -844,7 +844,7 @@ text   → --ds-{hue}-900`}
                     (name) => (
                       <li
                         key={name}
-                        className="flex h-9 items-center gap-2.5 rounded-[var(--geist-radius)] px-2 text-label-14 text-[var(--ds-gray-1000)]"
+                        className="flex h-9 items-center gap-2.5 rounded-[var(--radius)] px-2 text-label-14 text-[var(--ds-gray-1000)]"
                       >
                         <Avatar name={name} size="sm" />
                         {name}
@@ -1112,7 +1112,7 @@ text   → --ds-{hue}-900`}
                 ].map((row) => (
                   <TableRow key={row[0]} interactive>
                     <TableCell>{row[0]}</TableCell>
-                    <TableCell className="geist-tabular-nums">
+                    <TableCell className="tabular-nums">
                       {row[1]}
                     </TableCell>
                     <TableCell className="text-[var(--ds-gray-900)]">
@@ -1128,7 +1128,7 @@ text   → --ds-{hue}-900`}
         <BestPractice
           items={[
             <>
-              Every numeric column takes <Token>geist-tabular-nums</Token>, or
+              Every numeric column takes <Token>tabular-nums</Token>, or
               the digits will not align down the column.
             </>,
             <>

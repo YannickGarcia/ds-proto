@@ -15,7 +15,7 @@ export interface InputProps extends Omit<
 }
 
 /**
- * Geist Input — hairline border that darkens to `--ds-gray-alpha-600` on focus
+ * Input — hairline border that darkens to `--ds-gray-alpha-600` on focus
  * with the `--ds-focus-border` halo, rather than a blue ring.
  *
  * One height: 32px, the form scale, matching Select, Menu, SegmentedControl
@@ -32,7 +32,7 @@ export function Input({
   return (
     <div
       className={cn(
-        "group inline-flex h-8 w-full items-center gap-2 rounded-[var(--geist-radius)]",
+        "group inline-flex h-8 w-full items-center gap-2 rounded-[var(--radius)]",
         "border border-[var(--ds-gray-alpha-400)] bg-[var(--ds-surface-secondary)] px-3",
         "transition-[border-color,box-shadow] duration-150",
         "focus-within:border-[var(--ds-gray-alpha-600)] focus-within:shadow-[var(--ds-focus-border)]",

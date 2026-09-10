@@ -2,27 +2,27 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Avatar } from "@/components/geist/avatar";
-import { Badge } from "@/components/geist/badge";
-import { Button } from "@/components/geist/button";
-import { Card } from "@/components/geist/card";
-import { EmptyState } from "@/components/geist/empty-state";
-import { Input } from "@/components/geist/input";
+import { Avatar } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Input } from "@/components/ui/input";
 import {
   Menu,
   MenuContent,
   MenuItem,
   MenuLabel,
   MenuTrigger,
-} from "@/components/geist/menu";
-import { Pagination } from "@/components/geist/pagination";
+} from "@/components/ui/menu";
+import { Pagination } from "@/components/ui/pagination";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/geist/select";
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -30,8 +30,8 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-} from "@/components/geist/table";
-import { Tooltip } from "@/components/geist/tooltip";
+} from "@/components/ui/table";
+import { Tooltip } from "@/components/ui/tooltip";
 import {
   ArrowSquareOut,
   CaretUpDown,
@@ -210,7 +210,7 @@ export function RepositoryDetail({
                   {stat.label}
                 </span>
                 <div className="mt-2.5 flex items-baseline gap-2">
-                  <span className="geist-tabular-nums text-heading-32 text-[var(--ds-gray-1000)]">
+                  <span className="tabular-nums text-heading-32 text-[var(--ds-gray-1000)]">
                     {stat.value}
                   </span>
                   <Badge variant={stat.favourable ? "green" : "amber"}>

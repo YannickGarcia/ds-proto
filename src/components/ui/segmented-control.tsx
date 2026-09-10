@@ -23,7 +23,7 @@ interface SegmentedControlProps<T extends string> {
 }
 
 /**
- * Geist segmented control — a bordered track with a spring-animated
+ * segmented control — a bordered track with a spring-animated
  * `--ds-gray-alpha-200` indicator sliding behind the active segment.
  *
  * The track carries the 32px form-scale height and the segments fill it, so
@@ -46,7 +46,7 @@ export function SegmentedControl<T extends string>({
       role="radiogroup"
       aria-label={props["aria-label"]}
       className={cn(
-        "relative inline-flex shrink-0 items-center gap-0.5 rounded-[var(--geist-radius)]",
+        "relative inline-flex shrink-0 items-center gap-0.5 rounded-[var(--radius)]",
         "border border-[var(--ds-gray-alpha-400)] bg-[var(--ds-surface-secondary)] p-0.5",
         "h-8",
         className,

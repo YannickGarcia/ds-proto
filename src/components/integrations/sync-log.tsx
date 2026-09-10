@@ -1,17 +1,17 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Button } from "@/components/geist/button";
-import { Card } from "@/components/geist/card";
-import { EmptyState } from "@/components/geist/empty-state";
-import { Pagination } from "@/components/geist/pagination";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Pagination } from "@/components/ui/pagination";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/geist/select";
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -19,8 +19,8 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-} from "@/components/geist/table";
-import { Tooltip } from "@/components/geist/tooltip";
+} from "@/components/ui/table";
+import { Tooltip } from "@/components/ui/tooltip";
 import { CaretDown, ClockCounterClockwise } from "@/components/icons";
 import { ProviderIcon } from "@/components/provider-icon";
 import { INSTANCES, SYNC_RUNS, type SyncRun } from "@/lib/integrations-data";

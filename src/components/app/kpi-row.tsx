@@ -6,8 +6,8 @@ import {
   Check,
   Minus,
 } from "@/components/icons";
-import { Badge } from "@/components/geist/badge";
-import { Card } from "@/components/geist/card";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 type Sentiment = "favourable" | "unfavourable" | "neutral";
@@ -93,7 +93,7 @@ export function KpiRow() {
               {card.delta ? (
                 <Badge
                   variant={sentimentVariant[card.delta.sentiment]}
-                  className="geist-tabular-nums gap-0.5 pr-2 pl-1.5"
+                  className="tabular-nums gap-0.5 pr-2 pl-1.5"
                 >
                   <Arrow className="size-3" />
                   {card.delta.value}
@@ -109,7 +109,7 @@ export function KpiRow() {
 
             <span
               className={cn(
-                "geist-tabular-nums block truncate text-[var(--ds-gray-1000)]",
+                "tabular-nums block truncate text-[var(--ds-gray-1000)]",
                 card.value.length > 6 ? "text-heading-20" : "text-heading-32",
               )}
               title={card.value}

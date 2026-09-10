@@ -4,7 +4,7 @@
  * Every icon in the product is re-exported here, so the library is swappable
  * from one file. Phosphor sizes stroke by `weight` rather than `strokeWidth`;
  * `regular` is 1.5px on its 256-unit grid, which is the closest match to the
- * 1.75 Geist optical weight we were using before. The default is set once via
+ * 1.75 optical weight we were using before. The default is set once via
  * `IconContext` in the app root rather than repeated on every element.
  */
 export {

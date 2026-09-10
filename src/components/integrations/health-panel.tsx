@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Badge } from "@/components/geist/badge";
-import { Button } from "@/components/geist/button";
-import { Card } from "@/components/geist/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/geist/collapsible";
-import { Tooltip } from "@/components/geist/tooltip";
+} from "@/components/ui/collapsible";
+import { Tooltip } from "@/components/ui/tooltip";
 import { ArrowsClockwise, CaretDown } from "@/components/icons";
 import { HEALTH_CHECKS, HEALTH_HISTORY } from "@/lib/integrations-data";
 import { cn } from "@/lib/utils";
@@ -62,7 +62,7 @@ export function HealthPanel({
           <div className="flex min-w-0 items-center gap-3">
             <CollapsibleTrigger
               className={cn(
-                "group flex min-w-0 items-center gap-2 rounded-[var(--geist-radius)] outline-none",
+                "group flex min-w-0 items-center gap-2 rounded-[var(--radius)] outline-none",
                 "focus-visible:shadow-[var(--ds-focus-ring)]",
               )}
             >
@@ -108,7 +108,7 @@ export function HealthPanel({
               {HEALTH_CHECKS.map((check) => (
                 <li
                   key={check.id}
-                  className="rounded-[var(--geist-radius)] border border-[var(--border-subtle)] p-3"
+                  className="rounded-[var(--radius)] border border-[var(--border-subtle)] p-3"
                 >
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <div className="min-w-0">
@@ -172,7 +172,7 @@ export function HealthPanel({
                     key={`row-${run.at}`}
                     className="flex flex-wrap items-center gap-x-2 text-label-12"
                   >
-                    <span className="geist-tabular-nums text-[var(--ds-gray-1000)]">
+                    <span className="tabular-nums text-[var(--ds-gray-1000)]">
                       {run.at}
                     </span>
                     <span className="text-[var(--ds-gray-900)]">

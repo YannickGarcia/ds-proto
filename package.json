@@ -1,5 +1,5 @@
 {
-  "name": "pensero-prototype",
+  "name": "ds-proto",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -26,7 +26,6 @@
     "d3-array": "^3.2.4",
     "d3-scale": "^4.0.2",
     "d3-shape": "^3.2.0",
-    "geist": "^1.7.2",
     "lucide-react": "^1.43.0",
     "motion": "^13.2.0",
     "next": "16.3.4",

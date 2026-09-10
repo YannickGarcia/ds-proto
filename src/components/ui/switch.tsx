@@ -4,7 +4,7 @@ import { Switch as SwitchPrimitive } from "radix-ui";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
-/** Geist Switch — an immediate on/off. Never use it for a value that needs saving. */
+/** Switch — an immediate on/off. Never use it for a value that needs saving. */
 export function Switch({
   className,
   ...props

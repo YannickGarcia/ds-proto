@@ -1,17 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { Badge } from "@/components/geist/badge";
-import { Banner } from "@/components/geist/banner";
-import { Button } from "@/components/geist/button";
-import { Card } from "@/components/geist/card";
+import { Badge } from "@/components/ui/badge";
+import { Banner } from "@/components/ui/banner";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   Menu,
   MenuContent,
   MenuItem,
   MenuTrigger,
-} from "@/components/geist/menu";
-import { Tooltip } from "@/components/geist/tooltip";
+} from "@/components/ui/menu";
+import { Tooltip } from "@/components/ui/tooltip";
 import {
   CaretDown,
   ClockCounterClockwise,
@@ -223,7 +223,7 @@ function ConnectAction({ item }: { item: (typeof AVAILABLE)[number] }) {
     return (
       <button
         type="button"
-        className="inline-flex h-8 items-center gap-2 rounded-[var(--geist-radius)] bg-[#6264A7] px-3 text-button-14 text-white outline-none transition-opacity hover:opacity-90 focus-visible:shadow-[var(--ds-focus-ring)]"
+        className="inline-flex h-8 items-center gap-2 rounded-[var(--radius)] bg-[#6264A7] px-3 text-button-14 text-white outline-none transition-opacity hover:opacity-90 focus-visible:shadow-[var(--ds-focus-ring)]"
       >
         <ProviderIcon provider="microsoft-teams" size="sm" className="ring-0" />
         Add to Teams

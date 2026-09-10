@@ -7,7 +7,7 @@ const sizeMap = {
   lg: "size-8 text-[12px]",
 } as const;
 
-/** Deterministic Geist hue per person so avatars stay stable across renders. */
+/** Deterministic hue per person so avatars stay stable across renders. */
 const GRADIENTS = [
   "linear-gradient(140deg, var(--ds-blue-600), var(--ds-blue-800))",
   "linear-gradient(140deg, var(--ds-purple-600), var(--ds-purple-800))",

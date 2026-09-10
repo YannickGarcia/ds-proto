@@ -33,9 +33,8 @@
 }
 
 /* ==========================================================================
-   Geist design tokens
-   Values below are the literal token values used by Vercel's Geist design
-   system (vercel.com/geist), extracted from its published stylesheet.
+   Colour tokens
+   Ten scales of ten steps, built on an even OKLCH lightness ramp.
    The neutral surfaces are held untinted as `--neutral-*` and tinted once,
    for both themes, in the derivation block further down.
    ========================================================================== */
@@ -164,7 +163,7 @@
     rgb(255 255 255 / 0.28) 0%,
     rgb(255 255 255 / 0) 120px
   );
-  /* Thinner-reading than the Geist alpha steps: the lit top edge and the
+  /* Thinner-reading than the neutral alpha steps: the lit top edge and the
      shadow already carry the separation, so the border only needs to hint. */
   --border-subtle: rgb(0 0 0 / 0.11);
   /* Structural chrome (sidebar edge, header hairline) sits a step above the
@@ -193,7 +192,7 @@
   --brand-tint: var(--tint-dark);
 
   /* Vercel's product surfaces separate the page (pure black) from elevated
-     cards (#0a0a0a). The Geist docs site collapses both to #000. */
+     cards (#0a0a0a). */
   --neutral-surface-primary: #000000;
   --neutral-surface-secondary: #0a0a0a;
   --neutral-surface-tertiary: #151515;
@@ -340,16 +339,10 @@
   --ds-gray-500: color-mix(in srgb, var(--tint-color) var(--brand-tint), var(--neutral-gray-500));
 }
 
-/* Geist spacing, radius and motion primitives ------------------------------ */
+/* Spacing, radius and motion primitives ------------------------------ */
 :root {
-  --geist-space: 4px;
-  --geist-radius: 6px;
-
-  /* Geist form control heights */
-  --geist-form-tiny-height: 24px;
-  --geist-form-small-height: 32px;
-  --geist-form-height: 36px;
-  --geist-form-large-height: 40px;
+  --space: 4px;
+  --radius: 6px;
 
   --ds-motion-timing-swift: cubic-bezier(0.175, 0.885, 0.32, 1.1);
   --ds-motion-popover-duration: 0.2s;
@@ -370,7 +363,7 @@
 }
 
 /* ==========================================================================
-   Data-visualisation palette — Geist hues only
+   Data-visualisation palette — system hues only
    ========================================================================== */
 
 :root {
@@ -418,7 +411,7 @@
 }
 
 /* ==========================================================================
-   shadcn / Bklit chart bridge — every value resolves to a Geist token
+   shadcn / Bklit chart bridge — every value resolves to a system token
    ========================================================================== */
 
 :root,
@@ -441,7 +434,6 @@
   --border: var(--ds-gray-alpha-400);
   --input: var(--ds-gray-alpha-400);
   --ring: var(--ds-focus-color);
-  --radius: var(--geist-radius);
 
   --sidebar: var(--ds-surface-primary);
   --sidebar-foreground: var(--ds-gray-1000);
@@ -492,12 +484,8 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-geist-sans);
-
   /* The root font size is 14px (see `html` below). Pinning the spacing and
-     size scales to px keeps Geist's 4px grid physical, so the density of the
+     size scales to px keeps the 4px grid physical, so the density of the
      layout is set by the design system rather than by the text size. */
   --spacing: 4px;
   --text-xs: 12px;
@@ -506,8 +494,8 @@
   --text-lg: 18px;
   --text-xl: 20px;
 
-  /* Geist scales replace Tailwind's defaults so every colour utility in this
-     app resolves to a Geist token. */
+  /* The scales replace Tailwind's defaults so every colour utility in this
+     app resolves to a system token. */
   --color-background-100: var(--ds-surface-secondary);
   --color-background-200: var(--ds-surface-primary);
 
@@ -638,20 +626,20 @@
   --radius-lg: 8px;
   --radius-xl: 12px;
 
-  --shadow-geist-border: var(--ds-shadow-border);
-  --shadow-geist-small: var(--ds-shadow-border-small);
-  --shadow-geist-medium: var(--ds-shadow-border-medium);
-  --shadow-geist-menu: var(--ds-shadow-menu);
-  --shadow-geist-tooltip: var(--ds-shadow-tooltip);
+  --shadow-border: var(--ds-shadow-border);
+  --shadow-small: var(--ds-shadow-border-small);
+  --shadow-medium: var(--ds-shadow-border-medium);
+  --shadow-menu: var(--ds-shadow-menu);
+  --shadow-tooltip: var(--ds-shadow-tooltip);
 
-  --animate-geist-scale-in: geist-scale-in var(--ds-motion-overlay-duration)
+  --animate-scale-in: scale-in var(--ds-motion-overlay-duration)
     var(--ds-motion-timing-swift);
-  --animate-geist-fade-in: geist-fade-in var(--ds-motion-popover-duration)
+  --animate-fade-in: fade-in var(--ds-motion-popover-duration)
     var(--ds-motion-timing-swift);
-  --animate-geist-fade-out: geist-fade-out var(--ds-motion-popover-duration) ease;
+  --animate-fade-out: fade-out var(--ds-motion-popover-duration) ease;
 }
 
-@keyframes geist-scale-in {
+@keyframes scale-in {
   from {
     opacity: 0;
     transform: scale(var(--ds-motion-overlay-scale));
@@ -662,7 +650,7 @@
   }
 }
 
-@keyframes geist-fade-in {
+@keyframes fade-in {
   from {
     opacity: 0;
   }
@@ -671,7 +659,7 @@
   }
 }
 
-@keyframes geist-fade-out {
+@keyframes fade-out {
   from {
     opacity: 1;
   }
@@ -691,7 +679,7 @@
   }
 }
 
-@keyframes geist-shimmer {
+@keyframes shimmer {
   0% {
     background-position: -200% 0;
   }
@@ -701,7 +689,7 @@
 }
 
 /* ==========================================================================
-   Geist type scale — sizes, line heights and tracking match the design system
+   Type scale — sizes, line heights and tracking match the design system
    ========================================================================== */
 
 @layer utilities {
@@ -732,11 +720,11 @@
   .text-button-14 { font-size: 14px; line-height: 20px; font-weight: 500; }
   .text-button-12 { font-size: 12px; line-height: 16px; font-weight: 500; }
 
-  .text-mono-14 { font-family: var(--font-geist-mono); font-size: 14px; line-height: 20px; }
-  .text-mono-13 { font-family: var(--font-geist-mono); font-size: 13px; line-height: 18px; }
-  .text-mono-12 { font-family: var(--font-geist-mono); font-size: 12px; line-height: 16px; }
+  .text-mono-14 { font-family: var(--font-mono); font-size: 14px; line-height: 20px; }
+  .text-mono-13 { font-family: var(--font-mono); font-size: 13px; line-height: 18px; }
+  .text-mono-12 { font-family: var(--font-mono); font-size: 12px; line-height: 16px; }
 
-  /* Geist uses a 550 weight for emphasis inside body copy */
+  /* 550 for emphasis inside body copy */
   .text-copy-13 > strong,
   .text-copy-14 > strong,
   .text-copy-16 > strong {
@@ -778,20 +766,20 @@
     animation-delay: calc(var(--i, 0) * 30ms);
   }
 
-  .geist-tabular-nums {
+  .tabular-nums {
     font-variant-numeric: tabular-nums;
   }
 
-  .geist-focus-ring:focus-visible {
+  .focus-ring:focus-visible {
     outline: none;
     box-shadow: var(--ds-focus-ring);
   }
 
-  .geist-no-scrollbar {
+  .no-scrollbar {
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  .geist-no-scrollbar::-webkit-scrollbar {
+  .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
 }
@@ -799,8 +787,8 @@
 /* ==========================================================================
    Hairline borders
 
-   0.5px is exactly one device pixel at 2dppx, which is the fine rule Linear
-   and Geist draw. Below 2dppx the browser has to antialias it, and at our
+   0.5px is exactly one device pixel at 2dppx, which is the fine rule a
+   hairline should be. Below 2dppx the browser has to antialias it, and at our
    6–8% border alpha a half-intensity line can fade to nothing — so those
    displays keep a true 1px. The token is the dial; the utilities below just
    read it.
@@ -848,9 +836,9 @@
   }
 
   html {
-    /* Geist's product default — matches v0 and the Vercel dashboard. */
+    /* The product default. */
     font-size: 14px;
-    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -878,7 +866,7 @@
   :focus-visible:not([data-focus-managed]) {
     outline: none;
     box-shadow: var(--ds-focus-ring);
-    border-radius: var(--geist-radius);
+    border-radius: var(--radius);
   }
 
   button,

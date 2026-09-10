@@ -39,7 +39,7 @@ const sizeClasses = Object.fromEntries(
 const buttonVariants = cva(
   [
     "relative inline-flex shrink-0 select-none items-center justify-center gap-1.5 whitespace-nowrap",
-    "rounded-[var(--geist-radius)] border border-transparent",
+    "rounded-[var(--radius)] border border-transparent",
     "transition-[background-color,border-color,color,box-shadow,opacity] duration-150 ease-out",
     "outline-none focus-visible:shadow-[var(--ds-focus-ring)]",
     "disabled:cursor-not-allowed disabled:border-[var(--ds-gray-alpha-400)]",
@@ -93,14 +93,14 @@ export interface ButtonProps
 }
 
 /**
- * Geist Button.
+ * Button.
  *
  * `default` (32px, weight 500) is the product standard and the height every
  * other control comes in, so a button is level with whatever sits beside it
  * unless someone opts out. `small` (28px, weight 400) is for genuinely dense
  * chrome: it steps down in stature as well as size, which is what keeps it
  * from reading as a shrunken primary action.
- * Radius is `--geist-radius` (6px); every colour resolves to a `--ds-*` token.
+ * Radius is `--radius` (6px); every colour resolves to a `--ds-*` token.
  */
 export function Button({
   className,

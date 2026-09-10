@@ -156,7 +156,7 @@ export function DocsNav() {
     <nav
       ref={ref}
       aria-label="Design system"
-      className="geist-no-scrollbar sticky top-28 hidden max-h-[calc(100dvh-8rem)] w-[212px] shrink-0 overflow-y-auto pb-10 xl:block"
+      className="no-scrollbar sticky top-28 hidden max-h-[calc(100dvh-8rem)] w-[212px] shrink-0 overflow-y-auto pb-10 xl:block"
     >
       {DOCS_NAV.map((group) => (
         <div key={group.title} className="mb-5">
@@ -178,7 +178,7 @@ export function DocsNav() {
                     href={item.href}
                     aria-current={isActive ? "location" : undefined}
                     className={cn(
-                      "block rounded-[var(--geist-radius)] px-2 py-1.5 text-label-13",
+                      "block rounded-[var(--radius)] px-2 py-1.5 text-label-13",
                       "transition-colors duration-150",
                       isActive
                         ? "bg-[var(--ds-gray-alpha-200)] font-medium text-[var(--ds-gray-1000)]"

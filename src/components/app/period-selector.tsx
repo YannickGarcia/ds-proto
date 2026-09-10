@@ -7,8 +7,8 @@ import {
   CaretRight,
 } from "@/components/icons";
 import { useState } from "react";
-import { Button } from "@/components/geist/button";
-import { Input } from "@/components/geist/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Menu,
   MenuContent,
@@ -17,7 +17,7 @@ import {
   MenuRadioItem,
   MenuSeparator,
   MenuTrigger,
-} from "@/components/geist/menu";
+} from "@/components/ui/menu";
 
 export const PERIOD_PRESETS = [
   { value: "current-week", label: "Current week", range: "Sep 07 – Sep 13" },
@@ -64,7 +64,7 @@ export function PeriodSelector({
           >
             <span className="flex items-baseline gap-1.5">
               {preset?.label ?? "Previous week"}
-              <span className="geist-tabular-nums text-label-13 text-[var(--ds-gray-900)]">
+              <span className="tabular-nums text-label-13 text-[var(--ds-gray-900)]">
                 {range}
               </span>
             </span>
@@ -80,7 +80,7 @@ export function PeriodSelector({
               (item) => (
                 <MenuRadioItem key={item.value} value={item.value}>
                   <span className="flex-1">{item.label}</span>
-                  <span className="geist-tabular-nums text-label-12 text-[var(--ds-gray-900)]">
+                  <span className="tabular-nums text-label-12 text-[var(--ds-gray-900)]">
                     {item.range}
                   </span>
                 </MenuRadioItem>

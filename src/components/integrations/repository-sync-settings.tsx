@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Badge } from "@/components/geist/badge";
-import { Button } from "@/components/geist/button";
-import { Card } from "@/components/geist/card";
-import { EmptyState } from "@/components/geist/empty-state";
-import { Input } from "@/components/geist/input";
-import { Switch } from "@/components/geist/switch";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import { CheckCircle, Plus, Prohibit, Trash, X } from "@/components/icons";
 import { EXCLUDED_PATTERNS } from "@/lib/integrations-data";
 import { IntegrationsPage, Section } from "./shared";

@@ -2,7 +2,7 @@
 
 import { ArrowCounterClockwise, Check, Copy } from "@/components/icons";
 import { useState } from "react";
-import { Button } from "@/components/geist/button";
+import { Button } from "@/components/ui/button";
 import {
   BRAND_TINT_DEFAULTS,
   BRAND_TINT_LIMITS,
@@ -66,7 +66,7 @@ export function BrandTintControls() {
               >
                 {dial.label}
               </label>
-              <span className="geist-tabular-nums text-mono-12 text-[var(--ds-gray-900)]">
+              <span className="tabular-nums text-mono-12 text-[var(--ds-gray-900)]">
                 {dial.variable}: {tint[dial.key]}%
               </span>
             </div>
@@ -148,7 +148,7 @@ function CopyCssButton({ tint }: { tint: BrandTint }) {
 export function BrandTintSnippet() {
   const tint = useBrandTint();
   return (
-    <pre className="geist-no-scrollbar overflow-x-auto rounded-xl border border-[var(--border-subtle)] bg-[var(--ds-surface-primary)] p-4">
+    <pre className="no-scrollbar overflow-x-auto rounded-xl border border-[var(--border-subtle)] bg-[var(--ds-surface-primary)] p-4">
       <code className="text-mono-13 text-[var(--ds-gray-1000)]">
         {`:root {
   --brand: #16db65;         /* full strength — brand marks only */

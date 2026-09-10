@@ -35,7 +35,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <TooltipPrimitive.Provider delayDuration={200}>
       <a
         href="#main-content"
-        className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-3 focus-visible:left-3 focus-visible:z-50 focus-visible:rounded-[var(--geist-radius)] focus-visible:border focus-visible:border-[var(--ds-gray-alpha-400)] focus-visible:bg-[var(--ds-surface-secondary)] focus-visible:px-3 focus-visible:py-2 focus-visible:text-button-14"
+        className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-3 focus-visible:left-3 focus-visible:z-50 focus-visible:rounded-[var(--radius)] focus-visible:border focus-visible:border-[var(--ds-gray-alpha-400)] focus-visible:bg-[var(--ds-surface-secondary)] focus-visible:px-3 focus-visible:py-2 focus-visible:text-button-14"
       >
         Skip to content
       </a>

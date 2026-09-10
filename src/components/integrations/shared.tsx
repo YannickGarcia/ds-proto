@@ -7,11 +7,11 @@ import {
   type Measure,
   PageHeader,
 } from "@/components/app/app-shell";
-import { Badge } from "@/components/geist/badge";
-import { Breadcrumb, type Crumb } from "@/components/geist/breadcrumb";
-import { InlineStatus } from "@/components/geist/banner";
-import { Skeleton } from "@/components/geist/skeleton";
-import { Tooltip } from "@/components/geist/tooltip";
+import { Badge } from "@/components/ui/badge";
+import { Breadcrumb, type Crumb } from "@/components/ui/breadcrumb";
+import { InlineStatus } from "@/components/ui/banner";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tooltip } from "@/components/ui/tooltip";
 import { useMounted } from "@/lib/use-mounted";
 import type { HealthState, SyncStatus } from "@/lib/integrations-data";
 import { cn } from "@/lib/utils";

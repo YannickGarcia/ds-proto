@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
  */
 export function Table({ className, ...props }: ComponentProps<"table">) {
   return (
-    <div className="geist-no-scrollbar w-full overflow-x-auto">
+    <div className="no-scrollbar w-full overflow-x-auto">
       <table
         data-slot="table"
         className={cn("w-full border-collapse text-left", className)}

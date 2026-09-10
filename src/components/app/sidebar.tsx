@@ -30,15 +30,15 @@ import type { Icon } from "@/components/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Avatar } from "@/components/geist/avatar";
-import { ThemeSwitcher } from "@/components/geist/theme-switcher";
+import { Avatar } from "@/components/ui/avatar";
+import { ThemeSwitcher } from "@/components/ui/theme-switcher";
 import {
   Menu,
   MenuContent,
   MenuItem,
   MenuSeparator,
   MenuTrigger,
-} from "@/components/geist/menu";
+} from "@/components/ui/menu";
 import { PenseroLogo } from "@/components/pensero-logo";
 import { cn } from "@/lib/utils";
 
@@ -108,7 +108,7 @@ const SECTIONS: NavSection[] = [
 
 const itemClasses = (active?: boolean) =>
   cn(
-    "group flex h-8 w-full items-center gap-2 rounded-[var(--geist-radius)] px-2",
+    "group flex h-8 w-full items-center gap-2 rounded-[var(--radius)] px-2",
     "text-label-14 outline-none transition-colors duration-150",
     "focus-visible:shadow-[var(--ds-focus-ring)]",
     active
@@ -220,7 +220,7 @@ export function Sidebar() {
         <PenseroLogo className="h-[22px] text-[var(--ds-gray-1000)]" />
       </Link>
 
-      <nav className="geist-no-scrollbar flex-1 overflow-y-auto px-3 pb-4">
+      <nav className="no-scrollbar flex-1 overflow-y-auto px-3 pb-4">
         {SECTIONS.map((section, index) => (
           <div key={section.title ?? `section-${index}`} className="mb-5">
             {section.title ? (
@@ -243,7 +243,7 @@ export function Sidebar() {
             <button
               type="button"
               className={cn(
-                "flex w-full items-center gap-2.5 rounded-[var(--geist-radius)] p-2 outline-none",
+                "flex w-full items-center gap-2.5 rounded-[var(--radius)] p-2 outline-none",
                 "transition-colors duration-150 hover:bg-[var(--ds-gray-alpha-100)]",
                 "focus-visible:shadow-[var(--ds-focus-ring)]",
                 "data-[state=open]:bg-[var(--ds-gray-alpha-200)]",
