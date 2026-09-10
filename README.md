@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ds-proto
 
-## Getting Started
+A prototype of **Pensero**, an engineering-analytics product, built to work out
+its design system in real screens rather than in a swatch sheet.
 
-First, run the development server:
+Three areas:
+
+- **AI intelligence** — the analytics screen the system was designed against:
+  KPI row, scoped charts, period controls.
+- **Integrations** — five pages covering a provider catalogue, a repository
+  tree, pull requests, a sync log and sync settings.
+- **`/design-system`** — the reference: foundations, components and patterns,
+  each with rules, usage and best practice. Live, not a screenshot — the
+  specimens are the real components, so the page cannot drift from the app.
+
+## Running it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## The design system
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Built on Vercel's [Geist](https://vercel.com/geist), with a small number of
+deliberate departures. Each is documented on `/design-system`, and the short
+version is:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Colour.** Ten scales of ten steps, rebuilt on an even OKLCH lightness ramp in
+both themes. Geist's own scales are hand-tuned per colour and contain
+inversions (light `gray-400` is lighter than `gray-300`) and duplicates (dark
+`amber-800` and `amber-900` ship the same value); those read as mistakes on a
+ramp, so the ramp won.
 
-## Learn More
+**Brand tint.** Every surface is a neutral with a trace of `#16DB65` mixed in.
+Three dials — amount per theme, plus a shared saturation — drive every surface
+token through one derivation. The design system page has live controls for
+them, so a value can be judged on real UI and then pasted back into
+`globals.css`.
 
-To learn more about Next.js, take a look at the following resources:
+**Surfaces and elevation are separate.** Three surface levels
+(primary/secondary/tertiary) describe colour. Elevation is the drop shadow and
+nothing else, and answers one question: has this left the document flow? A
+card is `surface-secondary`; a menu is `surface-tertiary elevated`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**One form scale.** Input, Select, Menu and SegmentedControl come in a single
+32px height and have no size prop at all — a second height on a text field
+only creates the chance of a crooked row. Button defaults to the same 32px and
+additionally offers a 28px `small` for dense chrome.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Hairline borders.** `0.5px` at 2dppx, where it lands on exactly one device
+pixel; `1px` below, where a half pixel has to be antialiased and can fade out
+at these alphas.
 
-## Deploy on Vercel
+## Adapting this system
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+If you are porting these decisions into another codebase — by hand or with an
+agent — read them in this order:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **`CLAUDE.md`** — the conventions in their shortest form, written to be
+   loaded as context. Every rule that is easy to break by accident is here:
+   the form scale, the surface levels, the border width, the tint dials, and
+   the requirement that a component change ships with its docs update.
+2. **`src/app/globals.css`** — the tokens themselves. The file is ordered so
+   the dials come first and everything else derives from them; nothing below
+   the derivation block is hand-picked.
+3. **`/design-system`** — the reasoning. Each entry carries not just what the
+   value is but why, and a Best practice section covering the failure mode it
+   prevents. Most of those were written after hitting the failure.
+4. **`src/components/geist/`** — the implementations. `button.tsx` is the one
+   to read first: its size table is exported and consumed by both the
+   component and the docs page, which is the pattern that keeps the two from
+   disagreeing.
+
+The tokens are portable on their own — `globals.css` has no dependency on the
+components. The component layer assumes Tailwind v4 and Radix.
+
+## Stack
+
+Next.js 16 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS v4 ·
+Radix primitives · [Bklit](https://bklit.com) charts (visx) · Phosphor icons
+
+## Layout
+
+```
+src/app/                    routes
+src/components/geist/       the component library
+src/components/design-system/  the /design-system page
+src/components/app/         AI intelligence screen
+src/components/integrations/   integrations screens
+src/components/charts/      vendored Bklit chart source
+src/app/globals.css         the token foundation
+```
+
+`CLAUDE.md` holds the conventions that are easy to break by accident, and the
+rule that a component change ships with its design-system update.
