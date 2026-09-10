@@ -1,26 +1,904 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ==========================================================================
+   BRAND TINT — the only knobs. Everything else is derived.
+
+   `--brand` bleeds into the neutral surfaces (backgrounds + grays 100–500).
+   Grays 600–1000 carry icons and text, so they stay true neutral.
+   ========================================================================== */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand: #16db65;         /* Pensero flash green — used at full strength for brand marks */
+  --tint-light: 2.5%;       /* ← light theme dial   */
+  --tint-dark: 10%;         /* ← dark theme dial    */
+  --tint-saturation: 25%;   /* ← chroma of the surface tint, relative to --brand */
+
+  /* Achromatic twin of --brand: identical OKLCH lightness (0.780), zero chroma.
+     Mixing toward it in OKLCH drops chroma while holding lightness and hue,
+     which is a true desaturation rather than a wash toward grey. */
+  --brand-achromatic: #b7b7b7;
+
+  /* Same hue, dropped to OKLCH L=0.55 so the accent survives on white.
+     #16db65 itself is L=0.78 and too light for chrome in the light theme. */
+  --brand-strong: #008b33;
+  --tint-color: color-mix(
+    in oklch,
+    var(--brand) var(--tint-saturation),
+    var(--brand-achromatic)
+  );
+}
+
+/* ==========================================================================
+   Geist design tokens
+   Values below are the literal token values used by Vercel's Geist design
+   system (vercel.com/geist), extracted from its published stylesheet.
+   The neutral surfaces are held untinted as `--neutral-*` and tinted once,
+   for both themes, in the derivation block further down.
+   ========================================================================== */
+
+:root,
+.light-theme {
+  color-scheme: light;
+
+  --brand-tint: var(--tint-light);
+
+  /* Light compresses at the top: you cannot go lighter than white, so the
+     three levels are a hair apart and elevation carries most of the
+     separation. Dark has room, and separates by tone as well. */
+  --neutral-surface-primary: #fafafa;
+  --neutral-surface-secondary: #fdfdfd;
+  --neutral-surface-tertiary: #ffffff;
+
+  --neutral-gray-100: #f3f3f3;
+  --neutral-gray-200: #ececec;
+  --neutral-gray-300: #e4e4e4;
+  --neutral-gray-400: #d9d9d9;
+  --neutral-gray-500: #c5c5c5;
+
+  --ds-gray-600: #a9a9a9;
+  --ds-gray-700: #8d8d8d;
+  --ds-gray-800: #717171;
+  --ds-gray-900: #4d4d4d;
+  --ds-gray-1000: #171717;
+
+  --ds-gray-alpha-100: #0000000d;
+  --ds-gray-alpha-200: #00000015;
+  --ds-gray-alpha-300: #0000001a;
+  --ds-gray-alpha-400: #0000001a;
+  --ds-gray-alpha-500: #00000036;
+  --ds-gray-alpha-600: #0000003d;
+  --ds-gray-alpha-700: #00000070;
+  --ds-gray-alpha-800: #00000082;
+  --ds-gray-alpha-900: #000000b3;
+  --ds-gray-alpha-1000: #000000e8;
+
+  --ds-blue-100: #f0f7ff;
+  --ds-blue-200: #e4eef9;
+  --ds-blue-300: #d6e5f5;
+  --ds-blue-400: #bfdaf1;
+  --ds-blue-500: #92c7f9;
+  --ds-blue-600: #4eabfc;
+  --ds-blue-700: #2880ff;
+  --ds-blue-800: #015fdd;
+  --ds-blue-900: #0046a5;
+  --ds-blue-1000: #022756;
+
+  --ds-red-100: #fff2f4;
+  --ds-red-200: #fde7e8;
+  --ds-red-300: #f6dbdc;
+  --ds-red-400: #f2cbca;
+  --ds-red-500: #f4abac;
+  --ds-red-600: #ff7073;
+  --ds-red-700: #fa0034;
+  --ds-red-800: #c6001b;
+  --ds-red-900: #950012;
+  --ds-red-1000: #4f0913;
+
+  --ds-amber-100: #fef5e0;
+  --ds-amber-200: #f8edcd;
+  --ds-amber-300: #f0e2ba;
+  --ds-amber-400: #f4d279;
+  --ds-amber-500: #edb74c;
+  --ds-amber-600: #dd9300;
+  --ds-amber-700: #b17a00;
+  --ds-amber-800: #975800;
+  --ds-amber-900: #7a3700;
+  --ds-amber-1000: #4a1500;
+
+  --ds-green-100: #eafbea;
+  --ds-green-200: #def4e0;
+  --ds-green-300: #c9efc7;
+  --ds-green-400: #ace8af;
+  --ds-green-500: #73dc7f;
+  --ds-green-600: #23c541;
+  --ds-green-700: #1aa140;
+  --ds-green-800: #047f2f;
+  --ds-green-900: #005e20;
+  --ds-green-1000: #003409;
+
+  --ds-teal-100: #defefa;
+  --ds-teal-200: #d5f6ee;
+  --ds-teal-300: #c1eee6;
+  --ds-teal-400: #a0e6db;
+  --ds-teal-500: #36ddc8;
+  --ds-teal-600: #00bfa5;
+  --ds-teal-700: #009c8b;
+  --ds-teal-800: #007a6c;
+  --ds-teal-900: #005a51;
+  --ds-teal-1000: #003129;
+
+  --ds-purple-100: #faf2ff;
+  --ds-purple-200: #f2eaf7;
+  --ds-purple-300: #eaddf4;
+  --ds-purple-400: #e3ccf1;
+  --ds-purple-500: #dca8fe;
+  --ds-purple-600: #c77dff;
+  --ds-purple-700: #ae43ff;
+  --ds-purple-800: #8e1cd8;
+  --ds-purple-900: #6900ac;
+  --ds-purple-1000: #380d58;
+
+  --ds-pink-100: #fff1f8;
+  --ds-pink-200: #fce7ef;
+  --ds-pink-300: #f8d9e4;
+  --ds-pink-400: #f3c9d5;
+  --ds-pink-500: #f2a8c1;
+  --ds-pink-600: #f177a0;
+  --ds-pink-700: #ed1f7e;
+  --ds-pink-800: #c0005a;
+  --ds-pink-900: #900044;
+  --ds-pink-1000: #4c0b28;
+
+  --ds-focus-color: var(--brand-strong);
+  --ds-focus-ring: 0 0 0 2px var(--ds-surface-secondary), 0 0 0 4px var(--ds-focus-color);
+  --ds-focus-border: 0 0 0 1px var(--ds-gray-alpha-600), 0px 0px 0px 4px #00000029;
+
+  /* Elevation: a light source above. The top edge catches it, the body
+     falls off, and a short shadow grounds the surface. */
+  --surface-sheen: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.28) 0%,
+    rgb(255 255 255 / 0) 120px
+  );
+  /* Thinner-reading than the Geist alpha steps: the lit top edge and the
+     shadow already carry the separation, so the border only needs to hint. */
+  --border-subtle: rgb(0 0 0 / 0.11);
+  /* Structural chrome (sidebar edge, header hairline) sits a step above the
+     object edges so the frame still reads, without out-weighing the cards. */
+  --border-structural: rgb(0 0 0 / 0.12);
+  --shadow-elevated: 0 2px 4px rgb(0 0 0 / 0.05),
+    0 8px 20px -6px rgb(0 0 0 / 0.09);
+
+  --ds-shadow-border-base: 0 0 0 1px #00000014;
+  --ds-shadow-border-inset: inset 0 0 0 1px #00000014;
+  --ds-shadow-2xs: 0px 1px 1px #0000000a;
+  --ds-shadow-xs: 0px 1px 2px #0000000a;
+  --ds-shadow-small: 0px 2px 2px #0000000a;
+  --ds-shadow-medium: 0px 2px 2px #0000000a, 0px 8px 8px -8px #0000000a;
+  --ds-shadow-large: 0px 2px 2px #0000000a, 0px 8px 16px -4px #0000000a;
+  --ds-shadow-xl: 0px 1px 1px #00000005, 0px 4px 8px -4px #0000000a,
+    0px 16px 24px -8px #0000000f;
+  --ds-shadow-2xl: 0px 1px 1px #00000005, 0px 8px 16px -4px #0000000a,
+    0px 24px 32px -8px #0000000f;
+}
+
+.dark,
+.dark-theme {
+  color-scheme: dark;
+
+  --brand-tint: var(--tint-dark);
+
+  /* Vercel's product surfaces separate the page (pure black) from elevated
+     cards (#0a0a0a). The Geist docs site collapses both to #000. */
+  --neutral-surface-primary: #000000;
+  --neutral-surface-secondary: #0a0a0a;
+  --neutral-surface-tertiary: #151515;
+
+  --neutral-gray-100: #191919;
+  --neutral-gray-200: #232323;
+  --neutral-gray-300: #2e2e2e;
+  --neutral-gray-400: #3a3a3a;
+  --neutral-gray-500: #4d4d4d;
+
+  --ds-gray-600: #636363;
+  --ds-gray-700: #777777;
+  --ds-gray-800: #8c8c8c;
+  --ds-gray-900: #a0a0a0;
+  --ds-gray-1000: #ededed;
+
+  --ds-gray-alpha-100: #ffffff12;
+  --ds-gray-alpha-200: #ffffff17;
+  --ds-gray-alpha-300: #ffffff21;
+  --ds-gray-alpha-400: #ffffff29;
+  --ds-gray-alpha-500: #ffffff3d;
+  --ds-gray-alpha-600: #ffffff82;
+  --ds-gray-alpha-700: #ffffff8a;
+  --ds-gray-alpha-800: #ffffff78;
+  --ds-gray-alpha-900: #ffffff9c;
+  --ds-gray-alpha-1000: #ffffffeb;
+
+  --ds-blue-100: #051839;
+  --ds-blue-200: #022248;
+  --ds-blue-300: #002c5f;
+  --ds-blue-400: #023973;
+  --ds-blue-500: #0e4c91;
+  --ds-blue-600: #006abf;
+  --ds-blue-700: #2680ff;
+  --ds-blue-800: #65a1ff;
+  --ds-blue-900: #83c0ff;
+  --ds-blue-1000: #e2edf6;
+
+  --ds-red-100: #310910;
+  --ds-red-200: #420b12;
+  --ds-red-300: #590914;
+  --ds-red-400: #6e0f1a;
+  --ds-red-500: #8c1a23;
+  --ds-red-600: #c60027;
+  --ds-red-700: #ef2f40;
+  --ds-red-800: #ff6a65;
+  --ds-red-900: #ff9a97;
+  --ds-red-1000: #fae5e8;
+
+  --ds-amber-100: #261500;
+  --ds-amber-200: #341c01;
+  --ds-amber-300: #482300;
+  --ds-amber-400: #553100;
+  --ds-amber-500: #6d4201;
+  --ds-amber-600: #8e5d00;
+  --ds-amber-700: #b17a00;
+  --ds-amber-800: #e58800;
+  --ds-amber-900: #ffa238;
+  --ds-amber-1000: #f6ead0;
+
+  --ds-green-100: #002107;
+  --ds-green-200: #002c0c;
+  --ds-green-300: #013915;
+  --ds-green-400: #024818;
+  --ds-green-500: #005e19;
+  --ds-green-600: #007f28;
+  --ds-green-700: #00a23a;
+  --ds-green-800: #47bd5e;
+  --ds-green-900: #34dd65;
+  --ds-green-1000: #d1f6dc;
+
+  --ds-teal-100: #001f19;
+  --ds-teal-200: #012a23;
+  --ds-teal-300: #00372f;
+  --ds-teal-400: #08453a;
+  --ds-teal-500: #005a4f;
+  --ds-teal-600: #007a6b;
+  --ds-teal-700: #009c8a;
+  --ds-teal-800: #48b7a5;
+  --ds-teal-900: #2ad6c2;
+  --ds-teal-1000: #c6f7ed;
+
+  --ds-purple-100: #270a31;
+  --ds-purple-200: #331041;
+  --ds-purple-300: #421258;
+  --ds-purple-400: #511773;
+  --ds-purple-500: #672593;
+  --ds-purple-600: #8933c9;
+  --ds-purple-700: #a856eb;
+  --ds-purple-800: #bf7cff;
+  --ds-purple-900: #d6a0ff;
+  --ds-purple-1000: #f3e6f8;
+
+  --ds-pink-100: #2e0a1b;
+  --ds-pink-200: #400a24;
+  --ds-pink-300: #540c2f;
+  --ds-pink-400: #66163c;
+  --ds-pink-500: #861c4c;
+  --ds-pink-600: #be0e5a;
+  --ds-pink-700: #ec237e;
+  --ds-pink-800: #ff6293;
+  --ds-pink-900: #ff96b1;
+  --ds-pink-1000: #f9e5ee;
+
+  --ds-focus-color: var(--brand);
+  --ds-focus-border: 0 0 0 1px var(--ds-gray-alpha-600), 0px 0px 0px 4px #ffffff3d;
+
+  /* Dark surfaces read as raised through a highlight, not a shadow. */
+  --surface-sheen: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.016) 0%,
+    rgb(255 255 255 / 0) 120px
+  );
+  --border-subtle: rgb(255 255 255 / 0.10);
+  --border-structural: rgb(255 255 255 / 0.13);
+  --shadow-elevated: 0 2px 4px rgb(0 0 0 / 0.5),
+    0 12px 28px -8px rgb(0 0 0 / 0.6);
+
+  --ds-shadow-border-base: 0 0 0 1px #ffffff25;
+  --ds-shadow-border-inset: inset 0 0 0 1px #ffffff1a;
+  --ds-shadow-2xs: 0px 1px 1px #00000029;
+  --ds-shadow-xs: 0px 1px 2px #00000029;
+  --ds-shadow-small: 0px 1px 2px #00000029;
+  --ds-shadow-medium: 0px 2px 2px #00000052, 0px 8px 8px -8px #00000029;
+}
+
+/* ==========================================================================
+   Tint derivation — written once, applied to whichever theme is active.
+   `--neutral-*` and `--brand-tint` are set per theme above; this block just
+   mixes them. To retune the look, change `--tint-light` / `--tint-dark` only.
+   ========================================================================== */
+
+:root,
+.dark,
+.dark-theme {
+  --ds-surface-primary: color-mix(in srgb, var(--tint-color) var(--brand-tint), var(--neutral-surface-primary));
+  --ds-surface-secondary: color-mix(in srgb, var(--tint-color) var(--brand-tint), var(--neutral-surface-secondary));
+  --ds-surface-tertiary: color-mix(in srgb, var(--tint-color) var(--brand-tint), var(--neutral-surface-tertiary));
+
+  --ds-gray-100: color-mix(in srgb, var(--tint-color) var(--brand-tint), var(--neutral-gray-100));
+  --ds-gray-200: color-mix(in srgb, var(--tint-color) var(--brand-tint), var(--neutral-gray-200));
+  --ds-gray-300: color-mix(in srgb, var(--tint-color) var(--brand-tint), var(--neutral-gray-300));
+  --ds-gray-400: color-mix(in srgb, var(--tint-color) var(--brand-tint), var(--neutral-gray-400));
+  --ds-gray-500: color-mix(in srgb, var(--tint-color) var(--brand-tint), var(--neutral-gray-500));
+}
+
+/* Geist spacing, radius and motion primitives ------------------------------ */
+:root {
+  --geist-space: 4px;
+  --geist-radius: 6px;
+
+  /* Geist form control heights */
+  --geist-form-tiny-height: 24px;
+  --geist-form-small-height: 32px;
+  --geist-form-height: 36px;
+  --geist-form-large-height: 40px;
+
+  --ds-motion-timing-swift: cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  --ds-motion-popover-duration: 0.2s;
+  --ds-motion-overlay-duration: 0.3s;
+  --ds-motion-overlay-scale: 0.96;
+
+  --ds-shadow-background-border: 0 0 0 1px var(--ds-surface-primary);
+  --ds-shadow-border: var(--ds-shadow-border-base), var(--ds-shadow-background-border);
+  --ds-shadow-border-small: var(--ds-shadow-border-base), var(--ds-shadow-small),
+    var(--ds-shadow-background-border);
+  --ds-shadow-border-medium: var(--ds-shadow-border-base), var(--ds-shadow-medium),
+    var(--ds-shadow-background-border);
+  --ds-shadow-menu: var(--ds-shadow-border-base), 0px 1px 1px #00000005,
+    0px 4px 8px -4px #0000000a, 0px 16px 24px -8px #0000000f,
+    var(--ds-shadow-background-border);
+  --ds-shadow-tooltip: var(--ds-shadow-border-base), 0px 1px 1px #00000005,
+    0px 4px 8px #0000000a, var(--ds-shadow-background-border);
+}
+
+/* ==========================================================================
+   Data-visualisation palette — Geist hues only
+   ========================================================================== */
+
+:root {
+  --series-human: var(--ds-gray-500);
+  --series-assisted: var(--ds-blue-600);
+  --series-agentic: var(--ds-purple-700);
+  --series-inactive: var(--ds-gray-alpha-300);
+
+  --series-01: var(--ds-blue-700);
+  --series-02: var(--ds-purple-700);
+  --series-03: var(--ds-teal-700);
+  --series-04: var(--ds-amber-700);
+  --series-05: var(--ds-pink-700);
+  --series-06: var(--ds-green-700);
+  --series-07: var(--ds-blue-500);
+  --series-08: var(--ds-purple-500);
+  --series-09: var(--ds-teal-500);
+  --series-10: var(--ds-amber-500);
+  --series-11: var(--ds-pink-500);
+  --series-12: var(--ds-green-500);
+  --series-13: var(--ds-gray-700);
+  --series-14: var(--ds-gray-500);
+  --series-15: var(--ds-gray-300);
+
+  /* Daily AI cost heatmap buckets */
+  --heat-none: var(--ds-gray-alpha-200);
+  --heat-included: var(--ds-gray-alpha-500);
+  --heat-low: var(--ds-blue-400);
+  --heat-moderate: var(--ds-blue-600);
+  --heat-high: var(--ds-blue-700);
+  --heat-very-high: var(--ds-blue-800);
+}
+
+.dark {
+  --series-human: var(--ds-gray-600);
+  --series-agentic: var(--ds-purple-600);
+  --series-13: var(--ds-gray-600);
+  --series-14: var(--ds-gray-500);
+  --series-15: var(--ds-gray-400);
+
+  --heat-low: var(--ds-blue-500);
+  --heat-moderate: var(--ds-blue-700);
+  --heat-high: var(--ds-blue-600);
+  --heat-very-high: var(--ds-blue-900);
+}
+
+/* ==========================================================================
+   shadcn / Bklit chart bridge — every value resolves to a Geist token
+   ========================================================================== */
+
+:root,
+.dark {
+  --background: var(--ds-surface-primary);
+  --foreground: var(--ds-gray-1000);
+  --card: var(--ds-surface-secondary);
+  --card-foreground: var(--ds-gray-1000);
+  --popover: var(--ds-surface-secondary);
+  --popover-foreground: var(--ds-gray-1000);
+  --primary: var(--ds-gray-1000);
+  --primary-foreground: var(--ds-surface-secondary);
+  --secondary: var(--ds-gray-100);
+  --secondary-foreground: var(--ds-gray-1000);
+  --muted: var(--ds-gray-100);
+  --muted-foreground: var(--ds-gray-900);
+  --accent: var(--ds-gray-alpha-200);
+  --accent-foreground: var(--ds-gray-1000);
+  --destructive: var(--ds-red-800);
+  --border: var(--ds-gray-alpha-400);
+  --input: var(--ds-gray-alpha-400);
+  --ring: var(--ds-focus-color);
+  --radius: var(--geist-radius);
+
+  --sidebar: var(--ds-surface-primary);
+  --sidebar-foreground: var(--ds-gray-1000);
+  --sidebar-primary: var(--ds-gray-1000);
+  --sidebar-primary-foreground: var(--ds-surface-secondary);
+  --sidebar-accent: var(--ds-gray-alpha-200);
+  --sidebar-accent-foreground: var(--ds-gray-1000);
+  --sidebar-border: var(--ds-gray-alpha-400);
+  --sidebar-ring: var(--ds-focus-color);
+
+  --chart-1: var(--series-01);
+  --chart-2: var(--series-02);
+  --chart-3: var(--series-03);
+  --chart-4: var(--series-04);
+  --chart-5: var(--series-05);
+
+  --chart-background: var(--ds-surface-secondary);
+  --chart-foreground: var(--ds-gray-1000);
+  --chart-foreground-muted: var(--ds-gray-900);
+  --chart-line-primary: var(--series-01);
+  --chart-line-secondary: var(--series-02);
+  --chart-crosshair: var(--ds-gray-alpha-500);
+  --chart-grid: var(--ds-gray-alpha-300);
+  --chart-brush-border: var(--ds-gray-alpha-400);
+  --chart-label: var(--ds-gray-900);
+
+  --chart-tooltip-background: var(--ds-surface-tertiary);
+  --chart-tooltip-foreground: var(--ds-gray-1000);
+  --chart-tooltip-muted: var(--ds-gray-900);
+
+  --chart-marker-background: var(--ds-surface-secondary);
+  --chart-marker-border: var(--ds-gray-alpha-400);
+  --chart-marker-foreground: var(--ds-gray-1000);
+  --chart-marker-badge-background: var(--ds-gray-1000);
+  --chart-marker-badge-foreground: var(--ds-surface-secondary);
+
+  --chart-segment-background: var(--ds-gray-alpha-100);
+  --chart-segment-line: var(--ds-gray-alpha-400);
+  --chart-indicator-color: var(--ds-gray-1000);
+  --chart-indicator-secondary-color: var(--ds-gray-900);
+
+  --chart-scale-01: var(--heat-none);
+  --chart-scale-02: var(--heat-low);
+  --chart-scale-03: var(--heat-moderate);
+  --chart-scale-04: var(--heat-high);
+  --chart-scale-05: var(--heat-very-high);
+  --chart-scale-pattern-color: var(--ds-gray-alpha-300);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-geist-sans);
+
+  /* The root font size is 14px (see `html` below). Pinning the spacing and
+     size scales to px keeps Geist's 4px grid physical, so the density of the
+     layout is set by the design system rather than by the text size. */
+  --spacing: 4px;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+
+  /* Geist scales replace Tailwind's defaults so every colour utility in this
+     app resolves to a Geist token. */
+  --color-background-100: var(--ds-surface-secondary);
+  --color-background-200: var(--ds-surface-primary);
+
+  --color-gray-100: var(--ds-gray-100);
+  --color-gray-200: var(--ds-gray-200);
+  --color-gray-300: var(--ds-gray-300);
+  --color-gray-400: var(--ds-gray-400);
+  --color-gray-500: var(--ds-gray-500);
+  --color-gray-600: var(--ds-gray-600);
+  --color-gray-700: var(--ds-gray-700);
+  --color-gray-800: var(--ds-gray-800);
+  --color-gray-900: var(--ds-gray-900);
+  --color-gray-1000: var(--ds-gray-1000);
+
+  --color-alpha-100: var(--ds-gray-alpha-100);
+  --color-alpha-200: var(--ds-gray-alpha-200);
+  --color-alpha-300: var(--ds-gray-alpha-300);
+  --color-alpha-400: var(--ds-gray-alpha-400);
+  --color-alpha-500: var(--ds-gray-alpha-500);
+  --color-alpha-600: var(--ds-gray-alpha-600);
+  --color-alpha-700: var(--ds-gray-alpha-700);
+  --color-alpha-800: var(--ds-gray-alpha-800);
+
+  --color-blue-100: var(--ds-blue-100);
+  --color-blue-200: var(--ds-blue-200);
+  --color-blue-300: var(--ds-blue-300);
+  --color-blue-400: var(--ds-blue-400);
+  --color-blue-500: var(--ds-blue-500);
+  --color-blue-600: var(--ds-blue-600);
+  --color-blue-700: var(--ds-blue-700);
+  --color-blue-800: var(--ds-blue-800);
+  --color-blue-900: var(--ds-blue-900);
+  --color-blue-1000: var(--ds-blue-1000);
+
+  --color-red-100: var(--ds-red-100);
+  --color-red-300: var(--ds-red-300);
+  --color-red-600: var(--ds-red-600);
+  --color-red-700: var(--ds-red-700);
+  --color-red-800: var(--ds-red-800);
+  --color-red-900: var(--ds-red-900);
+  --color-red-1000: var(--ds-red-1000);
+
+  --color-amber-100: var(--ds-amber-100);
+  --color-amber-300: var(--ds-amber-300);
+  --color-amber-600: var(--ds-amber-600);
+  --color-amber-700: var(--ds-amber-700);
+  --color-amber-800: var(--ds-amber-800);
+  --color-amber-900: var(--ds-amber-900);
+  --color-amber-1000: var(--ds-amber-1000);
+
+  --color-green-100: var(--ds-green-100);
+  --color-green-300: var(--ds-green-300);
+  --color-green-600: var(--ds-green-600);
+  --color-green-700: var(--ds-green-700);
+  --color-green-800: var(--ds-green-800);
+  --color-green-900: var(--ds-green-900);
+  --color-green-1000: var(--ds-green-1000);
+
+  --color-teal-100: var(--ds-teal-100);
+  --color-teal-700: var(--ds-teal-700);
+  --color-teal-900: var(--ds-teal-900);
+  --color-teal-1000: var(--ds-teal-1000);
+
+  --color-purple-100: var(--ds-purple-100);
+  --color-purple-300: var(--ds-purple-300);
+  --color-purple-600: var(--ds-purple-600);
+  --color-purple-700: var(--ds-purple-700);
+  --color-purple-900: var(--ds-purple-900);
+  --color-purple-1000: var(--ds-purple-1000);
+
+  --color-pink-700: var(--ds-pink-700);
+  --color-pink-900: var(--ds-pink-900);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-background: var(--chart-background);
+  --color-chart-foreground: var(--chart-foreground);
+  --color-chart-foreground-muted: var(--chart-foreground-muted);
+  --color-chart-grid: var(--chart-grid);
+  --color-chart-crosshair: var(--chart-crosshair);
+  --color-chart-label: var(--chart-label);
+  --color-chart-marker-background: var(--chart-marker-background);
+  --color-chart-marker-border: var(--chart-marker-border);
+  --color-chart-marker-foreground: var(--chart-marker-foreground);
+  --color-chart-tooltip-background: var(--chart-tooltip-background);
+  --color-chart-tooltip-foreground: var(--chart-tooltip-foreground);
+  --color-chart-tooltip-muted: var(--chart-tooltip-muted);
+  --color-chart-scale-01: var(--chart-scale-01);
+  --color-chart-scale-02: var(--chart-scale-02);
+  --color-chart-scale-03: var(--chart-scale-03);
+  --color-chart-scale-04: var(--chart-scale-04);
+  --color-chart-scale-05: var(--chart-scale-05);
+  --color-chart-scale-pattern-color: var(--chart-scale-pattern-color);
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  --shadow-geist-border: var(--ds-shadow-border);
+  --shadow-geist-small: var(--ds-shadow-border-small);
+  --shadow-geist-medium: var(--ds-shadow-border-medium);
+  --shadow-geist-menu: var(--ds-shadow-menu);
+  --shadow-geist-tooltip: var(--ds-shadow-tooltip);
+
+  --animate-geist-scale-in: geist-scale-in var(--ds-motion-overlay-duration)
+    var(--ds-motion-timing-swift);
+  --animate-geist-fade-in: geist-fade-in var(--ds-motion-popover-duration)
+    var(--ds-motion-timing-swift);
+  --animate-geist-fade-out: geist-fade-out var(--ds-motion-popover-duration) ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes geist-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(var(--ds-motion-overlay-scale));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes geist-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes geist-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes geist-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ==========================================================================
+   Geist type scale — sizes, line heights and tracking match the design system
+   ========================================================================== */
+
+@layer utilities {
+  .text-heading-72 { font-size: 72px; line-height: 72px; font-weight: 600; letter-spacing: -4.32px; }
+  .text-heading-64 { font-size: 64px; line-height: 64px; font-weight: 600; letter-spacing: -3.84px; }
+  .text-heading-48 { font-size: 48px; line-height: 56px; font-weight: 600; letter-spacing: -2.88px; }
+  .text-heading-40 { font-size: 40px; line-height: 48px; font-weight: 600; letter-spacing: -2.4px; }
+  .text-heading-32 { font-size: 32px; line-height: 40px; font-weight: 600; letter-spacing: -1.28px; }
+  .text-heading-24 { font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.96px; }
+  .text-heading-20 { font-size: 20px; line-height: 26px; font-weight: 600; letter-spacing: -0.4px; }
+  .text-heading-16 { font-size: 16px; line-height: 24px; font-weight: 600; letter-spacing: -0.32px; }
+  .text-heading-14 { font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: -0.28px; }
+
+  .text-copy-24 { font-size: 24px; line-height: 36px; font-weight: 400; }
+  .text-copy-20 { font-size: 20px; line-height: 36px; font-weight: 400; }
+  .text-copy-18 { font-size: 18px; line-height: 28px; font-weight: 400; }
+  .text-copy-16 { font-size: 16px; line-height: 24px; font-weight: 400; }
+  .text-copy-14 { font-size: 14px; line-height: 20px; font-weight: 400; }
+  .text-copy-13 { font-size: 13px; line-height: 18px; font-weight: 400; }
+
+  .text-label-20 { font-size: 20px; line-height: 26px; font-weight: 400; }
+  .text-label-16 { font-size: 16px; line-height: 20px; font-weight: 400; }
+  .text-label-14 { font-size: 14px; line-height: 20px; font-weight: 400; }
+  .text-label-13 { font-size: 13px; line-height: 16px; font-weight: 400; }
+  .text-label-12 { font-size: 12px; line-height: 16px; font-weight: 400; }
+
+  .text-button-16 { font-size: 16px; line-height: 20px; font-weight: 500; }
+  .text-button-14 { font-size: 14px; line-height: 20px; font-weight: 500; }
+  .text-button-12 { font-size: 12px; line-height: 16px; font-weight: 500; }
+
+  .text-mono-14 { font-family: var(--font-geist-mono); font-size: 14px; line-height: 20px; }
+  .text-mono-13 { font-family: var(--font-geist-mono); font-size: 13px; line-height: 18px; }
+  .text-mono-12 { font-family: var(--font-geist-mono); font-size: 12px; line-height: 16px; }
+
+  /* Geist uses a 550 weight for emphasis inside body copy */
+  .text-copy-13 > strong,
+  .text-copy-14 > strong,
+  .text-copy-16 > strong {
+    font-weight: 550;
+    color: var(--ds-gray-1000);
+  }
+
+  /* Raised surface: sheen over the fill, a lit top edge, and a short shadow. */
+  /* Surfaces are colour only. Each carries the sheen — a very soft vertical
+     gradient, no inset highlight, which would read as a second line stacked
+     on the top border. Whether a surface floats is a separate question,
+     answered by .elevated below. */
+  .surface-primary {
+    background-color: var(--ds-surface-primary);
+  }
+
+  .surface-secondary {
+    background-color: var(--ds-surface-secondary);
+    background-image: var(--surface-sheen);
+  }
+
+  .surface-tertiary {
+    background-color: var(--ds-surface-tertiary);
+    background-image: var(--surface-sheen);
+  }
+
+  /* Elevation is the drop shadow and nothing else. It says "this left the
+     document flow", so it belongs to menus, popovers, tooltips and modals —
+     never to a card. Compose it: `surface-tertiary elevated`. */
+  .elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  /* Staggered entrance. `--i` is the card's index; `both` holds the start
+     state through the delay, so nothing flashes unstyled. Under
+     prefers-reduced-motion the global rule collapses this to the end state. */
+  .animate-enter {
+    animation: card-enter 340ms var(--ds-motion-timing-swift) both;
+    animation-delay: calc(var(--i, 0) * 30ms);
+  }
+
+  .geist-tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .geist-focus-ring:focus-visible {
+    outline: none;
+    box-shadow: var(--ds-focus-ring);
+  }
+
+  .geist-no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .geist-no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Hairline borders
+
+   0.5px is exactly one device pixel at 2dppx, which is the fine rule Linear
+   and Geist draw. Below 2dppx the browser has to antialias it, and at our
+   6–8% border alpha a half-intensity line can fade to nothing — so those
+   displays keep a true 1px. The token is the dial; the utilities below just
+   read it.
+   ========================================================================== */
+
+:root {
+  --border-width: 1px;
+}
+
+@media (min-resolution: 2dppx) {
+  :root {
+    --border-width: 0.5px;
+  }
+}
+
+@layer utilities {
+  .border {
+    border-width: var(--border-width);
+  }
+  .border-t {
+    border-top-width: var(--border-width);
+  }
+  .border-b {
+    border-bottom-width: var(--border-width);
+  }
+  .border-l {
+    border-left-width: var(--border-width);
+  }
+  .border-r {
+    border-right-width: var(--border-width);
+  }
+  /* Tailwind emits divide-y through a zero-specificity :where(), so a plain
+     child selector wins without !important. */
+  .divide-y > :not(:last-child) {
+    border-top-width: calc(var(--border-width) * var(--tw-divide-y-reverse, 0));
+    border-bottom-width: calc(
+      var(--border-width) * calc(1 - var(--tw-divide-y-reverse, 0))
+    );
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--ds-gray-alpha-400);
+  }
+
+  html {
+    /* Geist's product default — matches v0 and the Vercel dashboard. */
+    font-size: 14px;
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--ds-surface-primary);
+    color: var(--ds-gray-1000);
+    font-size: 14px;
+    line-height: 20px;
+    font-feature-settings: "cv11", "ss01";
+    font-variation-settings: "opsz" 32;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--brand) 22%, transparent);
+    color: var(--ds-gray-1000);
+  }
+
+  /*
+   * Fallback focus ring for anything that does not draw its own. A component
+   * whose wrapper renders focus — the input shell, for one — marks its inner
+   * control `data-focus-managed` so the two treatments never stack into two
+   * rings of different colours.
+   */
+  :focus-visible:not([data-focus-managed]) {
+    outline: none;
+    box-shadow: var(--ds-focus-ring);
+    border-radius: var(--geist-radius);
+  }
+
+  button,
+  [role="button"],
+  [role="radio"],
+  a {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Respect the OS reduced-motion preference everywhere, including the chart
+   enter animations, which are decorative. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

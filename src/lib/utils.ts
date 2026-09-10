@@ -1,0 +1,41 @@
+import { type ClassValue, clsx } from "clsx";
+import { extendTailwindMerge } from "tailwind-merge";
+
+/**
+ * The Geist type scale ships as custom utilities named after Vercel's own —
+ * `text-heading-16`, `text-button-14`, `text-mono-13`. tailwind-merge has no
+ * way to know those are font sizes, and its `text-color` group ends in a
+ * catch-all, so it files them as colours and silently drops any real colour
+ * class sitting alongside them. That is how a primary button ends up
+ * rendering its label in the same colour as its fill.
+ *
+ * Two changes fix it for every component at once: teach `font-size` about the
+ * pattern, and stop `text-color` claiming it. Theme getters are left alone —
+ * only the plain validators need guarding.
+ */
+const isGeistType = (value: string) =>
+  /^(heading|copy|label|button|mono)-\d+$/.test(value);
+
+type Validator = ((value: string) => boolean) & { isThemeGetter?: boolean };
+
+const twMerge = extendTailwindMerge((config) => {
+  const groups = config.classGroups as unknown as Record<
+    string,
+    { text: Validator[] }[]
+  >;
+
+  groups["font-size"] = [...groups["font-size"], { text: [isGeistType] }];
+
+  const textColor = groups["text-color"][0];
+  textColor.text = textColor.text.map((validator) =>
+    typeof validator === "function" && !validator.isThemeGetter
+      ? (value: string) => !isGeistType(value) && validator(value)
+      : validator,
+  );
+
+  return config;
+});
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
