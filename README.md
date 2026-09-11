@@ -58,12 +58,15 @@ agent — read them in this order:
    loaded as context. Every rule that is easy to break by accident is here:
    the form scale, the surface levels, the border width, the tint dials, and
    the requirement that a component change ships with its docs update.
-2. **`src/app/globals.css`** — the tokens themselves, ordered so the dials
+2. **`docs/tokens.md`** — every token with its resolved value in both
+   themes, generated from the stylesheet by `npm run tokens` and verified
+   against the browser, so it cannot drift.
+3. **`src/app/globals.css`** — the tokens themselves, ordered so the dials
    come first and everything else derives from them.
-3. **`/design-system`** — the reasoning. Each entry carries not just what a
+4. **`/design-system`** — the reasoning. Each entry carries not just what a
    value is but why, and a Best practice section naming the failure mode it
    prevents. Most of those were written after hitting the failure.
-4. **The component library**, under `src/components/`. Read `button.tsx`
+5. **The component library**, under `src/components/`. Read `button.tsx`
    first: its size table is exported and consumed by both the component and
    the docs page, which is the pattern that keeps the two from disagreeing.
 
@@ -83,6 +86,7 @@ src/app/globals.css   the token foundation — the dials and everything derived
 src/components/       the component library, the docs page, and the screens
 src/components/charts/  vendored chart source, patched
 src/lib/              data and hooks
+docs/tokens.md        generated token reference
 ```
 
 `CLAUDE.md` holds the conventions that are easy to break by accident, and the
