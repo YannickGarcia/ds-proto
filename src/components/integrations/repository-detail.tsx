@@ -206,7 +206,7 @@ export function RepositoryDetail({
                 className="animate-enter gap-0 px-4 py-4"
                 style={{ ["--i" as string]: index }}
               >
-                <span className="text-[11px] leading-4 font-medium tracking-[0.04em] text-secondary uppercase">
+                <span className="text-label-overline text-secondary">
                   {stat.label}
                 </span>
                 <div className="mt-2.5 flex items-baseline gap-2">

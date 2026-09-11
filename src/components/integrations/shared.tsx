@@ -213,7 +213,7 @@ export function StaffOnly({
 
 export function StaffTag() {
   return (
-    <span className="text-[10px] leading-4 font-medium tracking-[0.04em] text-[var(--ds-purple-text)] uppercase">
+    <span className="text-label-overline text-[var(--ds-purple-text)]">
       Staff
     </span>
   );

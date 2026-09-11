@@ -766,6 +766,10 @@
   .text-label-sm { font-size: 13px; line-height: 16px; font-weight: 400; }
   .text-label-xs { font-size: 12px; line-height: 16px; font-weight: 400; }
   .text-label-xs-mono { font-family: var(--font-mono); font-size: 12px; line-height: 16px; }
+  /* Overline: the small caps that head a region. Fixed size — it is a role,
+     not a rung, so it does not take xs/sm/default. The transform is baked in
+     so the caps can never be typed into the content. */
+  .text-label-overline { font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
 
   /* Button — only inside components that render a button. */
   .text-button-default { font-size: 14px; line-height: 20px; font-weight: 500; }

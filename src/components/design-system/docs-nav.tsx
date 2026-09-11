@@ -163,7 +163,7 @@ export function DocsNav() {
           <a
             href={group.href}
             className={cn(
-              "block px-2 pb-2 text-[11px] leading-4 font-medium tracking-[0.04em] uppercase",
+              "block px-2 pb-2 text-label-overline",
               "text-tertiary transition-colors hover:text-primary",
             )}
           >

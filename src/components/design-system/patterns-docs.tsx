@@ -34,7 +34,7 @@ export function PatternsDocs() {
           <div className="grid max-w-[560px] grid-cols-2 gap-4">
             <Card className="gap-0 px-4 py-4">
               <div className="mb-2.5 flex min-h-8 items-start justify-between gap-2">
-                <span className="min-w-0 text-[11px] leading-4 font-medium tracking-[0.04em] text-secondary uppercase">
+                <span className="min-w-0 text-label-overline text-secondary">
                   Agentic
                 </span>
                 <Badge variant="green" className="tabular-nums gap-0.5 pr-2 pl-1.5">
@@ -51,7 +51,7 @@ export function PatternsDocs() {
             </Card>
             <Card className="gap-0 px-4 py-4">
               <div className="mb-2.5 flex min-h-8 items-start justify-between gap-2">
-                <span className="min-w-0 text-[11px] leading-4 font-medium tracking-[0.04em] text-secondary uppercase">
+                <span className="min-w-0 text-label-overline text-secondary">
                   Excess spend
                 </span>
                 <Badge variant="green" className="gap-1 pr-2 pl-1.5">

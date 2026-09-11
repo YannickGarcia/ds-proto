@@ -93,7 +93,7 @@ export function IntegrationsListing() {
           <div className="flex flex-col gap-6">
             {connectedByCategory.map(({ category, items }) => (
               <div key={category.id}>
-                <h3 className="mb-2 text-[11px] leading-4 font-medium tracking-[0.04em] text-tertiary uppercase">
+                <h3 className="mb-2 text-label-overline text-tertiary">
                   {category.label}
                 </h3>
                 <Card className="divide-y divide-[var(--border-subtle)] overflow-hidden">

@@ -131,7 +131,7 @@ const TYPE_SCALE = {
       {
         cls: "text-copy-sm-mono",
         spec: "13 / 18 · mono",
-        use: "A block of code, or code quoted inside prose.",
+        use: "Code: a block of it, a fragment quoted in prose, or an identifier such as a repository path or a branch name.",
       },
     ],
   },
@@ -155,14 +155,14 @@ const TYPE_SCALE = {
         use: "Tertiary text in a busy view: legends, badges, metadata, the uppercase nav headers.",
       },
       {
-        cls: "text-copy-sm-mono",
-        spec: "13 / 16 · mono",
-        use: "An identifier on one line — a repository path, a branch name.",
-      },
-      {
         cls: "text-label-xs-mono",
         spec: "12 / 16 · mono",
         use: "A token or a count, where the figures must not shift width.",
+      },
+      {
+        cls: "text-label-overline",
+        spec: "11 / 16 · 500 · +0.04em · caps",
+        use: "The small caps heading a region: sidebar sections, a category divider, the name of a KPI. Fixed size — it is a role, not a rung — and the uppercase is baked in, so the caps are never typed into the content.",
       },
     ],
   },
@@ -599,6 +599,28 @@ export function Foundations() {
               row.use,
             ])}
           />
+        </DocsBlock>
+
+        <DocsBlock
+          label="Overline colour"
+          hint="The overline takes one of two ranks, and which one says what the caps are for. Tertiary when it heads a region the reader scans past — a sidebar section, a category divider. Secondary when it names something they are meant to read — a KPI, a term in a definition list. Backwards, a page reads as either shouty or structureless."
+        >
+          <Example>
+            <div className="flex flex-wrap items-start gap-10">
+              <div>
+                <p className="text-label-overline text-tertiary">
+                  Engineering intelligence
+                </p>
+                <p className="mt-1 text-label-sm text-secondary">
+                  A region heading — scanned past
+                </p>
+              </div>
+              <div>
+                <p className="text-label-overline text-secondary">AI cost</p>
+                <p className="mt-1 text-h3 text-primary">$270</p>
+              </div>
+            </div>
+          </Example>
         </DocsBlock>
 
         <DocsBlock

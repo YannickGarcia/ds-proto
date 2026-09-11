@@ -87,7 +87,7 @@ export function KpiRow() {
             style={{ ["--i" as string]: index }}
           >
             <div className="mb-2.5 flex min-h-8 items-start justify-between gap-2">
-              <span className="min-w-0 text-[11px] leading-4 font-medium tracking-[0.04em] text-secondary uppercase">
+              <span className="min-w-0 text-label-overline text-secondary">
                 {card.label}
               </span>
               {card.delta ? (

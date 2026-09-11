@@ -14,7 +14,9 @@ import { extendTailwindMerge } from "tailwind-merge";
  * only the plain validators need guarding.
  */
 const isTypeScaleClass = (value: string) =>
-  /^(h[1-5]|(copy|label|button)-(xs|sm|default)(-mono)?)$/.test(value);
+  /^(h[1-5]|label-overline|(copy|label|button)-(xs|sm|default)(-mono)?)$/.test(
+    value,
+  );
 
 /**
  * The four text-colour ranks are custom utilities too, so tailwind-merge does

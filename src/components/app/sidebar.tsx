@@ -223,7 +223,7 @@ export function Sidebar() {
         {SECTIONS.map((section, index) => (
           <div key={section.title ?? `section-${index}`} className="mb-5">
             {section.title ? (
-              <h2 className="px-2 pt-1 pb-2 text-[11px] leading-4 font-medium tracking-[0.04em] text-tertiary uppercase">
+              <h2 className="px-2 pt-1 pb-2 text-label-overline text-tertiary">
                 {section.title}
               </h2>
             ) : null}
