@@ -40,9 +40,12 @@ repeatedly fixed.
   Label is one line and tight; copy is several and looser. The scale holds
   only sizes the product uses — add one when a screen needs it.
 - **Text colour is a rank**, not a grey: `text-primary` / `-secondary` /
-  `-tertiary` / `-disabled`. These four must stay in `@layer utilities`,
-  because shadcn's theme generates `text-primary` and `text-secondary` into
-  that layer and a `components` definition silently loses to them. Both the
+  `-tertiary` / `-disabled`. They are declared as `@theme` colours
+  (`--color-primary: var(--ds-text-primary)`), never as hand-written classes.
+  A plain class works bare but gets no variants, so `hover:text-secondary`
+  falls through to shadcn's `--secondary` — near-black, invisible on dark.
+  The shadcn bridge deliberately does not map `--color-primary` or
+  `--color-secondary`; those names belong to the ranks. Both the
   scale and the ranks are registered with tailwind-merge in `lib/utils.ts`;
   a custom class it does not know about is kept alongside its conflict
   instead of replacing it.

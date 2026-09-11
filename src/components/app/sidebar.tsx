@@ -133,14 +133,15 @@ function NavEntry({ item }: { item: NavItem }) {
         >
           <Icon
             aria-hidden="true"
-            className="size-4 shrink-0 text-tertiary transition-colors group-hover:text-secondary"
+            className="size-4 shrink-0 text-tertiary transition-colors group-hover:text-primary"
           />
           <span className="truncate">{item.label}</span>
           <CaretRight
             aria-hidden="true"
             className={cn(
               "ml-auto size-3.5 shrink-0 text-tertiary",
-              "transition-transform duration-200 ease-[var(--ds-motion-timing-swift)]",
+              "transition-[transform,color] duration-200 ease-[var(--ds-motion-timing-swift)]",
+              "group-hover:text-secondary",
               open && "rotate-90",
             )}
           />
@@ -171,16 +172,14 @@ function NavEntry({ item }: { item: NavItem }) {
         aria-hidden="true"
         className={cn(
           "size-4 shrink-0 transition-colors",
-          isActive
-            ? "text-primary"
-            : "text-tertiary group-hover:text-secondary",
+          isActive ? "text-primary" : "text-tertiary group-hover:text-primary",
         )}
       />
       <span className="truncate">{item.label}</span>
       {item.external ? (
         <ArrowUpRight
           aria-hidden="true"
-          className="ml-auto size-3.5 shrink-0 text-tertiary"
+          className="ml-auto size-3.5 shrink-0 text-tertiary transition-colors group-hover:text-secondary"
         />
       ) : null}
     </>
@@ -290,9 +289,7 @@ export function Sidebar() {
               // roving focus and select-to-close from swallowing its clicks.
               onKeyDown={(event) => event.stopPropagation()}
             >
-              <span className="text-label-default text-primary">
-                Theme
-              </span>
+              <span className="text-label-default text-primary">Theme</span>
               <ThemeSwitcher />
             </div>
             <MenuSeparator />

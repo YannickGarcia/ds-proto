@@ -487,9 +487,7 @@ text   → --ds-{hue}-900`}
                 <Badge variant="green">+8pp</Badge>
               </CardHeader>
               <CardContent>
-                <p className="tabular-nums text-h1 text-primary">
-                  841.9
-                </p>
+                <p className="tabular-nums text-h1 text-primary">841.9</p>
                 <p className="mt-1 text-copy-sm text-secondary">
                   delivery points
                 </p>
@@ -1104,9 +1102,7 @@ text   → --ds-{hue}-900`}
                   <TableRow key={row[0]} interactive>
                     <TableCell>{row[0]}</TableCell>
                     <TableCell className="tabular-nums">{row[1]}</TableCell>
-                    <TableCell className="text-secondary">
-                      {row[2]}
-                    </TableCell>
+                    <TableCell className="text-secondary">{row[2]}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -1198,10 +1194,9 @@ text   → --ds-{hue}-900`}
               Keep the active indicator neutral. It marks position, not brand.
             </>,
             <>
-              Two signals of active is the limit. Tabs already have an underline
-              and a colour shift, so the label keeps weight 400 — adding a third
-              would also reflow the row as the text widens. Sidebar nav items do
-              thicken, because they have no underline.
+              Mark the active tab the way the nav marks its active item: weight
+              500 and full-contrast text. One pattern for &ldquo;you are
+              here&rdquo; across the product beats two.
             </>,
           ]}
         />

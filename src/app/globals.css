@@ -492,6 +492,19 @@
 }
 
 @theme inline {
+  /* The four text ranks, as theme colours rather than hand-written classes.
+     A theme colour is a real utility, so every variant works — hover:,
+     group-hover:, disabled:, placeholder:. Written as plain CSS they worked
+     bare but their variants fell through to shadcn's same-named theme
+     colours, and --secondary is --ds-gray-100: near-black, invisible on a
+     dark surface. Defining them here occupies the name instead of fighting
+     it. The raw --primary/--secondary vars are untouched, so the chart
+     bridge still reads them. */
+  --color-primary: var(--ds-text-primary);
+  --color-secondary: var(--ds-text-secondary);
+  --color-tertiary: var(--ds-text-tertiary);
+  --color-disabled: var(--ds-text-disabled);
+
   /* The root font size is 14px (see `html` below). Pinning the spacing and
      size scales to px keeps the 4px grid physical, so the density of the
      layout is set by the design system rather than by the text size. */
@@ -583,9 +596,10 @@
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
+  /* --color-primary / --color-secondary intentionally absent: those two
+     names belong to the text ranks defined above, and re-mapping them here
+     would shadow them. Nothing reads var(--primary) or var(--secondary). */
   --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
@@ -739,15 +753,6 @@
 }
 
 @layer utilities {
-  /* Text colour, by rank. These must live in `utilities`: shadcn's theme
-     generates its own text-primary / text-secondary into this layer, and a
-     definition in `components` silently loses to them. Declared after the
-     import, so ours win on source order. */
-  .text-primary { color: var(--ds-text-primary); }
-  .text-secondary { color: var(--ds-text-secondary); }
-  .text-tertiary { color: var(--ds-text-tertiary); }
-  .text-disabled { color: var(--ds-text-disabled); }
-
   /* Raised surface: sheen over the fill, a lit top edge, and a short shadow. */
   /* Surfaces are colour only. Each carries the sheen — a very soft vertical
      gradient, no inset highlight, which would read as a second line stacked
