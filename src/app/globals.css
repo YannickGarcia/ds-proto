@@ -12,7 +12,7 @@
    ========================================================================== */
 
 :root {
-  --brand: #16db65;         /* Pensero flash green — used at full strength for brand marks */
+  --brand: #16db65;         /* the brand — mark, surface tint, primary button */
   --tint-light: 2.5%;       /* ← light theme dial   */
   --tint-dark: 10%;         /* ← dark theme dial    */
   --tint-saturation: 25%;   /* ← chroma of the surface tint, relative to --brand */

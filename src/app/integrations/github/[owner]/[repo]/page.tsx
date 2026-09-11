@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { RepositoryDetail } from "@/components/integrations/repository-detail";
 
-export const metadata: Metadata = { title: "Repository — Pensero" };
+export const metadata: Metadata = { title: "Repository — Proto" };
 
 /** Params are async in this version of Next. */
 export default async function Page({

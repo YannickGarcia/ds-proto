@@ -321,7 +321,7 @@ export function RepositoryDetail({
                               <Avatar name={pr.author} size="sm" />
                               <span className="truncate">{pr.author}</span>
                               {pr.authorUnlinked ? (
-                                <Tooltip content="This git identity is not linked to a Pensero user, so its delivery is unattributed.">
+                                <Tooltip content="This git identity is not linked to a Proto user, so its delivery is unattributed.">
                                   <Badge variant="amber">Unlinked</Badge>
                                 </Tooltip>
                               ) : null}

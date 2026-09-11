@@ -39,7 +39,7 @@ import {
   MenuSeparator,
   MenuTrigger,
 } from "@/components/ui/menu";
-import { PenseroLogo } from "@/components/pensero-logo";
+import { ProductLogo } from "@/components/product-logo";
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -216,7 +216,7 @@ export function Sidebar() {
         href="/"
         className="flex h-14 items-center gap-2 px-4 outline-none focus-visible:shadow-[var(--ds-focus-ring)]"
       >
-        <PenseroLogo className="h-[22px] text-primary" />
+        <ProductLogo />
       </Link>
 
       <nav className="no-scrollbar flex-1 overflow-y-auto px-3 pb-4">

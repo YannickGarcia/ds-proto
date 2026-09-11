@@ -63,7 +63,7 @@ const TOOLTIPS = {
   deliverySplit:
     "Weekly PR and review delivery points stacked by human, AI-assisted, and agentic attribution.",
   adoptionAssisted:
-    "Percentage of active developers (those who merged code) with any AI tool usage tracked by Pensero.",
+    "Percentage of active developers (those who merged code) with any AI tool usage tracked by Proto.",
   adoptionAgentic:
     "Active developers (merged code) with at least one pull request via agent identity in the period.",
   costPerPoint:
@@ -237,7 +237,7 @@ function DeliveryAndAdoption() {
             >
               <BenchmarkRule
                 value={adoptionSummary.benchmarkMedian}
-                label={`Pensero median: ${adoptionSummary.benchmarkMedian}%`}
+                label={`Proto median: ${adoptionSummary.benchmarkMedian}%`}
               />
             </PercentStackedWeekChart>
             <ChartLegend
@@ -248,7 +248,7 @@ function DeliveryAndAdoption() {
                   color: item.color,
                 })),
                 {
-                  label: `Pensero median: ${adoptionSummary.benchmarkMedian}%`,
+                  label: `Proto median: ${adoptionSummary.benchmarkMedian}%`,
                   color: "var(--ds-gray-alpha-600)",
                   dashed: true,
                 },

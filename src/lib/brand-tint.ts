@@ -27,7 +27,7 @@ export const BRAND_TINT_DEFAULTS: BrandTint = {
   saturation: 25,
 };
 
-export const BRAND_TINT_KEY = "pensero.brand-tint";
+export const BRAND_TINT_KEY = "ds-proto.brand-tint";
 
 export const BRAND_TINT_LIMITS = {
   light: { min: 0, max: 10, step: 0.5 },

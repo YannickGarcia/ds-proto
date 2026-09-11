@@ -80,7 +80,7 @@ export function IntegrationsListing() {
           >
             <code className="text-label-xs-mono">acme-security</code> and{" "}
             <code className="text-label-xs-mono">acme-finance</code> require an
-            administrator to approve the Pensero app before their repositories
+            administrator to approve the Proto app before their repositories
             can be read.
           </Banner>
         ) : null}
@@ -88,7 +88,7 @@ export function IntegrationsListing() {
         {/* Connected ------------------------------------------------------ */}
         <Section
           title="Connected"
-          description={`${CONNECTED.length} integrations are sending data to Pensero.`}
+          description={`${CONNECTED.length} integrations are sending data to Proto.`}
         >
           <div className="flex flex-col gap-6">
             {connectedByCategory.map(({ category, items }) => (
@@ -136,7 +136,7 @@ export function IntegrationsListing() {
         {/* Available ------------------------------------------------------ */}
         <Section
           title="Available"
-          description="Connect more sources to widen what Pensero can measure."
+          description="Connect more sources to widen what Proto can measure."
         >
           <div className="flex flex-col gap-8">
             {availableByCategory.map(({ category, items }) => (

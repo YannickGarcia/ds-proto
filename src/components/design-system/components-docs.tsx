@@ -90,7 +90,7 @@ export function ComponentsDocs() {
     <DocsSection
       id="components"
       title="Components"
-      intro="The primitives every screen is assembled from. Each one resolves entirely to Pensero tokens, so a change to a foundation propagates without touching a component."
+      intro="The primitives every screen is assembled from. Each one resolves entirely to Proto tokens, so a change to a foundation propagates without touching a component."
     >
       {/* ---------------------------------------------------------------- */}
       <DocsEntry
@@ -572,7 +572,7 @@ text   → --ds-{hue}-900`}
               <CollapsibleContent>
                 <p className="pt-2 text-copy-sm text-secondary">
                   Content revealed on demand. The closed state occupies no
-                  height, and the transition runs on the Pensero swift curve.
+                  height, and the transition runs on the swift easing curve.
                 </p>
               </CollapsibleContent>
             </Collapsible>
@@ -1262,7 +1262,7 @@ text   → --ds-{hue}-900`}
               {
                 label: "explanatory",
                 node: (
-                  <Tooltip content="Percentage of active developers with any AI tool usage tracked by Pensero.">
+                  <Tooltip content="Percentage of active developers with any AI tool usage tracked by Proto.">
                     <Button variant="secondary">Hover for detail</Button>
                   </Tooltip>
                 ),
