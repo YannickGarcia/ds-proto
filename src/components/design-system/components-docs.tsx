@@ -37,11 +37,7 @@ import {
   TableHeaderCell,
   TableRow,
 } from "@/components/ui/table";
-import {
-  BUTTON_SIZES,
-  Button,
-  type ButtonSize,
-} from "@/components/ui/button";
+import { BUTTON_SIZES, Button, type ButtonSize } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -65,12 +61,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { SegmentedControl } from "@/components/ui/segmented-control";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
 import { Tooltip } from "@/components/ui/tooltip";
 import {
@@ -1112,9 +1103,7 @@ text   → --ds-{hue}-900`}
                 ].map((row) => (
                   <TableRow key={row[0]} interactive>
                     <TableCell>{row[0]}</TableCell>
-                    <TableCell className="tabular-nums">
-                      {row[1]}
-                    </TableCell>
+                    <TableCell className="tabular-nums">{row[1]}</TableCell>
                     <TableCell className="text-[var(--ds-gray-900)]">
                       {row[2]}
                     </TableCell>
@@ -1128,8 +1117,8 @@ text   → --ds-{hue}-900`}
         <BestPractice
           items={[
             <>
-              Every numeric column takes <Token>tabular-nums</Token>, or
-              the digits will not align down the column.
+              Every numeric column takes <Token>tabular-nums</Token>, or the
+              digits will not align down the column.
             </>,
             <>
               Secondary columns — timestamps, counts — use{" "}
@@ -1157,7 +1146,7 @@ text   → --ds-{hue}-900`}
       <DocsEntry
         id="component-tabs"
         title="Tabs"
-        description="Peer views of the same subject. A hover pill, a sliding 2px underline and a shared hairline underneath."
+        description="Peer views of the same subject. A hover pill, a sliding 2px underline and a shared hairline underneath. Labels stay at weight 400 throughout — the underline and colour carry the active state on their own."
       >
         <DocsBlock label="Example">
           <Example padded={false}>
@@ -1207,6 +1196,12 @@ text   → --ds-{hue}-900`}
             </>,
             <>
               Keep the active indicator neutral. It marks position, not brand.
+            </>,
+            <>
+              Two signals of active is the limit. Tabs already have an underline
+              and a colour shift, so the label keeps weight 400 — adding a third
+              would also reflow the row as the text widens. Sidebar nav items do
+              thicken, because they have no underline.
             </>,
           ]}
         />

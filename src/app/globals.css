@@ -692,7 +692,12 @@
    Type scale — sizes, line heights and tracking match the design system
    ========================================================================== */
 
-@layer utilities {
+/* The type scale sits in `components`, not `utilities`, on purpose. Each
+   class carries a font-weight, and in the same layer that silently beat a
+   Tailwind `font-medium` written beside it — the weight utility simply did
+   nothing. A lower layer lets the role set a default weight that a utility
+   can still override. */
+@layer components {
   .text-heading-72 { font-size: 72px; line-height: 72px; font-weight: 600; letter-spacing: -4.32px; }
   .text-heading-64 { font-size: 64px; line-height: 64px; font-weight: 600; letter-spacing: -3.84px; }
   .text-heading-48 { font-size: 48px; line-height: 56px; font-weight: 600; letter-spacing: -2.88px; }
@@ -731,7 +736,9 @@
     font-weight: 550;
     color: var(--ds-gray-1000);
   }
+}
 
+@layer utilities {
   /* Raised surface: sheen over the fill, a lit top edge, and a short shadow. */
   /* Surfaces are colour only. Each carries the sheen — a very soft vertical
      gradient, no inset highlight, which would read as a second line stacked

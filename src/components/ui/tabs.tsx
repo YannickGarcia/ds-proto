@@ -16,6 +16,12 @@ const TabsStateContext = createContext<TabsState>({ layoutId: "tabs" });
 /**
  * Tabs — text triggers with a hover pill and a sliding 2px underline,
  * riding a single shared bottom hairline.
+ *
+ * Labels stay at weight 400 in every state, including the active one. The
+ * underline and the colour shift already say which tab is current, and a
+ * weight change would be a third signal that also reflows the row as the
+ * label widens. This is the one place the nav's active treatment is not
+ * copied: a nav item has no underline, so there the weight has work to do.
  */
 export function Tabs({
   className,
@@ -83,7 +89,7 @@ export function TabsTrigger({
     >
       <span
         className={cn(
-          "inline-flex h-8 items-center rounded-[var(--radius)] px-2 text-button-14",
+          "inline-flex h-8 items-center rounded-[var(--radius)] px-2 text-label-14",
           "text-[var(--ds-gray-900)] transition-colors duration-150",
           "group-hover:bg-[var(--ds-gray-alpha-200)] group-hover:text-[var(--ds-gray-1000)]",
           "group-data-[state=active]:text-[var(--ds-gray-1000)]",

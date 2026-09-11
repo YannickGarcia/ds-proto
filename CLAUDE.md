@@ -35,6 +35,9 @@ repeatedly fixed.
   component size, a variant, a type step — so a reader can use it without
   consulting a table. The typography roles each name their default step, and
   unstyled text is already the copy default (14px/20/400) via the body.
+- **The type scale lives in `@layer components`**, not `utilities`, because
+  each class carries a font-weight. In the utilities layer it silently beat a
+  `font-medium` written beside it. Keep it there, and keep weight in the role.
 - **Icons** come from `src/components/icons.tsx` only. It is the single
   Phosphor re-export, which is what makes the library swappable.
 - **Borders** are one device pixel: `--border-width` is 0.5px at 2dppx and
