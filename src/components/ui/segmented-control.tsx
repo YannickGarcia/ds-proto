@@ -65,11 +65,11 @@ export function SegmentedControl<T extends string>({
             className={cn(
               "relative inline-flex items-center justify-center gap-1.5 rounded-[4px]",
               "outline-none transition-colors duration-150 focus-visible:shadow-[var(--ds-focus-ring)]",
-              "h-full text-button-14",
+              "h-full text-button-default",
               iconOnly ? "w-8" : "px-3",
               isActive
-                ? "text-[var(--ds-gray-1000)]"
-                : "text-[var(--ds-gray-900)] hover:text-[var(--ds-gray-1000)]",
+                ? "text-primary"
+                : "text-secondary hover:text-primary",
               "[&_svg]:size-3.5 [&_svg]:shrink-0",
             )}
           >

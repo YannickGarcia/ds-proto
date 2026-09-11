@@ -10,7 +10,7 @@ const badgeVariants = cva(
       variant: {
         gray: "border-transparent bg-[var(--ds-gray-1000)] text-[var(--ds-surface-secondary)]",
         "gray-subtle":
-          "border-[var(--ds-gray-alpha-400)] bg-[var(--ds-gray-alpha-100)] text-[var(--ds-gray-900)]",
+          "border-[var(--ds-gray-alpha-400)] bg-[var(--ds-gray-alpha-100)] text-secondary",
         blue: "border-[var(--ds-blue-400)] bg-[var(--ds-blue-200)] text-[var(--ds-blue-900)]",
         purple:
           "border-[var(--ds-purple-400)] bg-[var(--ds-purple-200)] text-[var(--ds-purple-900)]",
@@ -23,7 +23,7 @@ const badgeVariants = cva(
       },
       size: {
         sm: "h-5 px-2 text-[11px] leading-none [&_svg]:size-3",
-        md: "h-6 px-2.5 text-button-12 [&_svg]:size-3.5",
+        md: "h-6 px-2.5 text-button-xs [&_svg]:size-3.5",
       },
     },
     defaultVariants: { variant: "gray-subtle", size: "sm" },

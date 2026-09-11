@@ -87,7 +87,7 @@ export function KpiRow() {
             style={{ ["--i" as string]: index }}
           >
             <div className="mb-2.5 flex min-h-8 items-start justify-between gap-2">
-              <span className="min-w-0 text-[11px] leading-4 font-medium tracking-[0.04em] text-[var(--ds-gray-900)] uppercase">
+              <span className="min-w-0 text-[11px] leading-4 font-medium tracking-[0.04em] text-secondary uppercase">
                 {card.label}
               </span>
               {card.delta ? (
@@ -109,14 +109,14 @@ export function KpiRow() {
 
             <span
               className={cn(
-                "tabular-nums block truncate text-[var(--ds-gray-1000)]",
-                card.value.length > 6 ? "text-heading-20" : "text-heading-32",
+                "tabular-nums block truncate text-primary",
+                card.value.length > 6 ? "text-h3" : "text-h1",
               )}
               title={card.value}
             >
               {card.value}
             </span>
-            <span className="mt-1 block truncate text-copy-13 text-[var(--ds-gray-900)]">
+            <span className="mt-1 block truncate text-copy-sm text-secondary">
               {card.subLabel}
             </span>
           </Card>

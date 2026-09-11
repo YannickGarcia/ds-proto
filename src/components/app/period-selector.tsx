@@ -64,7 +64,7 @@ export function PeriodSelector({
           >
             <span className="flex items-baseline gap-1.5">
               {preset?.label ?? "Previous week"}
-              <span className="tabular-nums text-label-13 text-[var(--ds-gray-900)]">
+              <span className="tabular-nums text-label-sm text-secondary">
                 {range}
               </span>
             </span>
@@ -80,7 +80,7 @@ export function PeriodSelector({
               (item) => (
                 <MenuRadioItem key={item.value} value={item.value}>
                   <span className="flex-1">{item.label}</span>
-                  <span className="tabular-nums text-label-12 text-[var(--ds-gray-900)]">
+                  <span className="tabular-nums text-label-xs text-secondary">
                     {item.range}
                   </span>
                 </MenuRadioItem>
@@ -99,16 +99,16 @@ export function PeriodSelector({
               type="date"
               autoComplete="off"
               defaultValue="2025-08-28"
-              className="text-label-13"
+              className="text-label-sm"
             />
-            <span className="text-label-13 text-[var(--ds-gray-900)]">→</span>
+            <span className="text-label-sm text-secondary">→</span>
             <Input
               aria-label="To date"
               name="period-to"
               type="date"
               autoComplete="off"
               defaultValue="2025-09-06"
-              className="text-label-13"
+              className="text-label-sm"
             />
           </div>
         </MenuContent>

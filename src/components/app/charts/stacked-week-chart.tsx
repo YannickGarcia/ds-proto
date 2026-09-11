@@ -160,7 +160,7 @@ export function BenchmarkRule({
         style={{ bottom: `${(value / PERCENT_DOMAIN_MAX) * 100}%` }}
       >
         <span className="h-0 flex-1 border-t border-dashed border-[var(--ds-gray-alpha-600)]" />
-        <span className="ml-2 rounded-[4px] bg-[var(--ds-surface-secondary)] px-1.5 py-0.5 text-[11px] leading-4 text-[var(--ds-gray-900)]">
+        <span className="ml-2 rounded-[4px] bg-[var(--ds-surface-secondary)] px-1.5 py-0.5 text-[11px] leading-4 text-secondary">
           {label}
         </span>
       </div>

@@ -18,7 +18,7 @@ export function Breadcrumb({
 }) {
   return (
     <nav aria-label="Breadcrumb" className={cn("min-w-0", className)}>
-      <ol className="flex flex-wrap items-center gap-1 text-label-13">
+      <ol className="flex flex-wrap items-center gap-1 text-label-sm">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
@@ -27,8 +27,8 @@ export function Breadcrumb({
                 <Link
                   href={item.href}
                   className={cn(
-                    "truncate rounded-[4px] px-1 py-0.5 text-[var(--ds-gray-900)] outline-none",
-                    "transition-colors duration-100 hover:text-[var(--ds-gray-1000)]",
+                    "truncate rounded-[4px] px-1 py-0.5 text-secondary outline-none",
+                    "transition-colors duration-100 hover:text-primary",
                     "focus-visible:shadow-[var(--ds-focus-ring)]",
                   )}
                 >
@@ -40,8 +40,8 @@ export function Breadcrumb({
                   className={cn(
                     "truncate px-1 py-0.5",
                     isLast
-                      ? "text-[var(--ds-gray-1000)]"
-                      : "text-[var(--ds-gray-900)]",
+                      ? "text-primary"
+                      : "text-secondary",
                   )}
                 >
                   {item.label}
@@ -50,7 +50,7 @@ export function Breadcrumb({
               {isLast ? null : (
                 <CaretRight
                   aria-hidden="true"
-                  className="size-3 shrink-0 text-[var(--ds-gray-700)]"
+                  className="size-3 shrink-0 text-tertiary"
                 />
               )}
             </li>

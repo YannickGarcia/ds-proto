@@ -23,12 +23,12 @@ export function SelectTrigger({
       className={cn(
         "inline-flex shrink-0 items-center justify-between gap-1.5 rounded-[var(--radius)]",
         "border border-[var(--ds-gray-alpha-400)] bg-[var(--ds-surface-secondary)]",
-        "text-[var(--ds-gray-1000)] outline-none",
-        "h-8 px-3 text-button-14",
+        "text-primary outline-none",
+        "h-8 px-3 text-button-default",
         "transition-[background-color,border-color] duration-150",
         "hover:border-[var(--ds-gray-alpha-500)] hover:bg-[var(--ds-gray-alpha-100)]",
         "focus-visible:shadow-[var(--ds-focus-ring)]",
-        "data-[placeholder]:text-[var(--ds-gray-900)]",
+        "data-[placeholder]:text-secondary",
         className,
       )}
       {...props}
@@ -37,7 +37,7 @@ export function SelectTrigger({
       <SelectPrimitive.Icon asChild>
         <CaretDown
           aria-hidden="true"
-          className="size-3.5 shrink-0 text-[var(--ds-gray-700)]"
+          className="size-3.5 shrink-0 text-tertiary"
         />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
@@ -78,7 +78,7 @@ export function SelectItem({
     <SelectPrimitive.Item
       className={cn(
         "relative flex h-8 cursor-default items-center rounded-[var(--radius)] py-0 pr-2 pl-7",
-        "text-label-14 text-[var(--ds-gray-1000)] outline-none transition-colors duration-100",
+        "text-label-default text-primary outline-none transition-colors duration-100",
         "data-[highlighted]:bg-[var(--ds-gray-alpha-200)]",
         className,
       )}

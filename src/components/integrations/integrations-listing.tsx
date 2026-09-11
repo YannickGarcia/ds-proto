@@ -78,8 +78,8 @@ export function IntegrationsListing() {
               </Button>
             }
           >
-            <code className="text-mono-12">acme-security</code> and{" "}
-            <code className="text-mono-12">acme-finance</code> require an
+            <code className="text-label-xs-mono">acme-security</code> and{" "}
+            <code className="text-label-xs-mono">acme-finance</code> require an
             administrator to approve the Pensero app before their repositories
             can be read.
           </Banner>
@@ -93,7 +93,7 @@ export function IntegrationsListing() {
           <div className="flex flex-col gap-6">
             {connectedByCategory.map(({ category, items }) => (
               <div key={category.id}>
-                <h3 className="mb-2 text-[11px] leading-4 font-medium tracking-[0.04em] text-[var(--ds-gray-700)] uppercase">
+                <h3 className="mb-2 text-[11px] leading-4 font-medium tracking-[0.04em] text-tertiary uppercase">
                   {category.label}
                 </h3>
                 <Card className="divide-y divide-[var(--border-subtle)] overflow-hidden">
@@ -105,7 +105,7 @@ export function IntegrationsListing() {
                       <ProviderIcon provider={item.id} />
                       <Link
                         href={item.href}
-                        className="truncate text-label-14 font-medium text-[var(--ds-gray-1000)] underline-offset-2 outline-none hover:underline focus-visible:shadow-[var(--ds-focus-ring)]"
+                        className="truncate text-label-default font-medium text-primary underline-offset-2 outline-none hover:underline focus-visible:shadow-[var(--ds-focus-ring)]"
                       >
                         {item.name}
                       </Link>
@@ -167,10 +167,10 @@ function AvailableCategory({
 }) {
   return (
     <div>
-      <h3 className="text-label-14 font-medium text-[var(--ds-gray-1000)]">
+      <h3 className="text-label-default font-medium text-primary">
         {label}
       </h3>
-      <p className="mt-1 max-w-[76ch] text-copy-13 text-pretty text-[var(--ds-gray-900)]">
+      <p className="mt-1 max-w-[76ch] text-copy-sm text-pretty text-secondary">
         {blurb}
       </p>
       <div className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -180,7 +180,7 @@ function AvailableCategory({
               <ProviderIcon provider={item.id} />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="truncate text-label-14 font-medium text-[var(--ds-gray-1000)]">
+                  <span className="truncate text-label-default font-medium text-primary">
                     {item.name}
                   </span>
                   {item.enterpriseOnly ? (
@@ -189,7 +189,7 @@ function AvailableCategory({
                     </Tooltip>
                   ) : null}
                 </div>
-                <p className="mt-1 text-copy-13 text-pretty text-[var(--ds-gray-900)]">
+                <p className="mt-1 text-copy-sm text-pretty text-secondary">
                   {item.blurb}
                 </p>
               </div>
@@ -223,7 +223,7 @@ function ConnectAction({ item }: { item: (typeof AVAILABLE)[number] }) {
     return (
       <button
         type="button"
-        className="inline-flex h-8 items-center gap-2 rounded-[var(--radius)] bg-[#6264A7] px-3 text-button-14 text-white outline-none transition-opacity hover:opacity-90 focus-visible:shadow-[var(--ds-focus-ring)]"
+        className="inline-flex h-8 items-center gap-2 rounded-[var(--radius)] bg-[#6264A7] px-3 text-button-default text-white outline-none transition-opacity hover:opacity-90 focus-visible:shadow-[var(--ds-focus-ring)]"
       >
         <ProviderIcon provider="microsoft-teams" size="sm" className="ring-0" />
         Add to Teams

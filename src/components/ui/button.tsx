@@ -15,14 +15,14 @@ import { cn } from "@/lib/utils";
  */
 export const BUTTON_SIZES = {
   default: {
-    className: "h-8 px-3 text-button-14",
+    className: "h-8 px-3 text-button-default",
     height: 32,
     label: 14,
     weight: 500,
     icon: 16,
   },
   small: {
-    className: "h-7 px-2.5 text-label-14",
+    className: "h-7 px-2.5 text-label-default",
     height: 28,
     label: 14,
     weight: 400,
@@ -43,7 +43,7 @@ const buttonVariants = cva(
     "transition-[background-color,border-color,color,box-shadow,opacity] duration-150 ease-out",
     "outline-none focus-visible:shadow-[var(--ds-focus-ring)]",
     "disabled:cursor-not-allowed disabled:border-[var(--ds-gray-alpha-400)]",
-    "disabled:bg-[var(--ds-gray-100)] disabled:text-[var(--ds-gray-700)] disabled:shadow-none",
+    "disabled:bg-[var(--ds-gray-100)] disabled:text-disabled disabled:shadow-none",
     "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:size-[var(--icon-size)]",
   ],
   {
@@ -52,11 +52,11 @@ const buttonVariants = cva(
         primary:
           "bg-[var(--ds-gray-1000)] text-[var(--ds-surface-secondary)] hover:bg-[var(--ds-gray-900)]",
         secondary: [
-          "border-[var(--ds-gray-alpha-400)] bg-[var(--ds-surface-secondary)] text-[var(--ds-gray-1000)]",
+          "border-[var(--ds-gray-alpha-400)] bg-[var(--ds-surface-secondary)] text-primary",
           "hover:border-[var(--ds-gray-alpha-500)] hover:bg-[var(--ds-gray-alpha-100)]",
         ],
         tertiary:
-          "bg-transparent text-[var(--ds-gray-900)] hover:bg-[var(--ds-gray-alpha-200)] hover:text-[var(--ds-gray-1000)]",
+          "bg-transparent text-secondary hover:bg-[var(--ds-gray-alpha-200)] hover:text-primary",
         // Same inversion trick as primary: the 800 fill is dark in the light
         // theme and light in the dark one, and --ds-surface-secondary flips with
         // it, so the label keeps its contrast either way.

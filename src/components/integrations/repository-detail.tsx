@@ -115,11 +115,11 @@ export function RepositoryDetail({
           href={`https://github.com/${owner}/${repo}`}
           className="inline-flex items-center gap-1.5 rounded-[4px] outline-none hover:underline focus-visible:shadow-[var(--ds-focus-ring)]"
         >
-          <span className="text-[var(--ds-gray-900)]">{owner}/</span>
+          <span className="text-secondary">{owner}/</span>
           {repo}
           <ArrowSquareOut
             aria-hidden="true"
-            className="size-4 text-[var(--ds-gray-700)]"
+            className="size-4 text-tertiary"
           />
         </a>
       }
@@ -156,15 +156,15 @@ export function RepositoryDetail({
       meta={
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <RepoSwitcher current={`${owner}/${repo}`} />
-          <span className="text-label-13 text-[var(--ds-gray-900)]">
+          <span className="text-label-sm text-secondary">
             Last synced 2 hours ago
           </span>
-          <span className="inline-flex items-center gap-1.5 text-label-13 text-[var(--ds-gray-900)]">
+          <span className="inline-flex items-center gap-1.5 text-label-sm text-secondary">
             <GitBranch aria-hidden="true" className="size-3.5" />
             main
           </span>
           <Tooltip content="Pull requests opened before the repository was connected are backfilled over the following days.">
-            <span className="inline-flex items-center gap-1.5 text-label-13 text-[var(--ds-gray-900)]">
+            <span className="inline-flex items-center gap-1.5 text-label-sm text-secondary">
               <Info aria-hidden="true" className="size-3.5" />
               Backfill in progress
             </span>
@@ -176,7 +176,7 @@ export function RepositoryDetail({
         <HealthPanel scope={`${owner}/${repo}`} status="ok" />
 
         <StaffOnly>
-          <h2 className="text-heading-14 text-[var(--ds-gray-1000)]">
+          <h2 className="text-h5 text-primary">
             Fetch diagnostics
           </h2>
           <dl className="mt-3 grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
@@ -191,8 +191,8 @@ export function RepositoryDetail({
               ["Payload", "4.1 MB"],
             ].map(([label, value]) => (
               <div key={label}>
-                <dt className="text-label-12 text-[var(--ds-gray-900)]">{label}</dt>
-                <dd className="text-mono-13 text-[var(--ds-gray-1000)]">{value}</dd>
+                <dt className="text-label-xs text-secondary">{label}</dt>
+                <dd className="text-copy-sm-mono text-primary">{value}</dd>
               </div>
             ))}
           </dl>
@@ -206,18 +206,18 @@ export function RepositoryDetail({
                 className="animate-enter gap-0 px-4 py-4"
                 style={{ ["--i" as string]: index }}
               >
-                <span className="text-[11px] leading-4 font-medium tracking-[0.04em] text-[var(--ds-gray-900)] uppercase">
+                <span className="text-[11px] leading-4 font-medium tracking-[0.04em] text-secondary uppercase">
                   {stat.label}
                 </span>
                 <div className="mt-2.5 flex items-baseline gap-2">
-                  <span className="tabular-nums text-heading-32 text-[var(--ds-gray-1000)]">
+                  <span className="tabular-nums text-h1 text-primary">
                     {stat.value}
                   </span>
                   <Badge variant={stat.favourable ? "green" : "amber"}>
                     {stat.delta}
                   </Badge>
                 </div>
-                <span className="mt-1 text-copy-13 text-[var(--ds-gray-900)]">
+                <span className="mt-1 text-copy-sm text-secondary">
                   vs the previous week
                 </span>
               </Card>
@@ -333,26 +333,26 @@ export function RepositoryDetail({
                               className="block truncate rounded-[4px] outline-none hover:underline focus-visible:shadow-[var(--ds-focus-ring)]"
                             >
                               {pr.title}{" "}
-                              <span className="text-[var(--ds-gray-900)]">
+                              <span className="text-secondary">
                                 #{pr.id}
                               </span>
                             </Link>
                           </TableCell>
-                          <TableCell className="whitespace-nowrap text-[var(--ds-gray-900)]">
-                            <span className="text-mono-12">{pr.source}</span>
+                          <TableCell className="whitespace-nowrap text-secondary">
+                            <span className="text-label-xs-mono">{pr.source}</span>
                             <span className="px-1">→</span>
-                            <span className="text-mono-12">{pr.target}</span>
+                            <span className="text-label-xs-mono">{pr.target}</span>
                           </TableCell>
-                          <TableCell className="whitespace-nowrap text-[var(--ds-gray-900)]">
+                          <TableCell className="whitespace-nowrap text-secondary">
                             {pr.createdAt}
                           </TableCell>
-                          <TableCell className="whitespace-nowrap text-[var(--ds-gray-900)]">
+                          <TableCell className="whitespace-nowrap text-secondary">
                             {pr.updatedAt}
                           </TableCell>
-                          <TableCell className="whitespace-nowrap text-[var(--ds-gray-900)]">
+                          <TableCell className="whitespace-nowrap text-secondary">
                             {pr.resolvedAt ?? "—"}
                           </TableCell>
-                          <TableCell className="whitespace-nowrap text-[var(--ds-gray-900)]">
+                          <TableCell className="whitespace-nowrap text-secondary">
                             {pr.downloadedAt}
                           </TableCell>
                         </TableRow>

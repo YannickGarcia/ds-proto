@@ -50,7 +50,7 @@ export function QuadrantScatter({ people }: { people: Person[] }) {
   return (
     <div className="flex gap-3">
       <div className="flex w-6 shrink-0 items-center justify-center">
-        <span className="text-label-12 whitespace-nowrap text-[var(--ds-gray-900)] [writing-mode:vertical-rl] rotate-180">
+        <span className="text-label-xs whitespace-nowrap text-secondary [writing-mode:vertical-rl] rotate-180">
           Cost efficiency ($/pt)
         </span>
       </div>
@@ -97,7 +97,7 @@ export function QuadrantScatter({ people }: { people: Person[] }) {
                   ? "text-[var(--ds-green-900)]"
                   : quadrant.unfavourable
                     ? "text-[var(--ds-red-900)]"
-                    : "text-[var(--ds-gray-900)]",
+                    : "text-secondary",
               )}
             >
               {quadrant.label}
@@ -162,28 +162,28 @@ export function QuadrantScatter({ people }: { people: Person[] }) {
                   })`,
                 }}
               >
-                <p className="mb-1 text-label-13 font-medium text-[var(--ds-gray-1000)]">
+                <p className="mb-1 text-label-sm font-medium text-primary">
                   {person.name}
                 </p>
-                <p className="text-label-12 text-[var(--ds-gray-900)]">
+                <p className="text-label-xs text-secondary">
                   {person.position} · {person.team} · {person.level}
                 </p>
-                <dl className="mt-1.5 flex flex-col gap-0.5 text-label-12">
+                <dl className="mt-1.5 flex flex-col gap-0.5 text-label-xs">
                   <div className="flex justify-between gap-2">
-                    <dt className="text-[var(--ds-gray-900)]">Delivery</dt>
-                    <dd className="tabular-nums text-[var(--ds-gray-1000)]">
+                    <dt className="text-secondary">Delivery</dt>
+                    <dd className="tabular-nums text-primary">
                       {points(person.deliveryPoints)} pts · {pct(person.delivery)}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-2">
-                    <dt className="text-[var(--ds-gray-900)]">Cost / point</dt>
-                    <dd className="tabular-nums text-[var(--ds-gray-1000)]">
+                    <dt className="text-secondary">Cost / point</dt>
+                    <dd className="tabular-nums text-primary">
                       {usd(person.costPerPoint, 2)}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-2">
-                    <dt className="text-[var(--ds-gray-900)]">AI spend</dt>
-                    <dd className="tabular-nums text-[var(--ds-gray-1000)]">
+                    <dt className="text-secondary">AI spend</dt>
+                    <dd className="tabular-nums text-primary">
                       {usd(person.spend, 2)}
                     </dd>
                   </div>
@@ -193,13 +193,13 @@ export function QuadrantScatter({ people }: { people: Person[] }) {
           })}
 
           {people.length === 0 ? (
-            <p className="absolute inset-0 flex items-center justify-center text-copy-13 text-[var(--ds-gray-900)]">
+            <p className="absolute inset-0 flex items-center justify-center text-copy-sm text-secondary">
               Nobody matches these filters in this period
             </p>
           ) : null}
         </div>
 
-        <div className="mt-2 flex items-center justify-between text-label-12 text-[var(--ds-gray-900)]">
+        <div className="mt-2 flex items-center justify-between text-label-xs text-secondary">
           <span className="tabular-nums">0%</span>
           <span>Delivery</span>
           <span className="tabular-nums">100%</span>

@@ -40,7 +40,7 @@ export function Input({
       )}
     >
       {prefix ? (
-        <span className="inline-flex shrink-0 items-center text-[var(--ds-gray-700)] [&_svg]:size-4">
+        <span className="inline-flex shrink-0 items-center text-tertiary [&_svg]:size-4">
           {prefix}
         </span>
       ) : null}
@@ -50,15 +50,15 @@ export function Input({
         // fallback ring would paint a second, accent-coloured ring inside it.
         data-focus-managed=""
         className={cn(
-          "w-full min-w-0 bg-transparent text-label-14 text-[var(--ds-gray-1000)]",
-          "outline-none placeholder:text-[var(--ds-gray-700)]",
-          "disabled:cursor-not-allowed disabled:text-[var(--ds-gray-700)]",
+          "w-full min-w-0 bg-transparent text-label-default text-primary",
+          "outline-none placeholder:text-tertiary",
+          "disabled:cursor-not-allowed disabled:text-disabled",
           className,
         )}
         {...props}
       />
       {suffix ? (
-        <span className="inline-flex shrink-0 items-center text-[var(--ds-gray-700)] [&_svg]:size-4">
+        <span className="inline-flex shrink-0 items-center text-tertiary [&_svg]:size-4">
           {suffix}
         </span>
       ) : null}

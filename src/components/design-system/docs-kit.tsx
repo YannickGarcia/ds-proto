@@ -24,9 +24,9 @@ export function DocsSection({
 }) {
   return (
     <section id={id} className="scroll-mt-28 border-t border-[var(--border-structural)] pt-10 first:border-t-0 first:pt-0">
-      <h2 className="text-heading-24 text-[var(--ds-gray-1000)]">{title}</h2>
+      <h2 className="text-h2 text-primary">{title}</h2>
       {intro ? (
-        <p className="mt-2 max-w-[68ch] text-copy-14 text-pretty text-[var(--ds-gray-900)]">
+        <p className="mt-2 max-w-[68ch] text-copy-default text-pretty text-secondary">
           {intro}
         </p>
       ) : null}
@@ -48,8 +48,8 @@ export function DocsEntry({
 }) {
   return (
     <article id={id} className="scroll-mt-28">
-      <h3 className="text-heading-20 text-[var(--ds-gray-1000)]">{title}</h3>
-      <p className="mt-1.5 max-w-[68ch] text-copy-14 text-pretty text-[var(--ds-gray-900)]">
+      <h3 className="text-h3 text-primary">{title}</h3>
+      <p className="mt-1.5 max-w-[68ch] text-copy-default text-pretty text-secondary">
         {description}
       </p>
       <div className="mt-5 flex flex-col gap-5">{children}</div>
@@ -69,12 +69,12 @@ export function DocsBlock({
   return (
     <div className="flex flex-col gap-2">
       {label ? (
-        <h4 className="text-label-13 font-medium text-[var(--ds-gray-1000)]">
+        <h4 className="text-label-sm font-medium text-primary">
           {label}
         </h4>
       ) : null}
       {hint ? (
-        <p className="max-w-[68ch] text-copy-13 text-pretty text-[var(--ds-gray-900)]">
+        <p className="max-w-[68ch] text-copy-sm text-pretty text-secondary">
           {hint}
         </p>
       ) : null}
@@ -124,7 +124,7 @@ export function Specimens({
         {items.map((item) => (
           <div key={item.label} className="flex flex-col items-start gap-2">
             <div className="flex min-h-9 items-center">{item.node}</div>
-            <span className="text-mono-12 text-[var(--ds-gray-900)]">
+            <span className="text-label-xs-mono text-secondary">
               {item.label}
             </span>
           </div>
@@ -141,7 +141,7 @@ export function Specimens({
 export function Snippet({ code }: { code: string }) {
   return (
     <pre className="no-scrollbar overflow-x-auto rounded-xl border border-[var(--border-subtle)] bg-[var(--ds-surface-primary)] p-4">
-      <code className="text-mono-13 text-[var(--ds-gray-1000)]">
+      <code className="text-copy-sm-mono text-primary">
         {code.trim()}
       </code>
     </pre>
@@ -168,7 +168,7 @@ export function DocsTable({
               <th
                 key={cell}
                 scope="col"
-                className="border-b border-[var(--border-subtle)] px-4 py-2.5 text-label-12 font-medium whitespace-nowrap text-[var(--ds-gray-900)]"
+                className="border-b border-[var(--border-subtle)] px-4 py-2.5 text-label-xs font-medium whitespace-nowrap text-secondary"
               >
                 {cell}
               </th>
@@ -186,7 +186,7 @@ export function DocsTable({
                 <td
                   // biome-ignore lint/suspicious/noArrayIndexKey: static doc cells
                   key={cellIndex}
-                  className="px-4 py-2.5 align-top text-label-13 text-[var(--ds-gray-1000)]"
+                  className="px-4 py-2.5 align-top text-label-sm text-primary"
                 >
                   {cell}
                 </td>
@@ -201,7 +201,7 @@ export function DocsTable({
 
 export function Token({ children }: { children: ReactNode }) {
   return (
-    <code className="rounded-[4px] bg-[var(--ds-gray-alpha-100)] px-1.5 py-0.5 text-mono-12 text-[var(--ds-gray-1000)]">
+    <code className="rounded-[4px] bg-[var(--ds-gray-alpha-100)] px-1.5 py-0.5 text-label-xs-mono text-primary">
       {children}
     </code>
   );
@@ -214,7 +214,7 @@ export function Token({ children }: { children: ReactNode }) {
 export function BestPractice({ items }: { items: ReactNode[] }) {
   return (
     <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--ds-surface-primary)] p-5">
-      <h4 className="text-label-13 font-medium text-[var(--ds-gray-1000)]">
+      <h4 className="text-label-sm font-medium text-primary">
         Best practice
       </h4>
       <ul className="mt-2.5 flex list-none flex-col gap-2">
@@ -222,7 +222,7 @@ export function BestPractice({ items }: { items: ReactNode[] }) {
           <li
             // biome-ignore lint/suspicious/noArrayIndexKey: static doc list
             key={index}
-            className="flex gap-2.5 text-copy-13 text-pretty text-[var(--ds-gray-900)]"
+            className="flex gap-2.5 text-copy-sm text-pretty text-secondary"
           >
             <span
               aria-hidden="true"
@@ -253,7 +253,7 @@ export function DoDont({
       <div className="rounded-xl border border-[var(--border-subtle)] p-4">
         <h5
           className={cn(
-            "flex items-center gap-1.5 text-label-13 font-medium",
+            "flex items-center gap-1.5 text-label-sm font-medium",
             kind === "do"
               ? "text-[var(--ds-green-900)]"
               : "text-[var(--ds-red-900)]",
@@ -267,7 +267,7 @@ export function DoDont({
             <li
               // biome-ignore lint/suspicious/noArrayIndexKey: static doc list
               key={index}
-              className="text-copy-13 text-pretty text-[var(--ds-gray-900)]"
+              className="text-copy-sm text-pretty text-secondary"
             >
               {item}
             </li>

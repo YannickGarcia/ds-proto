@@ -144,12 +144,12 @@ export function DailyCostHeatmap({
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
-        <span className="text-label-12 text-[var(--ds-gray-900)]">AI cost</span>
+        <span className="text-label-xs text-secondary">AI cost</span>
         <ul className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
           {HEAT_BUCKETS.map((bucket) => (
             <li
               key={bucket.label}
-              className="flex items-center gap-1.5 text-label-12 text-[var(--ds-gray-900)]"
+              className="flex items-center gap-1.5 text-label-xs text-secondary"
             >
               <span
                 className="size-2.5 shrink-0 rounded-[3px] ring-1 ring-[var(--ds-gray-alpha-400)] ring-inset"

@@ -34,7 +34,7 @@ export function Tooltip({
           className={cn(
             "z-50 max-w-[320px] rounded-[var(--radius)] px-2.5 py-2",
             "surface-tertiary elevated border border-[var(--border-subtle)]",
-            "text-copy-13 text-[var(--ds-gray-1000)]",
+            "text-copy-sm text-primary",
             "data-[state=delayed-open]:animate-fade-in",
             className,
           )}

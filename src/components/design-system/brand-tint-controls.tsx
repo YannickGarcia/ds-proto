@@ -62,11 +62,11 @@ export function BrandTintControls() {
             <div className="flex items-baseline justify-between gap-4">
               <label
                 htmlFor={`tint-${dial.key}`}
-                className="text-label-13 font-medium text-[var(--ds-gray-1000)]"
+                className="text-label-sm font-medium text-primary"
               >
                 {dial.label}
               </label>
-              <span className="tabular-nums text-mono-12 text-[var(--ds-gray-900)]">
+              <span className="tabular-nums text-label-xs-mono text-secondary">
                 {dial.variable}: {tint[dial.key]}%
               </span>
             </div>
@@ -85,7 +85,7 @@ export function BrandTintControls() {
               }
               className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-[var(--ds-gray-alpha-400)] accent-[var(--ds-gray-1000)] outline-none [&::-webkit-slider-thumb]:size-3.5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[var(--ds-gray-1000)] [&::-webkit-slider-thumb]:shadow-[var(--ds-shadow-small)]"
             />
-            <p className="text-copy-12 text-[var(--ds-gray-900)]">
+            <p className="text-copy-xs text-secondary">
               {dial.hint}
             </p>
           </div>
@@ -102,7 +102,7 @@ export function BrandTintControls() {
         >
           Reset
         </Button>
-        <span className="ml-auto text-copy-12 text-[var(--ds-gray-900)]">
+        <span className="ml-auto text-copy-xs text-secondary">
           {isDefault
             ? "Matching globals.css"
             : "Preview only — stored in this browser"}
@@ -149,7 +149,7 @@ export function BrandTintSnippet() {
   const tint = useBrandTint();
   return (
     <pre className="no-scrollbar overflow-x-auto rounded-xl border border-[var(--border-subtle)] bg-[var(--ds-surface-primary)] p-4">
-      <code className="text-mono-13 text-[var(--ds-gray-1000)]">
+      <code className="text-copy-sm-mono text-primary">
         {`:root {
   --brand: #16db65;         /* full strength — brand marks only */
   --tint-light: ${`${tint.light}%;`.padEnd(12)}/* amount, light theme */

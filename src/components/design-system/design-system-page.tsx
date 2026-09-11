@@ -15,14 +15,14 @@ export function DesignSystemPage() {
       <div className="min-w-0 flex-1">
         <PageHeader>
           <div className="flex flex-wrap items-center justify-between gap-3 pt-5 pb-4">
-            <h1 className="flex items-center gap-2 text-heading-24 text-[var(--ds-gray-1000)]">
+            <h1 className="flex items-center gap-2 text-h2 text-primary">
               <Shapes
                 aria-hidden="true"
-                className="size-5 text-[var(--ds-gray-900)]"
+                className="size-5 text-secondary"
               />
               Design system
             </h1>
-            <p className="text-copy-13 text-[var(--ds-gray-900)]">
+            <p className="text-copy-sm text-secondary">
               Foundations, components and patterns
             </p>
           </div>

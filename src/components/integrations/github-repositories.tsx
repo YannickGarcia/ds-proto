@@ -258,7 +258,7 @@ export function GithubRepositories() {
                 key={inst.id}
                 className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3"
               >
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-[7px] bg-[var(--ds-gray-alpha-100)] text-[var(--ds-gray-900)]">
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-[7px] bg-[var(--ds-gray-alpha-100)] text-secondary">
                   {inst.kind === "cloud" ? (
                     <Cloud aria-hidden="true" className="size-4" />
                   ) : (
@@ -266,10 +266,10 @@ export function GithubRepositories() {
                   )}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-label-14 font-medium text-[var(--ds-gray-1000)]">
+                  <p className="text-label-default font-medium text-primary">
                     {inst.label}
                   </p>
-                  <p className="mt-0.5 truncate text-mono-12 text-[var(--ds-gray-900)]">
+                  <p className="mt-0.5 truncate text-label-xs-mono text-secondary">
                     {inst.urls.internal
                       ? `${inst.urls.internal} · ${inst.urls.public}`
                       : inst.urls.public}
@@ -453,7 +453,7 @@ function FilterGroup({
 }) {
   return (
     <span className="flex items-center gap-1.5">
-      <span className="text-label-12 text-[var(--ds-gray-900)]">{label}</span>
+      <span className="text-label-xs text-secondary">{label}</span>
       {children}
     </span>
   );
@@ -507,15 +507,15 @@ function InstanceGroup({
             {kind === "cloud" ? (
               <Cloud
                 aria-hidden="true"
-                className="size-4 text-[var(--ds-gray-900)]"
+                className="size-4 text-secondary"
               />
             ) : (
               <HardDrives
                 aria-hidden="true"
-                className="size-4 text-[var(--ds-gray-900)]"
+                className="size-4 text-secondary"
               />
             )}
-            <span className="text-label-13 font-medium text-[var(--ds-gray-1000)]">
+            <span className="text-label-sm font-medium text-primary">
               {label}
             </span>
             {mounted ? (
@@ -554,21 +554,21 @@ function InstanceGroup({
                   <CaretRight
                     aria-hidden="true"
                     className={cn(
-                      "size-3 text-[var(--ds-gray-700)] transition-transform duration-150",
+                      "size-3 text-tertiary transition-transform duration-150",
                       isOpen && "rotate-90",
                     )}
                   />
                   <span className="font-medium">{owner}</span>
-                  <span className="text-label-12 text-[var(--ds-gray-900)]">
+                  <span className="text-label-xs text-secondary">
                     {repos.length} repos
                   </span>
                 </button>
               </TableCell>
-              <TableCell className="tabular-nums text-[var(--ds-gray-900)]">
+              <TableCell className="tabular-nums text-secondary">
                 {downloaded} / {total}
               </TableCell>
               <TableCell colSpan={3} />
-              <TableCell className="tabular-nums text-[var(--ds-gray-900)]">
+              <TableCell className="tabular-nums text-secondary">
                 {active} / {repos.length}
               </TableCell>
               <TableCell />
@@ -610,7 +610,7 @@ function RepoRow({
           href={`/integrations/github/${repo.owner}/${repo.name}`}
           className="rounded-[4px] outline-none hover:underline focus-visible:shadow-[var(--ds-focus-ring)]"
         >
-          <span className="text-[var(--ds-gray-900)]">{repo.owner}/</span>
+          <span className="text-secondary">{repo.owner}/</span>
           <span className="font-medium">{repo.name}</span>
         </Link>
       </TableCell>
@@ -623,15 +623,15 @@ function RepoRow({
           </span>
         </Tooltip>
       </TableCell>
-      <TableCell className="tabular-nums whitespace-nowrap text-[var(--ds-gray-900)]">
+      <TableCell className="tabular-nums whitespace-nowrap text-secondary">
         <Tooltip content="Pull requests are complete up to this point. Times are shown in your local zone.">
           <span>{repo.syncedUntil}</span>
         </Tooltip>
       </TableCell>
-      <TableCell className="whitespace-nowrap text-[var(--ds-gray-900)]">
+      <TableCell className="whitespace-nowrap text-secondary">
         {repo.lastFetch}
       </TableCell>
-      <TableCell className="whitespace-nowrap text-[var(--ds-gray-900)]">
+      <TableCell className="whitespace-nowrap text-secondary">
         {repo.lastCommit ?? "No commit yet"}
       </TableCell>
       <TableCell>
@@ -646,7 +646,7 @@ function RepoRow({
             <Tooltip content={repo.autoSyncNote}>
               <Info
                 aria-hidden="true"
-                className="size-3.5 shrink-0 text-[var(--ds-gray-700)]"
+                className="size-3.5 shrink-0 text-tertiary"
               />
             </Tooltip>
           ) : null}
@@ -655,7 +655,7 @@ function RepoRow({
       <TableCell>
         {repo.stale ? (
           <StaffOnly inline>
-            <span className="text-label-12">Stale</span>
+            <span className="text-label-xs">Stale</span>
           </StaffOnly>
         ) : null}
       </TableCell>
@@ -668,7 +668,7 @@ function RepoRow({
                 className="size-3.5 shrink-0"
                 weight="fill"
               />
-              <span className="truncate text-label-12">{repo.warning}</span>
+              <span className="truncate text-label-xs">{repo.warning}</span>
             </span>
           </Tooltip>
         ) : null}

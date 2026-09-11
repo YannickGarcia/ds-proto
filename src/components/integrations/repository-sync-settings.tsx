@@ -54,10 +54,10 @@ export function RepositorySyncSettings() {
         <Card>
           <div className="flex flex-wrap items-start justify-between gap-4 p-5">
             <div className="min-w-0 max-w-[62ch]">
-              <h2 className="text-heading-14 text-[var(--ds-gray-1000)]">
+              <h2 className="text-h5 text-primary">
                 Automatically connect repositories
               </h2>
-              <p className="mt-1 text-copy-13 text-pretty text-[var(--ds-gray-900)]">
+              <p className="mt-1 text-copy-sm text-pretty text-secondary">
                 New repositories found on a connected provider start syncing on
                 their own. Turn this off if you would rather add each
                 repository yourself.
@@ -100,7 +100,7 @@ export function RepositorySyncSettings() {
                     key={pattern}
                     className="flex items-center justify-between gap-3 px-4 py-2.5"
                   >
-                    <code className="truncate text-mono-13 text-[var(--ds-gray-1000)]">
+                    <code className="truncate text-copy-sm-mono text-primary">
                       {pattern}
                     </code>
                     <Button
@@ -158,7 +158,7 @@ export function RepositorySyncSettings() {
               {error ? (
                 <p
                   role="alert"
-                  className="mt-2 flex items-start gap-1.5 text-label-12 text-[var(--ds-red-900)]"
+                  className="mt-2 flex items-start gap-1.5 text-label-xs text-[var(--ds-red-900)]"
                 >
                   <X aria-hidden="true" className="mt-px size-3.5 shrink-0" />
                   {error}
@@ -166,16 +166,16 @@ export function RepositorySyncSettings() {
               ) : (
                 <p
                   id="pattern-hint"
-                  className="mt-2 text-label-12 text-[var(--ds-gray-900)]"
+                  className="mt-2 text-label-xs text-secondary"
                 >
                   A repository path, optionally ending in a single{" "}
-                  <code className="text-mono-12">*</code>. Wildcards match the
+                  <code className="text-label-xs-mono">*</code>. Wildcards match the
                   rest of the path and cannot appear in the middle.
                 </p>
               )}
 
               {checked !== null ? (
-                <p className="mt-3 flex items-center gap-2 text-label-13 text-[var(--ds-gray-1000)]">
+                <p className="mt-3 flex items-center gap-2 text-label-sm text-primary">
                   <CheckCircle
                     aria-hidden="true"
                     className="size-4 shrink-0 text-[var(--ds-green-900)]"

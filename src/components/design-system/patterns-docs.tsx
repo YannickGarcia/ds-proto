@@ -34,7 +34,7 @@ export function PatternsDocs() {
           <div className="grid max-w-[560px] grid-cols-2 gap-4">
             <Card className="gap-0 px-4 py-4">
               <div className="mb-2.5 flex min-h-8 items-start justify-between gap-2">
-                <span className="min-w-0 text-[11px] leading-4 font-medium tracking-[0.04em] text-[var(--ds-gray-900)] uppercase">
+                <span className="min-w-0 text-[11px] leading-4 font-medium tracking-[0.04em] text-secondary uppercase">
                   Agentic
                 </span>
                 <Badge variant="green" className="tabular-nums gap-0.5 pr-2 pl-1.5">
@@ -42,16 +42,16 @@ export function PatternsDocs() {
                   +8pp
                 </Badge>
               </div>
-              <span className="tabular-nums block text-heading-32 text-[var(--ds-gray-1000)]">
+              <span className="tabular-nums block text-h1 text-primary">
                 82%
               </span>
-              <span className="mt-1 block text-copy-13 text-[var(--ds-gray-900)]">
+              <span className="mt-1 block text-copy-sm text-secondary">
                 of PR &amp; review delivery
               </span>
             </Card>
             <Card className="gap-0 px-4 py-4">
               <div className="mb-2.5 flex min-h-8 items-start justify-between gap-2">
-                <span className="min-w-0 text-[11px] leading-4 font-medium tracking-[0.04em] text-[var(--ds-gray-900)] uppercase">
+                <span className="min-w-0 text-[11px] leading-4 font-medium tracking-[0.04em] text-secondary uppercase">
                   Excess spend
                 </span>
                 <Badge variant="green" className="gap-1 pr-2 pl-1.5">
@@ -59,10 +59,10 @@ export function PatternsDocs() {
                   Within limits
                 </Badge>
               </div>
-              <span className="tabular-nums block text-heading-32 text-[var(--ds-gray-1000)]">
+              <span className="tabular-nums block text-h1 text-primary">
                 $0
               </span>
-              <span className="mt-1 block text-copy-13 text-[var(--ds-gray-900)]">
+              <span className="mt-1 block text-copy-sm text-secondary">
                 above budget limits
               </span>
             </Card>

@@ -11,7 +11,7 @@ export function Card({ className, ...props }: ComponentProps<"div">) {
       data-slot="card"
       className={cn(
         "surface-secondary flex flex-col rounded-xl",
-        "border border-[var(--border-subtle)] text-[var(--ds-gray-1000)]",
+        "border border-[var(--border-subtle)] text-primary",
         className,
       )}
       {...props}
@@ -36,7 +36,7 @@ export function CardTitle({ className, ...props }: ComponentProps<"h3">) {
   return (
     <h3
       data-slot="card-title"
-      className={cn("text-heading-14 text-[var(--ds-gray-1000)]", className)}
+      className={cn("text-h5 text-primary", className)}
       {...props}
     />
   );
@@ -46,7 +46,7 @@ export function CardDescription({ className, ...props }: ComponentProps<"p">) {
   return (
     <p
       data-slot="card-description"
-      className={cn("text-copy-13 text-[var(--ds-gray-900)]", className)}
+      className={cn("text-copy-sm text-secondary", className)}
       {...props}
     />
   );
@@ -68,7 +68,7 @@ export function CardFooter({ className, ...props }: ComponentProps<"div">) {
       data-slot="card-footer"
       className={cn(
         "mt-auto flex items-center gap-3 rounded-b-xl border-t border-[var(--border-subtle)]",
-        "bg-[var(--ds-surface-primary)] px-5 py-2.5 text-copy-13 text-[var(--ds-gray-900)]",
+        "bg-[var(--ds-surface-primary)] px-5 py-2.5 text-copy-sm text-secondary",
         className,
       )}
       {...props}

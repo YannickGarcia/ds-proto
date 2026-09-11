@@ -26,7 +26,7 @@ export function Pagination({
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-3">
-      <p className="tabular-nums text-label-13 text-[var(--ds-gray-900)]">
+      <p className="tabular-nums text-label-sm text-secondary">
         {from}–{to} of {total} {label}
       </p>
       <div className="flex items-center gap-1">
@@ -39,7 +39,7 @@ export function Pagination({
         >
           <CaretLeft aria-hidden="true" />
         </Button>
-        <span className="tabular-nums px-2 text-label-13 text-[var(--ds-gray-900)]">
+        <span className="tabular-nums px-2 text-label-sm text-secondary">
           {page} / {pageCount}
         </span>
         <Button

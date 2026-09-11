@@ -46,11 +46,11 @@ export function MenuItem({
     <MenuPrimitive.Item
       className={cn(
         "relative flex h-8 cursor-default select-none items-center gap-2 rounded-[var(--radius)] px-2",
-        "text-label-14 text-[var(--ds-gray-1000)] outline-none",
+        "text-label-default text-primary outline-none",
         "transition-colors duration-100",
         "data-[highlighted]:bg-[var(--ds-gray-alpha-200)]",
-        "data-[disabled]:pointer-events-none data-[disabled]:text-[var(--ds-gray-700)]",
-        "[&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-[var(--ds-gray-900)]",
+        "data-[disabled]:pointer-events-none data-[disabled]:text-tertiary",
+        "[&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-secondary",
         inset && "pl-8",
         className,
       )}
@@ -68,7 +68,7 @@ export function MenuRadioItem({
     <MenuPrimitive.RadioItem
       className={cn(
         "relative flex h-8 cursor-default select-none items-center gap-2 rounded-[var(--radius)] py-0 pr-2 pl-7",
-        "text-label-14 text-[var(--ds-gray-1000)] outline-none transition-colors duration-100",
+        "text-label-default text-primary outline-none transition-colors duration-100",
         "data-[highlighted]:bg-[var(--ds-gray-alpha-200)]",
         className,
       )}
@@ -100,7 +100,7 @@ export function MenuLabel({
   return (
     <MenuPrimitive.Label
       className={cn(
-        "px-2 pt-2 pb-1 text-label-12 text-[var(--ds-gray-900)]",
+        "px-2 pt-2 pb-1 text-label-xs text-secondary",
         className,
       )}
       {...props}

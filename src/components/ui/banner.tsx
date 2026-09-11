@@ -71,11 +71,11 @@ export function Banner({
         weight="fill"
       />
       <div className="min-w-0 flex-1">
-        <p className="text-label-13 font-medium text-[var(--ds-gray-1000)]">
+        <p className="text-label-sm font-medium text-primary">
           {title}
         </p>
         {children ? (
-          <div className="mt-0.5 text-copy-13 text-pretty text-[var(--ds-gray-900)]">
+          <div className="mt-0.5 text-copy-sm text-pretty text-secondary">
             {children}
           </div>
         ) : null}
@@ -87,8 +87,8 @@ export function Banner({
           onClick={onDismiss}
           aria-label="Dismiss"
           className={cn(
-            "-m-1 rounded-[4px] p-1 text-[var(--ds-gray-700)] outline-none",
-            "transition-colors hover:text-[var(--ds-gray-1000)]",
+            "-m-1 rounded-[4px] p-1 text-tertiary outline-none",
+            "transition-colors hover:text-primary",
             "focus-visible:shadow-[var(--ds-focus-ring)]",
           )}
         >
@@ -110,7 +110,7 @@ export function InlineStatus({
   const tone = TONE[severity];
   const Mark = tone.icon;
   return (
-    <span className={cn("inline-flex items-center gap-1.5 text-label-12", tone.mark)}>
+    <span className={cn("inline-flex items-center gap-1.5 text-label-xs", tone.mark)}>
       <Mark aria-hidden="true" className="size-3.5 shrink-0" weight="fill" />
       <span className="min-w-0 truncate">{children}</span>
     </span>

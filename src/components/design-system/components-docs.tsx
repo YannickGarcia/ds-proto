@@ -487,10 +487,10 @@ text   → --ds-{hue}-900`}
                 <Badge variant="green">+8pp</Badge>
               </CardHeader>
               <CardContent>
-                <p className="tabular-nums text-heading-32 text-[var(--ds-gray-1000)]">
+                <p className="tabular-nums text-h1 text-primary">
                   841.9
                 </p>
-                <p className="mt-1 text-copy-13 text-[var(--ds-gray-900)]">
+                <p className="mt-1 text-copy-sm text-secondary">
                   delivery points
                 </p>
               </CardContent>
@@ -566,12 +566,12 @@ text   → --ds-{hue}-900`}
         <DocsBlock label="Example">
           <Example>
             <Collapsible>
-              <CollapsibleTrigger className="inline-flex items-center gap-1.5 text-label-14 text-[var(--ds-gray-1000)] outline-none focus-visible:shadow-[var(--ds-focus-ring)]">
+              <CollapsibleTrigger className="inline-flex items-center gap-1.5 text-label-default text-primary outline-none focus-visible:shadow-[var(--ds-focus-ring)]">
                 <CaretDown aria-hidden="true" className="size-3.5" />
                 Show detail
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <p className="pt-2 text-copy-13 text-[var(--ds-gray-900)]">
+                <p className="pt-2 text-copy-sm text-secondary">
                   Content revealed on demand. The closed state occupies no
                   height, and the transition runs on the Pensero swift curve.
                 </p>
@@ -835,7 +835,7 @@ text   → --ds-{hue}-900`}
                     (name) => (
                       <li
                         key={name}
-                        className="flex h-9 items-center gap-2.5 rounded-[var(--radius)] px-2 text-label-14 text-[var(--ds-gray-1000)]"
+                        className="flex h-9 items-center gap-2.5 rounded-[var(--radius)] px-2 text-label-default text-primary"
                       >
                         <Avatar name={name} size="sm" />
                         {name}
@@ -1104,7 +1104,7 @@ text   → --ds-{hue}-900`}
                   <TableRow key={row[0]} interactive>
                     <TableCell>{row[0]}</TableCell>
                     <TableCell className="tabular-nums">{row[1]}</TableCell>
-                    <TableCell className="text-[var(--ds-gray-900)]">
+                    <TableCell className="text-secondary">
                       {row[2]}
                     </TableCell>
                   </TableRow>
@@ -1158,7 +1158,7 @@ text   → --ds-{hue}-900`}
               </TabsList>
               <TabsContent
                 value={tab}
-                className="px-4 py-5 text-copy-13 text-[var(--ds-gray-900)]"
+                className="px-4 py-5 text-copy-sm text-secondary"
               >
                 Content for “{tab}”.
               </TabsContent>

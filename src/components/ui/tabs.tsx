@@ -89,10 +89,10 @@ export function TabsTrigger({
     >
       <span
         className={cn(
-          "inline-flex h-8 items-center rounded-[var(--radius)] px-2 text-label-14",
-          "text-[var(--ds-gray-900)] transition-colors duration-150",
-          "group-hover:bg-[var(--ds-gray-alpha-200)] group-hover:text-[var(--ds-gray-1000)]",
-          "group-data-[state=active]:text-[var(--ds-gray-1000)]",
+          "inline-flex h-8 items-center rounded-[var(--radius)] px-2 text-label-default",
+          "text-secondary transition-colors duration-150",
+          "group-hover:bg-[var(--ds-gray-alpha-200)] group-hover:text-primary",
+          "group-data-[state=active]:text-primary",
           "group-focus-visible:shadow-[var(--ds-focus-ring)]",
         )}
       >

@@ -35,6 +35,17 @@ repeatedly fixed.
   component size, a variant, a type step — so a reader can use it without
   consulting a table. The typography roles each name their default step, and
   unstyled text is already the copy default (14px/20/400) via the body.
+- **Type: four categories, then a size.** `text-h1`–`h5`, `text-copy-*`,
+  `text-label-*`, `text-button-*`, where the size is `xs` / `sm` / `default`.
+  Label is one line and tight; copy is several and looser. The scale holds
+  only sizes the product uses — add one when a screen needs it.
+- **Text colour is a rank**, not a grey: `text-primary` / `-secondary` /
+  `-tertiary` / `-disabled`. These four must stay in `@layer utilities`,
+  because shadcn's theme generates `text-primary` and `text-secondary` into
+  that layer and a `components` definition silently loses to them. Both the
+  scale and the ranks are registered with tailwind-merge in `lib/utils.ts`;
+  a custom class it does not know about is kept alongside its conflict
+  instead of replacing it.
 - **The type scale lives in `@layer components`**, not `utilities`, because
   each class carries a font-weight. In the utilities layer it silently beat a
   `font-medium` written beside it. Keep it there, and keep weight in the role.

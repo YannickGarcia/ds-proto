@@ -328,6 +328,14 @@
 :root,
 .dark,
 .dark-theme {
+  /* Text, by rank. Four and no more — a fifth grey is how a palette starts
+     drifting. Icons use the same ladder: an icon is text that happens to be
+     a shape. */
+  --ds-text-primary: var(--ds-gray-1000);
+  --ds-text-secondary: var(--ds-gray-900);
+  --ds-text-tertiary: var(--ds-gray-700);
+  --ds-text-disabled: var(--ds-gray-600);
+
   --ds-surface-primary: color-mix(in srgb, var(--tint-color) var(--brand-tint), var(--neutral-surface-primary));
   --ds-surface-secondary: color-mix(in srgb, var(--tint-color) var(--brand-tint), var(--neutral-surface-secondary));
   --ds-surface-tertiary: color-mix(in srgb, var(--tint-color) var(--brand-tint), var(--neutral-surface-tertiary));
@@ -698,47 +706,48 @@
    nothing. A lower layer lets the role set a default weight that a utility
    can still override. */
 @layer components {
-  .text-heading-72 { font-size: 72px; line-height: 72px; font-weight: 600; letter-spacing: -4.32px; }
-  .text-heading-64 { font-size: 64px; line-height: 64px; font-weight: 600; letter-spacing: -3.84px; }
-  .text-heading-48 { font-size: 48px; line-height: 56px; font-weight: 600; letter-spacing: -2.88px; }
-  .text-heading-40 { font-size: 40px; line-height: 48px; font-weight: 600; letter-spacing: -2.4px; }
-  .text-heading-32 { font-size: 32px; line-height: 40px; font-weight: 600; letter-spacing: -1.28px; }
-  .text-heading-24 { font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.96px; }
-  .text-heading-20 { font-size: 20px; line-height: 26px; font-weight: 600; letter-spacing: -0.4px; }
-  .text-heading-16 { font-size: 16px; line-height: 24px; font-weight: 600; letter-spacing: -0.32px; }
-  .text-heading-14 { font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: -0.28px; }
+  /* Headings — introduce a page or a section. */
+  .text-h1 { font-size: 32px; line-height: 40px; font-weight: 600; letter-spacing: -1.28px; }
+  .text-h2 { font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.96px; }
+  .text-h3 { font-size: 20px; line-height: 26px; font-weight: 600; letter-spacing: -0.4px; }
+  .text-h4 { font-size: 16px; line-height: 24px; font-weight: 600; letter-spacing: -0.32px; }
+  .text-h5 { font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: -0.28px; }
 
-  .text-copy-24 { font-size: 24px; line-height: 36px; font-weight: 400; }
-  .text-copy-20 { font-size: 20px; line-height: 36px; font-weight: 400; }
-  .text-copy-18 { font-size: 18px; line-height: 28px; font-weight: 400; }
-  .text-copy-16 { font-size: 16px; line-height: 24px; font-weight: 400; }
-  .text-copy-14 { font-size: 14px; line-height: 20px; font-weight: 400; }
-  .text-copy-13 { font-size: 13px; line-height: 18px; font-weight: 400; }
+  /* Copy — several lines of prose. Looser leading than Label. */
+  .text-copy-default { font-size: 14px; line-height: 20px; font-weight: 400; }
+  .text-copy-sm { font-size: 13px; line-height: 18px; font-weight: 400; }
+  .text-copy-xs { font-size: 12px; line-height: 16px; font-weight: 400; }
+  .text-copy-sm-mono { font-family: var(--font-mono); font-size: 13px; line-height: 18px; }
 
-  .text-label-20 { font-size: 20px; line-height: 26px; font-weight: 400; }
-  .text-label-16 { font-size: 16px; line-height: 20px; font-weight: 400; }
-  .text-label-14 { font-size: 14px; line-height: 20px; font-weight: 400; }
-  .text-label-13 { font-size: 13px; line-height: 16px; font-weight: 400; }
-  .text-label-12 { font-size: 12px; line-height: 16px; font-weight: 400; }
+  /* Label — one line. Tighter leading, sits level with an icon. */
+  .text-label-default { font-size: 14px; line-height: 20px; font-weight: 400; }
+  .text-label-sm { font-size: 13px; line-height: 16px; font-weight: 400; }
+  .text-label-xs { font-size: 12px; line-height: 16px; font-weight: 400; }
+  .text-label-xs-mono { font-family: var(--font-mono); font-size: 12px; line-height: 16px; }
 
-  .text-button-16 { font-size: 16px; line-height: 20px; font-weight: 500; }
-  .text-button-14 { font-size: 14px; line-height: 20px; font-weight: 500; }
-  .text-button-12 { font-size: 12px; line-height: 16px; font-weight: 500; }
+  /* Button — only inside components that render a button. */
+  .text-button-default { font-size: 14px; line-height: 20px; font-weight: 500; }
+  .text-button-xs { font-size: 12px; line-height: 16px; font-weight: 500; }
 
-  .text-mono-14 { font-family: var(--font-mono); font-size: 14px; line-height: 20px; }
-  .text-mono-13 { font-family: var(--font-mono); font-size: 13px; line-height: 18px; }
-  .text-mono-12 { font-family: var(--font-mono); font-size: 12px; line-height: 16px; }
-
-  /* 550 for emphasis inside body copy */
-  .text-copy-13 > strong,
-  .text-copy-14 > strong,
-  .text-copy-16 > strong {
+  /* Strong: emphasis inside a run of copy, without changing the size. */
+  .text-copy-xs > strong,
+  .text-copy-sm > strong,
+  .text-copy-default > strong {
     font-weight: 550;
-    color: var(--ds-gray-1000);
+    color: var(--ds-text-primary);
   }
 }
 
 @layer utilities {
+  /* Text colour, by rank. These must live in `utilities`: shadcn's theme
+     generates its own text-primary / text-secondary into this layer, and a
+     definition in `components` silently loses to them. Declared after the
+     import, so ours win on source order. */
+  .text-primary { color: var(--ds-text-primary); }
+  .text-secondary { color: var(--ds-text-secondary); }
+  .text-tertiary { color: var(--ds-text-tertiary); }
+  .text-disabled { color: var(--ds-text-disabled); }
+
   /* Raised surface: sheen over the fill, a lit top edge, and a short shadow. */
   /* Surfaces are colour only. Each carries the sheen — a very soft vertical
      gradient, no inset highlight, which would read as a second line stacked

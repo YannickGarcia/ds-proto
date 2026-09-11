@@ -21,7 +21,7 @@ import { BrandTintControls, BrandTintSnippet } from "./brand-tint-controls";
 function Scale({ name, steps }: { name: string; steps: number[] }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-mono-12 text-[var(--ds-gray-900)]">{name}</span>
+      <span className="text-label-xs-mono text-secondary">{name}</span>
       <div className="flex overflow-hidden rounded-[var(--radius)] border border-[var(--border-subtle)]">
         {steps.map((step) => (
           <div
@@ -54,14 +54,14 @@ function SwatchRow({
             style={{ background: `var(${item.token})` }}
           />
           <span className="min-w-0">
-            <span className="block truncate text-label-13 text-[var(--ds-gray-1000)]">
+            <span className="block truncate text-label-sm text-primary">
               {item.label}
             </span>
-            <span className="block truncate text-mono-12 text-[var(--ds-gray-900)]">
+            <span className="block truncate text-label-xs-mono text-secondary">
               {item.token}
             </span>
             {item.note ? (
-              <span className="block truncate text-label-12 text-[var(--ds-gray-900)]">
+              <span className="block truncate text-label-xs text-secondary">
                 {item.note}
               </span>
             ) : null}
@@ -72,39 +72,139 @@ function SwatchRow({
   );
 }
 
-const TYPE_ROLES = [
+/**
+ * The scale, as data: one row per class, grouped by the category it belongs
+ * to. The docs table and the live specimens both read this, so a class cannot
+ * be documented at a size it no longer has.
+ */
+const TYPE_SCALE = {
+  heading: {
+    intro:
+      "Introduce a page or a section. Weight 600 with negative tracking, which is what keeps a large size from reading as shouty.",
+    rows: [
+      {
+        cls: "text-h1",
+        spec: "32 / 40 · 600 · −1.28px",
+        use: "The single largest number on a screen — a KPI value.",
+      },
+      {
+        cls: "text-h2",
+        spec: "24 / 32 · 600 · −0.96px",
+        use: "Page title. One per page.",
+      },
+      {
+        cls: "text-h3",
+        spec: "20 / 26 · 600 · −0.4px",
+        use: "Section header inside a page.",
+      },
+      {
+        cls: "text-h4",
+        spec: "16 / 24 · 600 · −0.32px",
+        use: "Card headline, and the question a chart answers.",
+      },
+      {
+        cls: "text-h5",
+        spec: "14 / 20 · 600 · −0.28px",
+        use: "Card title, panel title — a heading that must not out-size the body around it.",
+      },
+    ],
+  },
+  copy: {
+    intro:
+      "Several lines of prose. Looser leading than Label, because the eye has to find the next line.",
+    rows: [
+      {
+        cls: "text-copy-default",
+        spec: "14 / 20 · 400",
+        use: "A paragraph. This is what you get by writing nothing — the body is already set to it.",
+      },
+      {
+        cls: "text-copy-sm",
+        spec: "13 / 18 · 400",
+        use: "Secondary prose: descriptions under a heading, hints under a field, chart captions.",
+      },
+      {
+        cls: "text-copy-xs",
+        spec: "12 / 16 · 400",
+        use: "Prose where space is genuinely scarce, such as a status line inside a dense row.",
+      },
+      {
+        cls: "text-copy-sm-mono",
+        spec: "13 / 18 · mono",
+        use: "A block of code, or code quoted inside prose.",
+      },
+    ],
+  },
+  label: {
+    intro:
+      "One line. Tighter leading than Copy so it sits level with an icon and stacks predictably in a row.",
+    rows: [
+      {
+        cls: "text-label-default",
+        spec: "14 / 20 · 400",
+        use: "The workhorse: nav items, table cells, menu rows, input values.",
+      },
+      {
+        cls: "text-label-sm",
+        spec: "13 / 16 · 400",
+        use: "A second line under a label, and most table body text.",
+      },
+      {
+        cls: "text-label-xs",
+        spec: "12 / 16 · 400",
+        use: "Tertiary text in a busy view: legends, badges, metadata, the uppercase nav headers.",
+      },
+      {
+        cls: "text-copy-sm-mono",
+        spec: "13 / 16 · mono",
+        use: "An identifier on one line — a repository path, a branch name.",
+      },
+      {
+        cls: "text-label-xs-mono",
+        spec: "12 / 16 · mono",
+        use: "A token or a count, where the figures must not shift width.",
+      },
+    ],
+  },
+  button: {
+    intro:
+      "Only inside a component that renders a button. Weight 500 is what separates an action from the text around it.",
+    rows: [
+      {
+        cls: "text-button-default",
+        spec: "14 / 20 · 500",
+        use: "Every button at the default size.",
+      },
+      {
+        cls: "text-button-xs",
+        spec: "12 / 16 · 500",
+        use: "Badges and chips — a label that behaves like a control.",
+      },
+    ],
+  },
+} as const;
+
+const TEXT_COLOURS = [
   {
-    cls: "text-heading-32",
-    role: "heading-32",
-    spec: "32 / 40 · 600 · −1.28px",
+    cls: "text-primary",
+    token: "--ds-text-primary",
+    use: "The thing itself: a value, a title, a row's subject.",
   },
   {
-    cls: "text-heading-24",
-    role: "heading-24",
-    spec: "24 / 32 · 600 · −0.96px",
+    cls: "text-secondary",
+    token: "--ds-text-secondary",
+    use: "Everything that supports it — descriptions, captions, units, most icons.",
   },
   {
-    cls: "text-heading-20",
-    role: "heading-20",
-    spec: "20 / 26 · 600 · −0.4px",
+    cls: "text-tertiary",
+    token: "--ds-text-tertiary",
+    use: "Present but not to be read: placeholders, an icon at rest, a separator's label.",
   },
   {
-    cls: "text-heading-16",
-    role: "heading-16",
-    spec: "16 / 24 · 600 · −0.32px",
+    cls: "text-disabled",
+    token: "--ds-text-disabled",
+    use: "Unavailable. Exempt from the contrast floor, and the only rank that is.",
   },
-  {
-    cls: "text-heading-14",
-    role: "heading-14",
-    spec: "14 / 20 · 600 · −0.28px",
-  },
-  { cls: "text-copy-14", role: "copy-14", spec: "14 / 20 · 400" },
-  { cls: "text-copy-13", role: "copy-13", spec: "13 / 18 · 400" },
-  { cls: "text-label-14", role: "label-14", spec: "14 / 20 · 400" },
-  { cls: "text-label-13", role: "label-13", spec: "13 / 16 · 400" },
-  { cls: "text-label-12", role: "label-12", spec: "12 / 16 · 400" },
-  { cls: "text-button-14", role: "button-14", spec: "14 / 20 · 500" },
-  { cls: "text-mono-13", role: "mono-13", spec: "13 / 18 · mono" },
 ];
 
 export function Foundations() {
@@ -427,85 +527,59 @@ export function Foundations() {
       <DocsEntry
         id="foundations-typography"
         title="Typography"
-        description="A sans and a mono at a 14px base. Four roles, each with a fixed weight and tracking — the role picks the treatment, you only pick the size."
+        description="A sans and a mono at a 14px base. Four categories — heading, copy, label, button — each setting size, line height, weight and tracking together. You pick the category by what the text is doing, then the size."
       >
         <DocsBlock
-          label="Roles"
-          hint="Every role names a default step — the one to reach for when nothing about the context argues otherwise. You only pick a different size when the hierarchy asks for it."
-        >
-          <DocsTable
-            head={["Role", "Weight", "Default", "Used for"]}
-            rows={[
-              [
-                "heading",
-                "600, negative tracking",
-                <Token key="th">heading-24</Token>,
-                "Page, section and card titles",
-              ],
-              [
-                "copy",
-                "400, normal tracking",
-                <Token key="tc">copy-14</Token>,
-                "Body prose, descriptions, captions",
-              ],
-              [
-                "label",
-                "400, tight leading",
-                <Token key="tl">label-14</Token>,
-                "UI text: nav items, table cells, legends",
-              ],
-              [
-                "button",
-                "500",
-                <Token key="tb">button-14</Token>,
-                "Button and control labels only",
-              ],
-              [
-                "mono",
-                "400, monospace",
-                <Token key="tm">mono-13</Token>,
-                "Tokens, code, identifiers",
-              ],
-            ]}
-          />
-        </DocsBlock>
-
-        <DocsBlock
-          label="The default"
-          hint="Text with no type class is already the default — 14px / 20px / 400, identical to copy-14 — because the base style sits on the body. Body prose needs no class, and adding one to restate the default is noise."
+          label="Usage"
+          hint="Every style is one class. Nothing sets a font-size directly, and nothing pairs a size class with a separate weight unless it means to override the category's own — which works, since the scale sits a layer below the weight utilities."
         >
           <Snippet
-            code={`body {
-  font-size: 14px;   /* the default step of the copy role */
-  line-height: 20px;
-  font-weight: 400;
-}`}
+            code={`<p className="text-copy-default">
+  A paragraph, <strong>with emphasis</strong>.
+</p>`}
           />
         </DocsBlock>
 
-        <DocsBlock label="Scale">
-          <Example>
-            <div className="flex flex-col gap-4">
-              {TYPE_ROLES.map((item) => (
-                <div
-                  key={item.role}
-                  className="flex flex-wrap items-baseline gap-x-6 gap-y-1"
-                >
-                  <span
-                    className={`${item.cls} min-w-0 flex-1 text-[var(--ds-gray-1000)]`}
-                  >
-                    The quick brown fox
-                  </span>
-                  <span className="text-mono-12 text-[var(--ds-gray-900)]">
-                    {item.role}
-                  </span>
-                  <span className="w-[184px] text-label-12 text-[var(--ds-gray-900)]">
-                    {item.spec}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </Example>
+        {(
+          [
+            ["Headings", "heading"],
+            ["Copy", "copy"],
+            ["Label", "label"],
+            ["Buttons", "button"],
+          ] as const
+        ).map(([title, key]) => (
+          <DocsBlock key={key} label={title} hint={TYPE_SCALE[key].intro}>
+            <DocsTable
+              head={["Example", "Class", "Metrics", "Usage"]}
+              rows={TYPE_SCALE[key].rows.map((row) => [
+                <span key="e" className={`${row.cls} text-primary`}>
+                  {title === "Buttons" ? "Button" : "The quick brown fox"}
+                </span>,
+                <Token key="c">{row.cls}</Token>,
+                <span key="s" className="whitespace-nowrap">
+                  {row.spec}
+                </span>,
+                row.use,
+              ])}
+            />
+          </DocsBlock>
+        ))}
+
+        <DocsBlock
+          label="Colour"
+          hint="Four ranks, and the same ladder serves icons — an icon is text that happens to be a shape. Rank is about how much attention a thing is owed, not about hue; a coloured token is never one of these."
+        >
+          <DocsTable
+            head={["Example", "Class", "Token", "Usage"]}
+            rows={TEXT_COLOURS.map((row) => [
+              <span key="e" className={`text-label-default ${row.cls}`}>
+                The quick brown fox
+              </span>,
+              <Token key="c">{row.cls}</Token>,
+              <Token key="t">{row.token}</Token>,
+              row.use,
+            ])}
+          />
         </DocsBlock>
 
         <DocsBlock
@@ -513,24 +587,20 @@ export function Foundations() {
           hint="Size descends with depth in the tree. A card headline must never out-size the section header that contains it — that inversion is the single most common way a page stops reading as a hierarchy."
         >
           <DocsTable
-            head={["Level", "Token", "Size"]}
+            head={["Level", "Class", "Size"]}
             rows={[
-              ["KPI value", <Token key="a">text-heading-32</Token>, "32px"],
-              ["Page title", <Token key="b">text-heading-24</Token>, "24px"],
-              [
-                "Section header",
-                <Token key="c">text-heading-20</Token>,
-                "20px",
-              ],
-              ["Card headline", <Token key="d">text-heading-16</Token>, "16px"],
+              ["KPI value", <Token key="a">text-h1</Token>, "32px"],
+              ["Page title", <Token key="b">text-h2</Token>, "24px"],
+              ["Section header", <Token key="c">text-h3</Token>, "20px"],
+              ["Card headline", <Token key="d">text-h4</Token>, "16px"],
               [
                 "Card title, body",
-                <Token key="e">text-heading-14 / text-copy-14</Token>,
+                <Token key="e">text-h5 / text-copy-default</Token>,
                 "14px",
               ],
               [
                 "Sub-line, caption",
-                <Token key="f">text-copy-13</Token>,
+                <Token key="f">text-copy-sm</Token>,
                 "13px",
               ],
             ]}
@@ -540,28 +610,33 @@ export function Foundations() {
         <BestPractice
           items={[
             <>
-              Apply <Token>tabular-nums</Token> to any number a reader
-              will compare — columns, deltas, KPI values. Proportional digits
-              make equal values look unequal.
+              Pick the category first. <Token>label</Token> is one line and sits
+              level with an icon; <Token>copy</Token> is several and has the
+              leading to be read. Getting this wrong is why a table row can feel
+              loose and a paragraph cramped at the same size.
+            </>,
+            <>
+              <Token>text-copy-default</Token> is what a paragraph already is —
+              the body is set to it. Writing the class to restate that is noise.
+            </>,
+            <>
+              Apply <Token>tabular-nums</Token> to any number a reader will
+              compare — columns, deltas, KPI values. Proportional digits make
+              equal values look unequal.
             </>,
             <>
               Use <Token>text-balance</Token> on short headings and{" "}
               <Token>text-pretty</Token> on paragraphs to avoid widows.
             </>,
             <>
-              The root is 14px, but the spacing scale is pinned to px — changing
-              text size never moves the layout grid.
-            </>,
-            <>
-              Distinguish <em>label</em> from <em>copy</em>: labels are
-              interface furniture with tight leading, copy is prose meant to be
-              read in sentences.
+              The scale holds only what the product uses. A size with no call
+              site is a decision nobody has had to make yet — add it when a
+              screen needs it, not in advance.
             </>,
           ]}
         />
       </DocsEntry>
 
-      {/* ---------------------------------------------------------------- */}
       <DocsEntry
         id="foundations-spacing"
         title="Spacing & layout"
@@ -697,7 +772,7 @@ export function Foundations() {
                 <div
                   className={`size-16 border border-[var(--border-subtle)] bg-[var(--ds-gray-alpha-200)] ${item.cls}`}
                 />
-                <span className="text-mono-12 text-[var(--ds-gray-900)]">
+                <span className="text-label-xs-mono text-secondary">
                   {item.label}
                 </span>
               </div>
@@ -765,16 +840,14 @@ export function Foundations() {
         >
           <Example>
             <div className="surface-primary rounded-xl p-5">
-              <p className="text-label-12 text-[var(--ds-gray-900)]">
-                primary — the page
-              </p>
+              <p className="text-label-xs text-secondary">primary — the page</p>
               <div className="surface-secondary mt-3 rounded-xl border border-[var(--border-subtle)] p-4">
-                <p className="text-label-12 text-[var(--ds-gray-900)]">
+                <p className="text-label-xs text-secondary">
                   secondary — a card, and the controls on it
                 </p>
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                   <Button variant="secondary">Control</Button>
-                  <span className="surface-tertiary elevated rounded-[var(--radius)] border border-[var(--border-subtle)] px-2.5 py-1.5 text-label-12 text-[var(--ds-gray-1000)]">
+                  <span className="surface-tertiary elevated rounded-[var(--radius)] border border-[var(--border-subtle)] px-2.5 py-1.5 text-label-xs text-primary">
                     tertiary — a menu over it
                   </span>
                 </div>
@@ -870,18 +943,14 @@ export function Foundations() {
         <DocsBlock label="Specimens">
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="surface-secondary rounded-xl border border-[var(--border-subtle)] p-5">
-              <p className="text-label-13 font-medium text-[var(--ds-gray-1000)]">
-                In flow
-              </p>
-              <p className="mt-1 text-copy-13 text-[var(--ds-gray-900)]">
+              <p className="text-label-sm font-medium text-primary">In flow</p>
+              <p className="mt-1 text-copy-sm text-secondary">
                 Separates by tone and a hairline. No shadow.
               </p>
             </div>
             <div className="surface-tertiary elevated rounded-xl border border-[var(--border-subtle)] p-5">
-              <p className="text-label-13 font-medium text-[var(--ds-gray-1000)]">
-                Elevated
-              </p>
-              <p className="mt-1 text-copy-13 text-[var(--ds-gray-900)]">
+              <p className="text-label-sm font-medium text-primary">Elevated</p>
+              <p className="mt-1 text-copy-sm text-secondary">
                 Detached. The shadow is what says so.
               </p>
             </div>
@@ -980,7 +1049,7 @@ export function Foundations() {
                     className="h-16 w-40 rounded-xl border"
                     style={{ borderColor: `var(${item.t})` }}
                   />
-                  <span className="text-mono-12 text-[var(--ds-gray-900)]">
+                  <span className="text-label-xs-mono text-secondary">
                     {item.l}
                   </span>
                 </div>

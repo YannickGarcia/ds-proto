@@ -23,7 +23,7 @@ export function DistributionChart({
 
   if (bars.length === 0) {
     return (
-      <div className="flex h-[180px] items-center justify-center rounded-[var(--radius)] border border-dashed border-[var(--border-subtle)] px-6 text-center text-copy-13 text-[var(--ds-gray-900)]">
+      <div className="flex h-[180px] items-center justify-center rounded-[var(--radius)] border border-dashed border-[var(--border-subtle)] px-6 text-center text-copy-sm text-secondary">
         {emptyState}
       </div>
     );
@@ -50,7 +50,7 @@ export function DistributionChart({
               isDimmed && "opacity-40",
             )}
           >
-            <span className="truncate text-label-13 text-[var(--ds-gray-900)]">
+            <span className="truncate text-label-sm text-secondary">
               {bar.bucket}
             </span>
 
@@ -68,7 +68,7 @@ export function DistributionChart({
               />
             </span>
 
-            <span className="tabular-nums w-[92px] text-right text-label-13 font-medium text-[var(--ds-gray-1000)]">
+            <span className="tabular-nums w-[92px] text-right text-label-sm font-medium text-primary">
               ${bar.costPerPoint.toFixed(2)}/point
             </span>
 
@@ -82,21 +82,21 @@ export function DistributionChart({
                   "animate-fade-in",
                 )}
               >
-                <span className="text-label-12 text-[var(--ds-gray-900)]">
+                <span className="text-label-xs text-secondary">
                   Spend{" "}
-                  <span className="tabular-nums text-[var(--ds-gray-1000)]">
+                  <span className="tabular-nums text-primary">
                     {usd(bar.spend, 2)}
                   </span>
                 </span>
-                <span className="text-label-12 text-[var(--ds-gray-900)]">
+                <span className="text-label-xs text-secondary">
                   Delivery{" "}
-                  <span className="tabular-nums text-[var(--ds-gray-1000)]">
+                  <span className="tabular-nums text-primary">
                     {points(bar.delivery)} pts
                   </span>
                 </span>
-                <span className="text-label-12 text-[var(--ds-gray-900)]">
+                <span className="text-label-xs text-secondary">
                   Share of total points{" "}
-                  <span className="tabular-nums text-[var(--ds-gray-1000)]">
+                  <span className="tabular-nums text-primary">
                     {pct(bar.shareOfPoints, 1)}
                   </span>
                 </span>

@@ -24,7 +24,7 @@ export function PopoverContent({
         className={cn(
           "z-50 overflow-hidden rounded-xl",
           "surface-tertiary elevated border border-[var(--border-subtle)]",
-          "text-[var(--ds-gray-1000)] outline-none",
+          "text-primary outline-none",
           "origin-(--radix-popover-content-transform-origin)",
           "data-[state=open]:animate-scale-in data-[state=closed]:animate-fade-out",
           className,

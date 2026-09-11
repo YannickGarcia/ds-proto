@@ -20,10 +20,10 @@ export function SectionHeader({
 }) {
   return (
     <div className="mb-4 flex flex-col gap-1">
-      <h2 className="text-heading-20 text-pretty text-[var(--ds-gray-1000)]">
+      <h2 className="text-h3 text-pretty text-primary">
         {title}
       </h2>
-      <p className="text-copy-14 text-pretty text-[var(--ds-gray-900)]">
+      <p className="text-copy-default text-pretty text-secondary">
         {subtitle}
       </p>
     </div>
@@ -63,7 +63,7 @@ export function ChartCardHeader({
 }) {
   return (
     <div className="flex items-start justify-between gap-4 px-5 pt-4 pb-2">
-      <h3 className="max-w-[52ch] min-w-0 text-heading-14 text-balance text-[var(--ds-gray-1000)]">
+      <h3 className="max-w-[52ch] min-w-0 text-h5 text-balance text-primary">
         {title}
       </h3>
       <div className="flex shrink-0 items-center gap-1.5">{children}</div>
@@ -94,8 +94,8 @@ export function InfoAction({ children }: { children: ReactNode }) {
         aria-label="About this metric"
         className={cn(
           "inline-flex size-8 touch-manipulation items-center justify-center rounded-[var(--radius)]",
-          "text-[var(--ds-gray-700)] outline-none transition-colors duration-150",
-          "hover:bg-[var(--ds-gray-alpha-200)] hover:text-[var(--ds-gray-1000)]",
+          "text-tertiary outline-none transition-colors duration-150",
+          "hover:bg-[var(--ds-gray-alpha-200)] hover:text-primary",
           "focus-visible:shadow-[var(--ds-focus-ring)]",
         )}
       >
@@ -115,11 +115,11 @@ export function ChartCardHeadline({
 }) {
   return (
     <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 px-5 pb-4">
-      <span className="tabular-nums text-heading-16 text-pretty text-[var(--ds-gray-1000)]">
+      <span className="tabular-nums text-h4 text-pretty text-primary">
         {value}
       </span>
       {children ? (
-        <span className="text-copy-13 text-[var(--ds-gray-900)]">
+        <span className="text-copy-sm text-secondary">
           {children}
         </span>
       ) : null}
@@ -147,7 +147,7 @@ export function MonthAxis({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative mt-2 h-4 select-none text-[var(--ds-gray-900)]",
+        "relative mt-2 h-4 select-none text-secondary",
         className,
       )}
       aria-hidden="true"
@@ -185,7 +185,7 @@ export function ChartLegend({
       {items.map((item) => (
         <li
           key={item.label}
-          className="flex items-center gap-1.5 text-label-12 text-[var(--ds-gray-900)]"
+          className="flex items-center gap-1.5 text-label-xs text-secondary"
         >
           {item.dashed ? (
             <span
@@ -202,7 +202,7 @@ export function ChartLegend({
           )}
           <span className="min-w-0 truncate">{item.label}</span>
           {item.value ? (
-            <span className="tabular-nums text-[var(--ds-gray-1000)]">
+            <span className="tabular-nums text-primary">
               {item.value}
             </span>
           ) : null}

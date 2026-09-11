@@ -109,11 +109,11 @@ const SECTIONS: NavSection[] = [
 const itemClasses = (active?: boolean) =>
   cn(
     "group flex h-8 w-full items-center gap-2 rounded-[var(--radius)] px-2",
-    "text-label-14 outline-none transition-colors duration-150",
+    "text-label-default outline-none transition-colors duration-150",
     "focus-visible:shadow-[var(--ds-focus-ring)]",
     active
-      ? "bg-[var(--ds-gray-alpha-200)] font-medium text-[var(--ds-gray-1000)]"
-      : "text-[var(--ds-gray-900)] hover:bg-[var(--ds-gray-alpha-100)] hover:text-[var(--ds-gray-1000)]",
+      ? "bg-[var(--ds-gray-alpha-200)] font-medium text-primary"
+      : "text-secondary hover:bg-[var(--ds-gray-alpha-100)] hover:text-primary",
   );
 
 function NavEntry({ item }: { item: NavItem }) {
@@ -133,13 +133,13 @@ function NavEntry({ item }: { item: NavItem }) {
         >
           <Icon
             aria-hidden="true"
-            className="size-4 shrink-0 text-[var(--ds-gray-700)] transition-colors group-hover:text-[var(--ds-gray-900)]"
+            className="size-4 shrink-0 text-tertiary transition-colors group-hover:text-secondary"
           />
           <span className="truncate">{item.label}</span>
           <CaretRight
             aria-hidden="true"
             className={cn(
-              "ml-auto size-3.5 shrink-0 text-[var(--ds-gray-700)]",
+              "ml-auto size-3.5 shrink-0 text-tertiary",
               "transition-transform duration-200 ease-[var(--ds-motion-timing-swift)]",
               open && "rotate-90",
             )}
@@ -172,15 +172,15 @@ function NavEntry({ item }: { item: NavItem }) {
         className={cn(
           "size-4 shrink-0 transition-colors",
           isActive
-            ? "text-[var(--ds-gray-1000)]"
-            : "text-[var(--ds-gray-700)] group-hover:text-[var(--ds-gray-900)]",
+            ? "text-primary"
+            : "text-tertiary group-hover:text-secondary",
         )}
       />
       <span className="truncate">{item.label}</span>
       {item.external ? (
         <ArrowUpRight
           aria-hidden="true"
-          className="ml-auto size-3.5 shrink-0 text-[var(--ds-gray-700)]"
+          className="ml-auto size-3.5 shrink-0 text-tertiary"
         />
       ) : null}
     </>
@@ -217,14 +217,14 @@ export function Sidebar() {
         href="/"
         className="flex h-14 items-center gap-2 px-4 outline-none focus-visible:shadow-[var(--ds-focus-ring)]"
       >
-        <PenseroLogo className="h-[22px] text-[var(--ds-gray-1000)]" />
+        <PenseroLogo className="h-[22px] text-primary" />
       </Link>
 
       <nav className="no-scrollbar flex-1 overflow-y-auto px-3 pb-4">
         {SECTIONS.map((section, index) => (
           <div key={section.title ?? `section-${index}`} className="mb-5">
             {section.title ? (
-              <h2 className="px-2 pt-1 pb-2 text-[11px] leading-4 font-medium tracking-[0.04em] text-[var(--ds-gray-700)] uppercase">
+              <h2 className="px-2 pt-1 pb-2 text-[11px] leading-4 font-medium tracking-[0.04em] text-tertiary uppercase">
                 {section.title}
               </h2>
             ) : null}
@@ -251,16 +251,16 @@ export function Sidebar() {
             >
               <Avatar name="Mara D." size="lg" />
               <span className="min-w-0 flex-1 text-left">
-                <span className="block truncate text-label-14 font-medium text-[var(--ds-gray-1000)]">
+                <span className="block truncate text-label-default font-medium text-primary">
                   Mara D.
                 </span>
-                <span className="block truncate text-label-12 text-[var(--ds-gray-900)]">
+                <span className="block truncate text-label-xs text-secondary">
                   mara@acme.com
                 </span>
               </span>
               <CaretUpDown
                 aria-hidden="true"
-                className="size-3.5 shrink-0 text-[var(--ds-gray-700)]"
+                className="size-3.5 shrink-0 text-tertiary"
               />
             </button>
           </MenuTrigger>
@@ -290,7 +290,7 @@ export function Sidebar() {
               // roving focus and select-to-close from swallowing its clicks.
               onKeyDown={(event) => event.stopPropagation()}
             >
-              <span className="text-label-14 text-[var(--ds-gray-1000)]">
+              <span className="text-label-default text-primary">
                 Theme
               </span>
               <ThemeSwitcher />

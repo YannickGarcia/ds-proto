@@ -79,7 +79,7 @@ export function ScopeSelector({
         {/* Wraps: on the shared form scale these chips are 32px, and four of
             them no longer fit one line of a 288px popover. */}
         <div className="flex flex-col gap-1.5 border-b border-[var(--border-subtle)] px-2 py-2">
-          <span className="px-1 text-label-12 text-[var(--ds-gray-900)]">
+          <span className="px-1 text-label-xs text-secondary">
             Cohorts
           </span>
           <div className="flex flex-wrap items-center gap-1">
@@ -122,16 +122,16 @@ export function ScopeSelector({
                   )}
                 >
                   <Avatar name={person.name} size="sm" />
-                  <span className="min-w-0 flex-1 truncate text-left text-label-14 text-[var(--ds-gray-1000)]">
+                  <span className="min-w-0 flex-1 truncate text-left text-label-default text-primary">
                     {person.name}
                   </span>
-                  <span className="text-label-12 text-[var(--ds-gray-900)]">
+                  <span className="text-label-xs text-secondary">
                     {person.team}
                   </span>
                   <Check
                     aria-hidden="true"
                     className={cn(
-                      "size-3.5 shrink-0 text-[var(--ds-gray-1000)] transition-opacity duration-100",
+                      "size-3.5 shrink-0 text-primary transition-opacity duration-100",
                       isSelected ? "opacity-100" : "opacity-0",
                     )}
                   />
@@ -140,7 +140,7 @@ export function ScopeSelector({
             );
           })}
           {filtered.length === 0 ? (
-            <li className="px-2 py-6 text-center text-copy-13 text-[var(--ds-gray-900)]">
+            <li className="px-2 py-6 text-center text-copy-sm text-secondary">
               No people match “{query}”
             </li>
           ) : null}

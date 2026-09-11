@@ -68,7 +68,7 @@ export function IntegrationsPage({
             <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
               <div className="flex min-w-0 items-center gap-2.5">
                 {titleIcon}
-                <h1 className="min-w-0 text-heading-24 text-[var(--ds-gray-1000)]">
+                <h1 className="min-w-0 text-h2 text-primary">
                   {title}
                 </h1>
               </div>
@@ -110,9 +110,9 @@ export function Section({
     <section className={cn("scroll-mt-32", className)}>
       <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="text-heading-16 text-[var(--ds-gray-1000)]">{title}</h2>
+          <h2 className="text-h4 text-primary">{title}</h2>
           {description ? (
-            <p className="mt-1 max-w-[72ch] text-copy-13 text-pretty text-[var(--ds-gray-900)]">
+            <p className="mt-1 max-w-[72ch] text-copy-sm text-pretty text-secondary">
               {description}
             </p>
           ) : null}

@@ -164,7 +164,7 @@ export function DocsNav() {
             href={group.href}
             className={cn(
               "block px-2 pb-2 text-[11px] leading-4 font-medium tracking-[0.04em] uppercase",
-              "text-[var(--ds-gray-700)] transition-colors hover:text-[var(--ds-gray-1000)]",
+              "text-tertiary transition-colors hover:text-primary",
             )}
           >
             {group.title}
@@ -178,11 +178,11 @@ export function DocsNav() {
                     href={item.href}
                     aria-current={isActive ? "location" : undefined}
                     className={cn(
-                      "block rounded-[var(--radius)] px-2 py-1.5 text-label-13",
+                      "block rounded-[var(--radius)] px-2 py-1.5 text-label-sm",
                       "transition-colors duration-150",
                       isActive
-                        ? "bg-[var(--ds-gray-alpha-200)] font-medium text-[var(--ds-gray-1000)]"
-                        : "text-[var(--ds-gray-900)] hover:bg-[var(--ds-gray-alpha-100)] hover:text-[var(--ds-gray-1000)]",
+                        ? "bg-[var(--ds-gray-alpha-200)] font-medium text-primary"
+                        : "text-secondary hover:bg-[var(--ds-gray-alpha-100)] hover:text-primary",
                     )}
                   >
                     {item.label}

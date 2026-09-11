@@ -380,7 +380,7 @@ function EfficiencyAndCost({ range }: { range: string }) {
               >
                 <CaretLeft aria-hidden="true" />
               </Button>
-              <span className="tabular-nums w-10 text-center text-button-14 text-[var(--ds-gray-1000)]">
+              <span className="tabular-nums w-10 text-center text-button-default text-primary">
                 {year}
               </span>
               <Button
@@ -476,7 +476,7 @@ function WhoGetsValue({
         </ChartCardHeader>
 
         <div className="px-5 pb-4">
-          <p className="max-w-[110ch] text-copy-13 text-pretty text-[var(--ds-gray-900)]">
+          <p className="max-w-[110ch] text-copy-sm text-pretty text-secondary">
             Compare the balance between AI cost efficiency ($ per delivery
             point) and delivery volume. X-axis = delivery points. Y-axis = cost
             per delivery point (lower cost = higher position = more efficient).

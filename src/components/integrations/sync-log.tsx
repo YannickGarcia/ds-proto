@@ -76,7 +76,7 @@ export function SyncLog() {
         { label: "Sync log" },
       ]}
       titleIcon={
-        <span className="flex size-10 items-center justify-center rounded-[9px] bg-[var(--ds-gray-alpha-100)] text-[var(--ds-gray-900)]">
+        <span className="flex size-10 items-center justify-center rounded-[9px] bg-[var(--ds-gray-alpha-100)] text-secondary">
           <ClockCounterClockwise aria-hidden="true" className="size-5" />
         </span>
       }
@@ -210,23 +210,23 @@ function SyncRow({
         <TableCell className="sticky left-0 z-10 bg-[var(--ds-surface-secondary)]">
           <span className="flex items-center gap-2.5">
             <ProviderIcon provider={run.provider} size="sm" />
-            <span className="truncate text-mono-13">{run.resource}</span>
+            <span className="truncate text-copy-sm-mono">{run.resource}</span>
           </span>
         </TableCell>
-        <TableCell className="text-[var(--ds-gray-900)]">
+        <TableCell className="text-secondary">
           {run.organization}
         </TableCell>
-        <TableCell className="whitespace-nowrap text-[var(--ds-gray-900)]">
+        <TableCell className="whitespace-nowrap text-secondary">
           <Tooltip content="The window of data covered by this run. Dates are shown in your local time zone.">
             <span>
               {run.rangeFrom} → {run.rangeTo}
             </span>
           </Tooltip>
         </TableCell>
-        <TableCell className="whitespace-nowrap text-[var(--ds-gray-900)]">
+        <TableCell className="whitespace-nowrap text-secondary">
           {run.startedAt}
         </TableCell>
-        <TableCell className="whitespace-nowrap text-[var(--ds-gray-900)]">
+        <TableCell className="whitespace-nowrap text-secondary">
           {run.updatedAt}
         </TableCell>
         <TableCell>
@@ -240,7 +240,7 @@ function SyncRow({
               }
             />
             {run.message ? (
-              <span className="max-w-[280px] text-label-12 text-pretty text-[var(--ds-gray-900)]">
+              <span className="max-w-[280px] text-label-xs text-pretty text-secondary">
                 {run.message}
               </span>
             ) : null}
@@ -253,7 +253,7 @@ function SyncRow({
                 type="button"
                 onClick={onToggle}
                 aria-expanded={expanded}
-                className="inline-flex items-center gap-1 rounded-[4px] text-label-12 outline-none focus-visible:shadow-[var(--ds-focus-ring)]"
+                className="inline-flex items-center gap-1 rounded-[4px] text-label-xs outline-none focus-visible:shadow-[var(--ds-focus-ring)]"
               >
                 {expanded ? "Less" : "More"}
                 <CaretDown
@@ -263,7 +263,7 @@ function SyncRow({
               </button>
             </StaffOnly>
           ) : (
-            <span className="text-[var(--ds-gray-700)]">—</span>
+            <span className="text-tertiary">—</span>
           )}
         </TableCell>
       </TableRow>
@@ -274,12 +274,12 @@ function SyncRow({
             <div className="flex flex-col gap-2 py-1">
               {run.errors?.length ? (
                 <div>
-                  <p className="text-label-12 font-medium text-[var(--ds-red-900)]">
+                  <p className="text-label-xs font-medium text-[var(--ds-red-900)]">
                     Errors
                   </p>
                   <ul className="mt-1 flex flex-col gap-0.5">
                     {run.errors.map((error) => (
-                      <li key={error} className="text-mono-12 text-[var(--ds-gray-900)]">
+                      <li key={error} className="text-label-xs-mono text-secondary">
                         {error}
                       </li>
                     ))}
@@ -288,12 +288,12 @@ function SyncRow({
               ) : null}
               {run.skips?.length ? (
                 <div>
-                  <p className="text-label-12 font-medium text-[var(--ds-amber-900)]">
+                  <p className="text-label-xs font-medium text-[var(--ds-amber-900)]">
                     Skipped
                   </p>
                   <ul className="mt-1 flex flex-col gap-0.5">
                     {run.skips.map((skip) => (
-                      <li key={skip} className="text-mono-12 text-[var(--ds-gray-900)]">
+                      <li key={skip} className="text-label-xs-mono text-secondary">
                         {skip}
                       </li>
                     ))}

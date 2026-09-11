@@ -24,13 +24,13 @@ export function EmptyState({
       )}
     >
       {icon ? (
-        <span className="mb-1 text-[var(--ds-gray-700)] [&_svg]:size-6">
+        <span className="mb-1 text-tertiary [&_svg]:size-6">
           {icon}
         </span>
       ) : null}
-      <p className="text-heading-14 text-[var(--ds-gray-1000)]">{title}</p>
+      <p className="text-h5 text-primary">{title}</p>
       {description ? (
-        <p className="max-w-[44ch] text-copy-13 text-pretty text-[var(--ds-gray-900)]">
+        <p className="max-w-[44ch] text-copy-sm text-pretty text-secondary">
           {description}
         </p>
       ) : null}

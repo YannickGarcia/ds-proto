@@ -50,8 +50,8 @@ export function ThemeSwitcher({ className }: { className?: string }) {
               "relative inline-flex size-6 items-center justify-center rounded-full outline-none",
               "transition-colors duration-150 focus-visible:shadow-[var(--ds-focus-ring)]",
               isActive
-                ? "text-[var(--ds-gray-1000)]"
-                : "text-[var(--ds-gray-700)] hover:text-[var(--ds-gray-1000)]",
+                ? "text-primary"
+                : "text-tertiary hover:text-primary",
             )}
           >
             {isActive ? (

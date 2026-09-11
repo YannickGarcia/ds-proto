@@ -76,8 +76,8 @@ export function TableHeaderCell({
             : undefined
       }
       className={cn(
-        "border-b border-[var(--border-subtle)] px-3 py-2 text-label-12 font-medium whitespace-nowrap",
-        "text-[var(--ds-gray-900)]",
+        "border-b border-[var(--border-subtle)] px-3 py-2 text-label-xs font-medium whitespace-nowrap",
+        "text-secondary",
         className,
       )}
       {...props}
@@ -88,9 +88,9 @@ export function TableHeaderCell({
           onClick={onSort}
           className={cn(
             "-mx-1.5 inline-flex items-center gap-1 rounded-[4px] px-1.5 py-0.5 outline-none",
-            "transition-colors duration-100 hover:text-[var(--ds-gray-1000)]",
+            "transition-colors duration-100 hover:text-primary",
             "focus-visible:shadow-[var(--ds-focus-ring)]",
-            direction && "text-[var(--ds-gray-1000)]",
+            direction && "text-primary",
           )}
         >
           {children}
@@ -113,7 +113,7 @@ export function TableCell({ className, ...props }: ComponentProps<"td">) {
   return (
     <td
       className={cn(
-        "px-3 py-2.5 align-middle text-label-13 text-[var(--ds-gray-1000)]",
+        "px-3 py-2.5 align-middle text-label-sm text-primary",
         className,
       )}
       {...props}

@@ -69,24 +69,24 @@ export function HealthPanel({
               <CaretDown
                 aria-hidden="true"
                 className={cn(
-                  "size-3.5 shrink-0 text-[var(--ds-gray-700)] transition-transform duration-200",
+                  "size-3.5 shrink-0 text-tertiary transition-transform duration-200",
                   "ease-[var(--ds-motion-timing-swift)]",
                   open && "rotate-180",
                 )}
               />
-              <span className="text-heading-14 text-[var(--ds-gray-1000)]">
+              <span className="text-h5 text-primary">
                 Integration health
               </span>
             </CollapsibleTrigger>
             <span className="flex items-center gap-1.5">
               <span aria-hidden="true" className={cn("size-1.5 rounded-full", dot)} />
-              <span className="text-label-13 text-[var(--ds-gray-900)]">
+              <span className="text-label-sm text-secondary">
                 {summary.label}
               </span>
             </span>
           </div>
           <div className="flex items-center gap-2.5">
-            <span className="text-label-12 text-[var(--ds-gray-900)]">
+            <span className="text-label-xs text-secondary">
               Checked {checkedAgo}
             </span>
             <Button
@@ -100,7 +100,7 @@ export function HealthPanel({
 
         <CollapsibleContent>
           <div className="border-t border-[var(--border-subtle)] px-5 py-4">
-            <p className="mb-3 text-copy-13 text-[var(--ds-gray-900)]">
+            <p className="mb-3 text-copy-sm text-secondary">
               Checks run against {scope}.
             </p>
 
@@ -112,10 +112,10 @@ export function HealthPanel({
                 >
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <p className="text-label-13 font-medium text-[var(--ds-gray-1000)]">
+                      <p className="text-label-sm font-medium text-primary">
                         {check.title}
                       </p>
-                      <p className="mt-0.5 text-copy-13 text-[var(--ds-gray-900)]">
+                      <p className="mt-0.5 text-copy-sm text-secondary">
                         {check.description}
                       </p>
                     </div>
@@ -127,15 +127,15 @@ export function HealthPanel({
                       {check.details.map((detail) => (
                         <li
                           key={detail.repo}
-                          className="flex flex-wrap items-center gap-x-2 text-label-12"
+                          className="flex flex-wrap items-center gap-x-2 text-label-xs"
                         >
-                          <code className="text-mono-12 text-[var(--ds-gray-1000)]">
+                          <code className="text-label-xs-mono text-primary">
                             {detail.repo}
                           </code>
-                          <span className="text-[var(--ds-gray-900)]">
+                          <span className="text-secondary">
                             {detail.reason}
                           </span>
-                          <span className="text-[var(--ds-gray-700)]">
+                          <span className="text-tertiary">
                             since {detail.since} ago
                           </span>
                         </li>
@@ -149,7 +149,7 @@ export function HealthPanel({
             {/* History ------------------------------------------------- */}
             <div className="mt-4 border-t border-[var(--border-subtle)] pt-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-label-13 font-medium text-[var(--ds-gray-1000)]">
+                <p className="text-label-sm font-medium text-primary">
                   Healthcheck history
                 </p>
                 <Badge>2× daily</Badge>
@@ -170,12 +170,12 @@ export function HealthPanel({
                 {HEALTH_HISTORY.slice(0, 2).map((run) => (
                   <li
                     key={`row-${run.at}`}
-                    className="flex flex-wrap items-center gap-x-2 text-label-12"
+                    className="flex flex-wrap items-center gap-x-2 text-label-xs"
                   >
-                    <span className="tabular-nums text-[var(--ds-gray-1000)]">
+                    <span className="tabular-nums text-primary">
                       {run.at}
                     </span>
-                    <span className="text-[var(--ds-gray-900)]">
+                    <span className="text-secondary">
                       {run.result === "ok"
                         ? "All checks passed"
                         : run.result === "warn"
