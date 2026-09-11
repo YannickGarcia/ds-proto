@@ -411,7 +411,11 @@ export function Foundations() {
         >
           <SwatchRow
             items={[
-              { token: "--brand", label: "Brand", note: "Logo, brand marks" },
+              {
+                token: "--brand",
+                label: "Brand",
+                note: "The mark, and the hue the primary action is cut from",
+              },
               {
                 token: "--brand-strong",
                 label: "Brand strong",
@@ -429,7 +433,7 @@ export function Foundations() {
         <DoDont
           do={[
             "Change the look by moving a dial. All three are in one block at the top of globals.css.",
-            "Keep the brand at full strength for the logo, and only the logo.",
+            "Keep the brand at full strength for the mark. The primary action is cut from the same hue but set to the lightness its label needs — that is the only other place it appears as a fill.",
             "Re-derive tokens when adding a surface, so it inherits the tint automatically.",
           ]}
           dont={[
@@ -1150,8 +1154,8 @@ export function Foundations() {
               ],
               [
                 "Filled",
-                "A solid step: gray-1000, red-800, amber-800",
-                "The next step down the same hue: gray-900, red-900, amber-900",
+                "A solid fill: --ds-action-primary, red-800, amber-800",
+                "The next step down the same hue: --ds-action-primary-hover, red-900, amber-900",
                 "Primary, error and warning buttons",
               ],
             ]}

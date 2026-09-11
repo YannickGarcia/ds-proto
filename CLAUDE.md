@@ -74,6 +74,13 @@ repeatedly fixed.
 - **Filled controls** label themselves with `--ds-surface-secondary`, never a
   literal white or black: step 800 is dark in light and light in dark, and the
   surface token flips with it.
+- **The primary button is the brand's only fill.** `--ds-action-primary` and
+  `--ds-action-primary-hover` are cut from the brand hue (149.4) and set to
+  the lightness their label needs: L52 in light, L72 in dark, with the label
+  as `--ds-surface-secondary` so it inverts. It also takes
+  `--ds-focus-ring-neutral`, because a brand-green ring around a brand-green
+  button reads as one blur. Everywhere else the brand stays the mark and the
+  surface tint.
 - **Brand tint** is three dials at the top of `globals.css`
   (`--tint-light`, `--tint-dark`, `--tint-saturation`). Every surface token is
   derived from them; never paste a tinted hex into a component.

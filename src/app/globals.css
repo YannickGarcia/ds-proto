@@ -170,8 +170,18 @@
   --ds-teal-text: #00776b;
   --ds-pink-text: #cf0064;
 
+
+  /* The primary action, derived from the brand hue (149.4) rather than from
+     the green ramp — this is the brand speaking, not a semantic green.
+     Lightness is set by what the label needs: near-white has to clear 4.5:1,
+     which caps the fill around L52. Hover deepens by 8 points, the same
+     stride the error and warning buttons take. */
+  --ds-action-primary: #007f36;
+  --ds-action-primary-hover: #006429;
+
   --ds-focus-color: var(--brand-strong);
   --ds-focus-ring: 0 0 0 2px var(--ds-surface-secondary), 0 0 0 4px var(--ds-focus-color);
+  --ds-focus-ring-neutral: 0 0 0 2px var(--ds-surface-secondary), 0 0 0 4px var(--ds-gray-1000);
   --ds-focus-border: 0 0 0 1px var(--ds-gray-alpha-600), 0px 0px 0px 4px #00000029;
 
   /* Elevation: a light source above. The top edge catches it, the body
@@ -324,6 +334,13 @@
   --ds-purple-text: var(--ds-purple-900);
   --ds-teal-text: var(--ds-teal-900);
   --ds-pink-text: var(--ds-pink-900);
+
+
+  /* Dark can carry the brand far brighter, because the label is near-black.
+     Resting sits a little under full strength so it does not vibrate against
+     the surface; hover rises past the brand itself. */
+  --ds-action-primary: #00c558;
+  --ds-action-primary-hover: #00e366;
 
   --ds-focus-color: var(--brand);
   --ds-focus-border: 0 0 0 1px var(--ds-gray-alpha-600), 0px 0px 0px 4px #ffffff3d;

@@ -313,7 +313,7 @@ text   → --ds-{hue}-900`}
       <DocsEntry
         id="component-button"
         title="Button"
-        description="Five variants across four heights matching the form scale. Variant encodes importance; size encodes the density of its surroundings."
+        description="Five variants at two heights. Variant encodes importance, size encodes the density of its surroundings. Primary is filled with the brand — the only place in the product that happens — so it carries real weight and there is never more than one in view."
       >
         <DocsBlock label="Variants">
           <Specimens
@@ -436,8 +436,9 @@ text   → --ds-{hue}-900`}
         <BestPractice
           items={[
             <>
-              One primary per view. If two things look equally important,
-              neither is.
+              One primary per view. It is the only element in the product filled
+              with the brand, so a second one does not read as two important
+              actions — it reads as neither being important.
             </>,
             <>
               Use <Token>tertiary</Token> for actions that live inside a card

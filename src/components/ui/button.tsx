@@ -49,8 +49,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary:
-          "bg-[var(--ds-gray-1000)] text-[var(--ds-surface-secondary)] hover:bg-[var(--ds-gray-900)]",
+        // The one place the brand appears as a fill. The label is a surface
+        // token so it inverts with the theme, and the focus ring goes neutral
+        // — a green ring around a green button reads as a single blur.
+        primary: [
+          "bg-[var(--ds-action-primary)] text-[var(--ds-surface-secondary)]",
+          "hover:bg-[var(--ds-action-primary-hover)]",
+          "focus-visible:shadow-[var(--ds-focus-ring-neutral)]",
+        ],
         secondary: [
           "border-[var(--ds-gray-alpha-400)] bg-[var(--ds-surface-secondary)] text-primary",
           "hover:border-[var(--ds-gray-alpha-500)] hover:bg-[var(--ds-gray-alpha-100)]",
