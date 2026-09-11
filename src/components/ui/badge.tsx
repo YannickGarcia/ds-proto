@@ -11,15 +11,15 @@ const badgeVariants = cva(
         gray: "border-transparent bg-[var(--ds-gray-1000)] text-[var(--ds-surface-secondary)]",
         "gray-subtle":
           "border-[var(--ds-gray-alpha-400)] bg-[var(--ds-gray-alpha-100)] text-secondary",
-        blue: "border-[var(--ds-blue-400)] bg-[var(--ds-blue-200)] text-[var(--ds-blue-900)]",
+        blue: "border-[var(--ds-blue-400)] bg-[var(--ds-blue-200)] text-[var(--ds-blue-text)]",
         purple:
-          "border-[var(--ds-purple-400)] bg-[var(--ds-purple-200)] text-[var(--ds-purple-900)]",
+          "border-[var(--ds-purple-400)] bg-[var(--ds-purple-200)] text-[var(--ds-purple-text)]",
         amber:
-          "border-[var(--ds-amber-400)] bg-[var(--ds-amber-200)] text-[var(--ds-amber-900)]",
-        red: "border-[var(--ds-red-400)] bg-[var(--ds-red-200)] text-[var(--ds-red-900)]",
+          "border-[var(--ds-amber-400)] bg-[var(--ds-amber-200)] text-[var(--ds-amber-text)]",
+        red: "border-[var(--ds-red-400)] bg-[var(--ds-red-200)] text-[var(--ds-red-text)]",
         green:
-          "border-[var(--ds-green-400)] bg-[var(--ds-green-200)] text-[var(--ds-green-900)]",
-        teal: "border-[var(--ds-teal-400)] bg-[var(--ds-teal-200)] text-[var(--ds-teal-900)]",
+          "border-[var(--ds-green-400)] bg-[var(--ds-green-200)] text-[var(--ds-green-text)]",
+        teal: "border-[var(--ds-teal-400)] bg-[var(--ds-teal-200)] text-[var(--ds-teal-text)]",
       },
       size: {
         sm: "h-5 px-2 text-[11px] leading-none [&_svg]:size-3",

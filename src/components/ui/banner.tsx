@@ -11,25 +11,25 @@ const TONE = {
     icon: Info,
     border: "border-[var(--ds-blue-400)]",
     surface: "bg-[var(--ds-blue-100)]",
-    mark: "text-[var(--ds-blue-900)]",
+    mark: "text-[var(--ds-blue-text)]",
   },
   warning: {
     icon: Warning,
     border: "border-[var(--ds-amber-400)]",
     surface: "bg-[var(--ds-amber-100)]",
-    mark: "text-[var(--ds-amber-900)]",
+    mark: "text-[var(--ds-amber-text)]",
   },
   error: {
     icon: WarningCircle,
     border: "border-[var(--ds-red-400)]",
     surface: "bg-[var(--ds-red-100)]",
-    mark: "text-[var(--ds-red-900)]",
+    mark: "text-[var(--ds-red-text)]",
   },
   success: {
     icon: CheckCircle,
     border: "border-[var(--ds-green-400)]",
     surface: "bg-[var(--ds-green-100)]",
-    mark: "text-[var(--ds-green-900)]",
+    mark: "text-[var(--ds-green-text)]",
   },
 } as const;
 

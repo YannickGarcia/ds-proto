@@ -210,7 +210,7 @@ export function GithubRepositories() {
                 Resolve GitHub orgs
               </MenuItem>
               <MenuSeparator />
-              <MenuItem className="text-[var(--ds-red-900)]">
+              <MenuItem className="text-[var(--ds-red-text)]">
                 Disconnect
               </MenuItem>
             </MenuContent>
@@ -662,7 +662,7 @@ function RepoRow({
       <TableCell className="max-w-[220px]">
         {repo.warning ? (
           <Tooltip content={repo.warning}>
-            <span className="inline-flex min-w-0 items-center gap-1.5 text-[var(--ds-amber-900)]">
+            <span className="inline-flex min-w-0 items-center gap-1.5 text-[var(--ds-amber-text)]">
               <Warning
                 aria-hidden="true"
                 className="size-3.5 shrink-0"

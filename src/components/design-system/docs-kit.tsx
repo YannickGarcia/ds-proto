@@ -255,8 +255,8 @@ export function DoDont({
           className={cn(
             "flex items-center gap-1.5 text-label-sm font-medium",
             kind === "do"
-              ? "text-[var(--ds-green-900)]"
-              : "text-[var(--ds-red-900)]",
+              ? "text-[var(--ds-green-text)]"
+              : "text-[var(--ds-red-text)]",
           )}
         >
           <Icon aria-hidden="true" className="size-3.5" />

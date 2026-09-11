@@ -152,6 +152,24 @@
   --ds-pink-900: #900044;
   --ds-pink-1000: #4c0b28;
 
+
+  /* Status text, one step per hue, deliberately outside the ramp.
+
+     Step 900 has two jobs: text on a tinted surface, and the hover fill of a
+     filled button. The ramp pins it below 800, which in the light theme puts
+     it near L42 — dark enough that amber turns to mud and red to maroon,
+     because warm hues lose their identity as they darken. These sit around
+     L54 with chroma at the gamut edge, so the colour still reads as amber or
+     red, and every one clears 4.6:1 on white and on its own 100 and 200
+     tints. In dark, 900 is already light and chromatic, so it is used as-is. */
+  --ds-amber-text: #a94e00;
+  --ds-red-text: #d0001d;
+  --ds-green-text: #007c2c;
+  --ds-blue-text: #0062e2;
+  --ds-purple-text: #9c00fc;
+  --ds-teal-text: #00776b;
+  --ds-pink-text: #cf0064;
+
   --ds-focus-color: var(--brand-strong);
   --ds-focus-ring: 0 0 0 2px var(--ds-surface-secondary), 0 0 0 4px var(--ds-focus-color);
   --ds-focus-border: 0 0 0 1px var(--ds-gray-alpha-600), 0px 0px 0px 4px #00000029;
@@ -296,6 +314,16 @@
   --ds-pink-800: #ff6293;
   --ds-pink-900: #ff96b1;
   --ds-pink-1000: #f9e5ee;
+
+
+  /* Dark: the ramp's 900 is already light and chromatic enough to read. */
+  --ds-amber-text: var(--ds-amber-900);
+  --ds-red-text: var(--ds-red-900);
+  --ds-green-text: var(--ds-green-900);
+  --ds-blue-text: var(--ds-blue-900);
+  --ds-purple-text: var(--ds-purple-900);
+  --ds-teal-text: var(--ds-teal-900);
+  --ds-pink-text: var(--ds-pink-900);
 
   --ds-focus-color: var(--brand);
   --ds-focus-border: 0 0 0 1px var(--ds-gray-alpha-600), 0px 0px 0px 4px #ffffff3d;

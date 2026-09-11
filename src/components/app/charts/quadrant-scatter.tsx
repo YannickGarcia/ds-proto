@@ -94,9 +94,9 @@ export function QuadrantScatter({ people }: { people: Person[] }) {
                 "text-[11px] leading-4 text-balance",
                 quadrant.className,
                 quadrant.favourable
-                  ? "text-[var(--ds-green-900)]"
+                  ? "text-[var(--ds-green-text)]"
                   : quadrant.unfavourable
-                    ? "text-[var(--ds-red-900)]"
+                    ? "text-[var(--ds-red-text)]"
                     : "text-secondary",
               )}
             >

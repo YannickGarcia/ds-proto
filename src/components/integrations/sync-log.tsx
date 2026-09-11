@@ -274,7 +274,7 @@ function SyncRow({
             <div className="flex flex-col gap-2 py-1">
               {run.errors?.length ? (
                 <div>
-                  <p className="text-label-xs font-medium text-[var(--ds-red-900)]">
+                  <p className="text-label-xs font-medium text-[var(--ds-red-text)]">
                     Errors
                   </p>
                   <ul className="mt-1 flex flex-col gap-0.5">
@@ -288,7 +288,7 @@ function SyncRow({
               ) : null}
               {run.skips?.length ? (
                 <div>
-                  <p className="text-label-xs font-medium text-[var(--ds-amber-900)]">
+                  <p className="text-label-xs font-medium text-[var(--ds-amber-text)]">
                     Skipped
                   </p>
                   <ul className="mt-1 flex flex-col gap-0.5">

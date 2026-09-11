@@ -158,7 +158,7 @@ export function RepositorySyncSettings() {
               {error ? (
                 <p
                   role="alert"
-                  className="mt-2 flex items-start gap-1.5 text-label-xs text-[var(--ds-red-900)]"
+                  className="mt-2 flex items-start gap-1.5 text-label-xs text-[var(--ds-red-text)]"
                 >
                   <X aria-hidden="true" className="mt-px size-3.5 shrink-0" />
                   {error}
@@ -178,7 +178,7 @@ export function RepositorySyncSettings() {
                 <p className="mt-3 flex items-center gap-2 text-label-sm text-primary">
                   <CheckCircle
                     aria-hidden="true"
-                    className="size-4 shrink-0 text-[var(--ds-green-900)]"
+                    className="size-4 shrink-0 text-[var(--ds-green-text)]"
                     weight="fill"
                   />
                   {checked} repositories on the provider match these patterns.

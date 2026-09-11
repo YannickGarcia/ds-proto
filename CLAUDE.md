@@ -60,6 +60,11 @@ repeatedly fixed.
 - **Colour scales** climb in even OKLCH lightness, in both themes, so a step
   means the same thing in any hue. Hand-tuned palettes drift into inversions
   and duplicate values; keep the ramp even when adding or adjusting a step.
+- **Coloured text uses `--ds-<hue>-text`**, never `--ds-<hue>-900`. Step 900
+  is both text and a button hover fill, and the ramp pins it below 800 — in
+  light that lands near L42, where amber reads as mud and red as maroon. The
+  text step sits outside the ramp at ~L54 and clears 4.6:1 on white and on
+  the hue's 100 and 200 tints.
 - **Filled controls** label themselves with `--ds-surface-secondary`, never a
   literal white or black: step 800 is dark in light and light in dark, and the
   surface token flips with it.

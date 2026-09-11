@@ -242,7 +242,7 @@ export function Foundations() {
               [
                 <Token key="d">900–1000</Token>,
                 "Text and icons",
-                "Secondary text (900), primary text (1000)",
+                "Secondary text (900), primary text (1000). For a hue, text takes --ds-<hue>-text instead",
               ],
             ]}
           />
@@ -271,6 +271,25 @@ export function Foundations() {
               ],
             ]}
           />
+        </DocsBlock>
+
+        <DocsBlock
+          label="Status text sits outside the ramp"
+          hint="Step 900 does two jobs: text on a tinted surface, and the hover fill of a filled button. The ramp pins it below 800, which in light puts it near L42 — dark enough that amber turns to mud and red to maroon, because warm hues lose their identity as they darken. So coloured text uses its own step instead, around L54 with chroma at the gamut edge. In dark, 900 is already light and chromatic, and the token simply points at it."
+        >
+          <Example>
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              {(["amber", "red", "green", "blue"] as const).map((hue) => (
+                <span
+                  key={hue}
+                  className="text-label-sm"
+                  style={{ color: `var(--ds-${hue}-text)` }}
+                >
+                  --ds-{hue}-text
+                </span>
+              ))}
+            </div>
+          </Example>
         </DocsBlock>
 
         <DocsBlock label="Scales">
