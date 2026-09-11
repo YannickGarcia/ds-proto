@@ -23,6 +23,7 @@ export const DOCS_NAV: DocsNavGroup[] = [
       { label: "Surfaces", href: "#foundations-surfaces" },
       { label: "Elevation", href: "#foundations-elevation" },
       { label: "Borders", href: "#foundations-borders" },
+      { label: "Interactive states", href: "#foundations-states" },
       { label: "Motion", href: "#foundations-motion" },
       { label: "Icons", href: "#foundations-icons" },
     ],

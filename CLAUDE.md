@@ -60,6 +60,12 @@ repeatedly fixed.
 - **Colour scales** climb in even OKLCH lightness, in both themes, so a step
   means the same thing in any hue. Hand-tuned palettes drift into inversions
   and duplicate values; keep the ramp even when adding or adjusting a step.
+- **Interactive states follow the element's resting look**, not its type.
+  No background → hover is `--ds-gray-alpha-100`, selected is `-200`.
+  Bordered → edge goes `--ds-gray-alpha-400` to `-500` plus the alpha-100
+  wash. Filled → the fill steps one down its own hue (gray-1000→900,
+  red-800→900). Focus is `--ds-focus-ring` everywhere except text fields,
+  which use `--ds-focus-border`; always `:focus-visible`, never `:focus`.
 - **Coloured text uses `--ds-<hue>-text`**, never `--ds-<hue>-900`. Step 900
   is both text and a button hover fill, and the ramp pins it below 800 — in
   light that lands near L42, where amber reads as mud and red as maroon. The

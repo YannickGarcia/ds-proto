@@ -1122,6 +1122,143 @@ export function Foundations() {
 
       {/* ---------------------------------------------------------------- */}
       <DocsEntry
+        id="foundations-states"
+        title="Interactive states"
+        description="Hover, focus, selected and disabled. Which treatment an element gets is decided by how it looks at rest, not by what it is — a control with no background gains one, a bordered control darkens its edge, a filled control moves a step down its own ramp."
+      >
+        <DocsBlock
+          label="Hover, by family"
+          hint="Three families, and every interactive element in the product belongs to one. The alpha fills are alpha on purpose: a solid grey would punch a neutral hole in the brand tint, while an alpha lets the surface underneath show through."
+        >
+          <DocsTable
+            head={["Family", "At rest", "Hover", "Examples"]}
+            rows={[
+              [
+                "Transparent",
+                "No background",
+                <Token key="a">--ds-gray-alpha-100</Token>,
+                "Tertiary button, nav item, menu row, tab, table row",
+              ],
+              [
+                "Bordered",
+                <Token key="b">--ds-gray-alpha-400</Token>,
+                <>
+                  Edge to <Token key="c">--ds-gray-alpha-500</Token>, plus the
+                  same alpha-100 wash
+                </>,
+                "Secondary button, input, select trigger, segmented track",
+              ],
+              [
+                "Filled",
+                "A solid step: gray-1000, red-800, amber-800",
+                "The next step down the same hue: gray-900, red-900, amber-900",
+                "Primary, error and warning buttons",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock
+          label="Selected is not hover"
+          hint="Hover says the pointer is here; selected says this is the current one, and it survives the pointer leaving. They use adjacent steps of the same alpha so a selected row still visibly responds to hover."
+        >
+          <DocsTable
+            head={["State", "Treatment", "Where"]}
+            rows={[
+              [
+                "Hover",
+                <Token key="a">--ds-gray-alpha-100</Token>,
+                "Transient",
+              ],
+              [
+                "Selected",
+                <Token key="b">--ds-gray-alpha-200</Token>,
+                "Active nav item, highlighted menu row, segmented indicator",
+              ],
+              [
+                "Selected, tabs",
+                "Underline, text-primary, weight 500",
+                "A tab bar has no room for a fill, so it marks position instead",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock
+          label="Focus"
+          hint="Always focus-visible, never focus: a ring on every click is noise. Two treatments, because a ring drawn around a text field reads as a second border."
+        >
+          <DocsTable
+            head={["Treatment", "Token", "Used by"]}
+            rows={[
+              [
+                "Ring",
+                <Token key="a">--ds-focus-ring</Token>,
+                "Everything focusable except text fields — a 2px gap in the surface colour, then 2px of accent",
+              ],
+              [
+                "Border and halo",
+                <Token key="b">--ds-focus-border</Token>,
+                "Text fields: the existing edge darkens and gains a soft halo, so nothing is added to the shape",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock
+          label="Disabled"
+          hint="One treatment: the control keeps its shape and loses its contrast, so the layout does not move when something becomes available. Switch is the exception — it dims with opacity, because replacing its fill would collapse the distinction between track and thumb."
+        >
+          <Snippet
+            code={`disabled:bg-[var(--ds-gray-100)]
+disabled:border-[var(--ds-gray-alpha-400)]
+disabled:text-disabled
+disabled:shadow-none
+disabled:cursor-not-allowed`}
+          />
+        </DocsBlock>
+
+        <DocsBlock label="Together">
+          <Example>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button variant="primary">Filled</Button>
+              <Button variant="secondary">Bordered</Button>
+              <Button variant="tertiary">Transparent</Button>
+              <Button variant="secondary" disabled>
+                Disabled
+              </Button>
+            </div>
+          </Example>
+        </DocsBlock>
+
+        <BestPractice
+          items={[
+            <>
+              Pick the treatment from the element&rsquo;s resting appearance. A
+              tertiary button and a nav item look the same at rest, so they
+              hover the same way — that is why the product feels consistent
+              without anyone coordinating it.
+            </>,
+            <>
+              Hover is never a colour change alone on a filled control. Moving
+              one step down the same hue keeps the meaning; switching hue would
+              imply the action changed.
+            </>,
+            <>
+              Never use <Token>:focus</Token>. A ring that appears on every
+              mouse click trains people to ignore it, which is precisely the
+              audience it exists for.
+            </>,
+            <>
+              There is no pressed state. The transition is 150ms, short enough
+              that a press reads through the hover treatment, and adding a
+              fourth step would mean maintaining it on every family.
+            </>,
+          ]}
+        />
+      </DocsEntry>
+
+      <DocsEntry
         id="foundations-motion"
         title="Motion"
         description="Motion is feedback, not decoration. One curve, four durations, and everything collapses under reduced-motion."
