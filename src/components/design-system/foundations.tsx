@@ -799,49 +799,147 @@ export function Foundations() {
       <DocsEntry
         id="foundations-radius"
         title="Radius"
-        description="Four steps. Nested corners step down so the inner shape follows the outer one."
+        description="Radius follows the surface, not the component. The bigger and more lifted a surface is, the rounder its corners — the same rule Geist encodes in its materials. Three steps plus full, and every corner in the product lands on one of them."
       >
-        <Example>
-          <div className="flex flex-wrap items-end gap-6">
-            {[
-              { r: "4px", label: "4px — inner elements", cls: "rounded-[4px]" },
-              {
-                r: "6px",
-                label: "6px — controls",
-                cls: "rounded-[var(--radius)]",
-              },
-              { r: "8px", label: "8px — grouped controls", cls: "rounded-lg" },
-              { r: "12px", label: "12px — cards, overlays", cls: "rounded-xl" },
-            ].map((item) => (
-              <div key={item.r} className="flex flex-col items-start gap-2">
-                <div
-                  className={`size-16 border border-[var(--border-subtle)] bg-[var(--ds-gray-alpha-200)] ${item.cls}`}
-                />
-                <span className="text-label-xs-mono text-secondary">
-                  {item.label}
-                </span>
+        <DocsBlock
+          label="The scale"
+          hint="Three steps and full. Tailwind's rounded-lg (8px) exists as a theme token but is not a product step — nothing in the interface sits between a control and a card, so a value there only ever reads as indecision."
+        >
+          <Example>
+            <div className="flex flex-wrap items-end gap-8">
+              {[
+                { cls: "rounded-sm", label: "rounded-sm · 4px" },
+                { cls: "rounded-md", label: "rounded-md · 6px" },
+                { cls: "rounded-xl", label: "rounded-xl · 12px" },
+                { cls: "rounded-full", label: "rounded-full" },
+              ].map((item) => (
+                <div key={item.cls} className="flex flex-col items-start gap-2">
+                  <div
+                    className={`size-16 border border-[var(--border-subtle)] bg-[var(--ds-gray-alpha-200)] ${item.cls}`}
+                  />
+                  <span className="text-label-xs-mono text-secondary">
+                    {item.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </Example>
+          <DocsTable
+            head={["Step", "Class", "Used for"]}
+            rows={[
+              [
+                "4px",
+                <Token key="a">rounded-sm</Token>,
+                "Inner elements: a segmented indicator, a tab's hover pill, a skeleton line, a code token",
+              ],
+              [
+                "6px",
+                <Token key="b">rounded-md</Token>,
+                "Anything you click or type in: buttons, inputs, select triggers, menu rows, nav rows. Also tooltips",
+              ],
+              [
+                "12px",
+                <Token key="c">rounded-xl</Token>,
+                "Containers: cards, panels, menus, popovers, select lists, banners",
+              ],
+              [
+                "full",
+                <Token key="d">rounded-full</Token>,
+                "Things that are a shape rather than a box: avatars, badges, switches, dots",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock
+          label="By surface"
+          hint="Pick the radius from where the element sits, the same way elevation is picked. The tooltip is the one small floating surface, and it keeps the control radius because it is barely larger than the text it carries."
+        >
+          <DocsTable
+            head={["Surface", "Radius", "Examples"]}
+            rows={[
+              [
+                "On the page — interactive",
+                "6px",
+                "Button, input, select trigger, segmented track",
+              ],
+              [
+                "On the page — container",
+                "12px",
+                "Card, panel, banner, table wrapper",
+              ],
+              ["Floating — small", "6px", "Tooltip"],
+              [
+                "Floating — container",
+                "12px",
+                "Menu, popover, select list, modal",
+              ],
+              [
+                "Floating — fullscreen",
+                "16px",
+                "Not used yet. Geist's step for a takeover; add it when one exists",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock
+          label="Nesting"
+          hint="An inner corner is the outer corner minus the padding between them. Keep the same radius inside and out and the inner shape bulges toward the edge; step down and the two curves stay parallel."
+        >
+          <Example>
+            <div className="flex flex-wrap items-start gap-8">
+              <div className="rounded-xl border border-[var(--border-subtle)] p-1.5">
+                <div className="flex gap-1 rounded-md bg-[var(--ds-gray-alpha-100)] p-0.5">
+                  <span className="rounded-sm bg-[var(--ds-gray-alpha-200)] px-3 py-1 text-label-sm text-primary">
+                    12 → 6 → 4
+                  </span>
+                  <span className="px-3 py-1 text-label-sm text-secondary">
+                    parallel
+                  </span>
+                </div>
               </div>
-            ))}
-          </div>
-        </Example>
+            </div>
+          </Example>
+        </DocsBlock>
+
+        <DocsBlock
+          label="Icon tiles"
+          hint="A square tile holding an icon or a logo is the one place radius is proportional rather than stepped: about 22% of its side, so a small tile and a large one read as the same shape at different sizes."
+        >
+          <DocsTable
+            head={["Tile", "Radius"]}
+            rows={[
+              ["20px", "5px"],
+              ["32px", "7px"],
+              ["40px", "9px"],
+            ]}
+          />
+        </DocsBlock>
 
         <BestPractice
           items={[
             <>
-              <Token>--radius</Token> (6px) is the default for anything
-              interactive: buttons, inputs, menu items, nav rows.
+              Reach for a class, never a pixel value. <Token>rounded-sm</Token>,{" "}
+              <Token>rounded-md</Token> and <Token>rounded-xl</Token> keep a
+              corner on the scale; a hand-typed <Token>rounded-[5px]</Token> is
+              how a scale quietly becomes eleven.
             </>,
             <>
-              Cards and floating surfaces are 12px. A 6px card reads as an
-              oversized button.
+              A 6px card reads as an oversized button, and a 12px button reads
+              as a card. The radius is part of how people tell the two apart.
             </>,
             <>
-              Nest downward. A 4px indicator inside a 6px control inside a 12px
-              card; the inner radius should be roughly outer minus padding.
+              Nest downward: inner radius is outer radius minus padding. Equal
+              radii inside one another bulge at the corners.
             </>,
             <>
-              Full rounding is reserved for avatars and pills, never for
-              containers.
+              Full rounding is for shapes, not containers. A fully rounded panel
+              stops reading as a surface you can put things in.
+            </>,
+            <>
+              Tiny marks — a 10px legend swatch, a heatmap cell — use 2–3px. At
+              that size a stepped radius would make them circles.
             </>,
           ]}
         />

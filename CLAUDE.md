@@ -142,7 +142,12 @@ That is why a tertiary button and a nav item behave identically.
   Never set a border width at a call site. Colour by role:
   `--border-subtle` (object edges), `--border-structural` (the frame),
   `--ds-gray-alpha-400` (control edges).
-- **Radius** is `--radius` (6px) for controls, `rounded-xl` (12px) for cards.
+- **Radius follows the surface**, as in Geist's materials: `rounded-sm` (4px)
+  for inner elements, `rounded-md` (6px) for anything interactive and for
+  tooltips, `rounded-xl` (12px) for cards, menus, popovers and modals,
+  `rounded-full` for avatars, badges and switches. 8px is a theme token but
+  not a product step. Nest downward — inner radius is outer minus padding.
+  Icon tiles are the exception: proportional, about 22% of the side.
 - **Icons** come from `src/components/icons.tsx` only — a single Phosphor
   re-export, which is what keeps the library swappable.
 
