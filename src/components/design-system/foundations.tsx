@@ -1066,49 +1066,166 @@ export function Foundations() {
       <DocsEntry
         id="foundations-elevation"
         title="Elevation"
-        description="Elevation is the drop shadow, and only the drop shadow. It answers one question — has this left the document flow? — and it is orthogonal to which surface an element uses."
+        description="Elevation is the drop shadow, and only the drop shadow. It answers one question — has this left the document flow? — and then a second: how far above the page does it sit? Three rungs answer the second, orthogonal to which surface an element uses."
       >
         <DocsBlock
-          label="One utility"
-          hint="Compose it with a surface. A menu is `surface-tertiary elevated`; a card is `surface-secondary` and nothing else. There is no second shadow step: an interface either has a thing floating over it or it does not."
+          label="The ladder"
+          hint="Each rung is a louder statement that the surface has left the page, and the offset and blur grow with it. Geist runs the same ladder with a fourth rung for fullscreen takeovers; nothing in this product is one, so it is not here. Add it when a takeover exists, not before."
+        >
+          <DocsTable
+            head={["Rung", "Utility", "Used by", "Why this rung"]}
+            rows={[
+              [
+                "Small",
+                <Token key="a">elevated-sm</Token>,
+                "Tooltip, chart tooltips",
+                "Sits a few pixels off its trigger and lives for a second. A heavy shadow would outweigh the text it carries",
+              ],
+              [
+                "Default",
+                <Token key="b">elevated</Token>,
+                "Menu, popover, select list",
+                "Clearly floats over the page, but stays anchored to what opened it",
+              ],
+              [
+                "Large",
+                <Token key="c">elevated-lg</Token>,
+                "Modal",
+                "Sits over an overlay and everything else. The only rung that is not anchored to a trigger",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock
+          label="Usage, rung by rung"
+          hint="Each rung arrives as a set: the shadow, a surface, a radius and an entrance. Taking the shadow without the rest is how a floating element ends up looking pasted on."
+        >
+          <DocsTable
+            head={["Rung", "Use for", "Not for", "Pairs with"]}
+            rows={[
+              [
+                <Token key="a">elevated-sm</Token>,
+                "Short-lived text anchored a few pixels from its trigger: tooltips, chart hover tooltips",
+                "Anything interactive inside — a floating thing with a button in it is a popover",
+                "surface-tertiary, rounded-md (6px), fade-in",
+              ],
+              [
+                <Token key="b">elevated</Token>,
+                "Floating lists and panels opened from a trigger: menus, popovers, select lists, comboboxes",
+                "Blocking decisions — if the page must wait for an answer, it is a modal",
+                "surface-tertiary, rounded-xl (12px), scale-in from the trigger",
+              ],
+              [
+                <Token key="c">elevated-lg</Token>,
+                "Surfaces that block the page and are not anchored to a trigger: modals, confirmation dialogs",
+                "Menus that feel important, or anything that should let the page stay usable",
+                "surface-tertiary, rounded-xl (12px), --ds-overlay, scale-in, focus trap",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock
+          label="Choosing a rung"
+          hint="Three questions, asked in order. The first no ends the decision."
+        >
+          <DocsTable
+            head={["Question", "If no", "If yes"]}
+            rows={[
+              [
+                "Has it left the document flow?",
+                "No rung — a surface and a hairline",
+                "Continue",
+              ],
+              [
+                "Is it anchored to a trigger?",
+                "elevated-lg — it is a modal",
+                "Continue",
+              ],
+              [
+                "Does it hold anything you can interact with?",
+                "elevated-sm — it is a tooltip",
+                "elevated — it is a menu or popover",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock
+          label="Compose it with a surface"
+          hint="A shadow never travels alone. A floating element is a tertiary surface plus a rung; a card is a secondary surface and no rung at all."
         >
           <Snippet
-            code={`.elevated { box-shadow: var(--shadow-elevated); }
-
-/* A menu: a tertiary surface that has left the flow */
-<div className="surface-tertiary elevated" />
-
-/* A card: a secondary surface, in the flow, no shadow */
-<div className="surface-secondary" />`}
+            code={`/* Tooltip */  <div className="surface-tertiary elevated-sm" />
+/* Menu */     <div className="surface-tertiary elevated" />
+/* Modal */    <div className="surface-tertiary elevated-lg" />
+/* Card */     <div className="surface-secondary" />`}
           />
         </DocsBlock>
 
         <DocsBlock label="Specimens">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="surface-secondary rounded-xl border border-[var(--border-subtle)] p-5">
-              <p className="text-label-sm font-medium text-primary">In flow</p>
-              <p className="mt-1 text-copy-sm text-secondary">
-                Separates by tone and a hairline. No shadow.
-              </p>
-            </div>
-            <div className="surface-tertiary elevated rounded-xl border border-[var(--border-subtle)] p-5">
-              <p className="text-label-sm font-medium text-primary">Elevated</p>
-              <p className="mt-1 text-copy-sm text-secondary">
-                Detached. The shadow is what says so.
-              </p>
-            </div>
+          <div className="grid gap-5 rounded-xl bg-[var(--ds-surface-primary)] p-6 sm:grid-cols-4">
+            {[
+              {
+                cls: "surface-secondary",
+                name: "In flow",
+                note: "Tone and a hairline. No shadow.",
+              },
+              {
+                cls: "surface-tertiary elevated-sm",
+                name: "elevated-sm",
+                note: "Tooltip.",
+              },
+              {
+                cls: "surface-tertiary elevated",
+                name: "elevated",
+                note: "Menu, popover.",
+              },
+              {
+                cls: "surface-tertiary elevated-lg",
+                name: "elevated-lg",
+                note: "Modal.",
+              },
+            ].map((item) => (
+              <div
+                key={item.name}
+                className={`${item.cls} rounded-xl border border-[var(--border-subtle)] p-4`}
+              >
+                <p className="text-label-sm font-medium text-primary">
+                  {item.name}
+                </p>
+                <p className="mt-1 text-copy-sm text-secondary">{item.note}</p>
+              </div>
+            ))}
           </div>
+        </DocsBlock>
+
+        <DocsBlock
+          label="The overlay"
+          hint="A modal is the only element that dims the page. --ds-overlay is 40% black in light and 60% in dark, where the page is already near-black and a lighter wash would not register. No blur: a blurred page reads as a loading state, not a paused one."
+        >
+          <DocsTable
+            head={["Token", "Light", "Dark"]}
+            rows={[
+              [
+                <Token key="a">--ds-overlay</Token>,
+                "rgb(0 0 0 / 0.4)",
+                "rgb(0 0 0 / 0.6)",
+              ],
+            ]}
+          />
         </DocsBlock>
 
         <DoDont
           do={[
-            "Give floating layers a shadow — it is what tells the eye they are detached.",
+            "Pick the rung from how far the element sits above the page, then stop.",
             "Let in-flow cards separate by tone and a hairline alone.",
             "Treat the surface and the shadow as two decisions, taken separately.",
           ]}
           dont={[
             "Put a drop shadow on a card. It dates the interface immediately.",
-            "Add an inset top highlight on top of a border. Two adjacent lines read as a doubled edge — this is why the highlight was removed.",
+            "Reach for elevated-lg to make a menu feel important. Rank comes from position, not emphasis.",
             "Reach for a shadow to separate two things that are both in the flow. That is a surface or a border problem.",
           ]}
         />
@@ -1116,20 +1233,23 @@ export function Foundations() {
         <BestPractice
           items={[
             <>
-              Ask one question: does this element leave the document flow? If
-              yes it is elevated. If no it is not. Nothing else enters into it.
+              Ask two questions in order. Has it left the flow? If not, no rung.
+              If so, is it anchored to a trigger? Tooltips and menus are; a
+              modal is not, and that is what earns it the top rung.
+            </>,
+            <>
+              Three rungs is the whole ladder. Two floating surfaces on the same
+              rung can overlap — a menu opened inside a modal still reads as
+              above it, because it comes later in the stacking order.
+            </>,
+            <>
+              Dark shadows run roughly ten times heavier than light ones. A
+              shadow has to be darker than a surface that is already near-black,
+              so matched opacities leave dark elevation invisible.
             </>,
             <>
               The sheen belongs to the surface, not to elevation. It is a light
               treatment on a colour; the shadow is a statement about depth.
-            </>,
-            <>
-              Let the sheen gradient run past the element it sits on. A falloff
-              shorter than the card resolves inside it and reads as a band.
-            </>,
-            <>
-              Dark surfaces need roughly a tenth of the sheen strength that
-              light ones do — 0.016 against 0.28 here.
             </>,
           ]}
         />

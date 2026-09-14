@@ -77,7 +77,7 @@ export function DistributionChart({
                 role="status"
                 className={cn(
                   "pointer-events-none absolute top-full left-[152px] z-20 mt-1 flex flex-col gap-0.5",
-                  "surface-tertiary elevated rounded-[var(--radius)] border border-[var(--border-subtle)]",
+                  "surface-tertiary elevated-sm rounded-[var(--radius)] border border-[var(--border-subtle)]",
                   "px-2.5 py-2",
                   "animate-fade-in",
                 )}

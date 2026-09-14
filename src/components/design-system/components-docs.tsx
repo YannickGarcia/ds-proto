@@ -19,6 +19,17 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { EmptyState } from "@/components/ui/empty-state";
+import {
+  Modal,
+  ModalBody,
+  ModalClose,
+  ModalContent,
+  ModalDescription,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTrigger,
+} from "@/components/ui/modal";
 import { Pagination } from "@/components/ui/pagination";
 import {
   Select,
@@ -767,6 +778,258 @@ text   → --ds-{hue}-900`}
               Embedding a control inside a menu — a switcher, a date field —
               needs <Token>onKeyDown</Token> stopped so roving focus does not
               swallow its keys.
+            </>,
+          ]}
+        />
+      </DocsEntry>
+
+      {/* ---------------------------------------------------------------- */}
+      <DocsEntry
+        id="component-modal"
+        title="Modal"
+        description="A decision that blocks the rest of the page. The top rung of the elevation ladder: a tertiary surface with elevated-lg, over an overlay that dims everything else, and the only floating surface not anchored to a trigger."
+      >
+        <DocsBlock label="Example">
+          <Example>
+            <div className="flex flex-wrap gap-3">
+              <Modal>
+                <ModalTrigger asChild>
+                  <Button variant="secondary">Rename project</Button>
+                </ModalTrigger>
+                <ModalContent>
+                  <ModalHeader>
+                    <ModalTitle>Rename Project</ModalTitle>
+                    <ModalDescription>
+                      The new name appears everywhere this project is
+                      referenced. Existing links keep working.
+                    </ModalDescription>
+                  </ModalHeader>
+                  <ModalBody>
+                    <label
+                      htmlFor="modal-name"
+                      className="mb-1.5 block text-label-sm text-secondary"
+                    >
+                      Project name
+                    </label>
+                    <Input
+                      id="modal-name"
+                      defaultValue="web-app"
+                      autoComplete="off"
+                    />
+                  </ModalBody>
+                  <ModalFooter>
+                    <ModalClose asChild>
+                      <Button variant="secondary">Cancel</Button>
+                    </ModalClose>
+                    <Button variant="primary">Rename Project</Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
+
+              <Modal>
+                <ModalTrigger asChild>
+                  <Button variant="secondary">Delete project</Button>
+                </ModalTrigger>
+                <ModalContent>
+                  <ModalHeader>
+                    <ModalTitle>Delete Project</ModalTitle>
+                    <ModalDescription>
+                      Every deployment and its logs are removed. This cannot be
+                      undone.
+                    </ModalDescription>
+                  </ModalHeader>
+                  <ModalBody className="pb-5" />
+                  <ModalFooter>
+                    <ModalClose asChild>
+                      <Button variant="secondary" autoFocus>
+                        Cancel
+                      </Button>
+                    </ModalClose>
+                    <Button variant="error">Delete Project</Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
+            </div>
+          </Example>
+        </DocsBlock>
+
+        <DocsBlock label="Anatomy">
+          <DocsTable
+            head={["Part", "Role", "Styling"]}
+            rows={[
+              [
+                <Token key="a">ModalContent</Token>,
+                "The panel, and the overlay behind it",
+                "surface-tertiary, elevated-lg, rounded-xl, max 540px, --ds-overlay",
+              ],
+              [
+                <Token key="b">ModalHeader</Token>,
+                "Title, description, and the close button",
+                "24px padding top and sides",
+              ],
+              [
+                <Token key="c">ModalTitle</Token>,
+                "What the decision is",
+                "text-h3, primary",
+              ],
+              [
+                <Token key="d">ModalDescription</Token>,
+                "The consequence",
+                "text-copy-default, secondary",
+              ],
+              [
+                <Token key="e">ModalBody</Token>,
+                "Fields or content; scrolls on its own",
+                "24px sides, 20px top",
+              ],
+              [
+                <Token key="f">ModalFooter</Token>,
+                "Cancel left, action right",
+                "12px padding, surface-primary, hairline top",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock label="Usage">
+          <Snippet
+            code={`<Modal>
+  <ModalTrigger asChild>
+    <Button variant="secondary">Delete project</Button>
+  </ModalTrigger>
+  <ModalContent>
+    <ModalHeader>
+      <ModalTitle>Delete Project</ModalTitle>
+      <ModalDescription>
+        Every deployment and its logs are removed. This cannot be undone.
+      </ModalDescription>
+    </ModalHeader>
+    <ModalFooter>
+      <ModalClose asChild>
+        <Button variant="secondary" autoFocus>Cancel</Button>
+      </ModalClose>
+      <Button variant="error">Delete Project</Button>
+    </ModalFooter>
+  </ModalContent>
+</Modal>`}
+          />
+        </DocsBlock>
+
+        <DocsBlock
+          label="When to use"
+          hint="Reach for a modal only when the page genuinely has to wait for an answer. Anything softer has a lighter home."
+        >
+          <DocsTable
+            head={["Situation", "Use"]}
+            rows={[
+              [
+                "A decision must block the page — confirm, rename, revoke",
+                "Modal",
+              ],
+              [
+                "A destructive action",
+                "Modal — the full-page dim is what makes it read as serious",
+              ],
+              ["Choosing from options anchored to a control", "Menu or Select"],
+              ["Extra context the page should stay readable around", "Popover"],
+              [
+                "A create or edit flow with several steps or fields",
+                "A dedicated page, not a modal",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock label="Behaviour">
+          <DocsTable
+            head={["Rule", "Why"]}
+            rows={[
+              [
+                "Focus is trapped while open and returns to the trigger on close",
+                "Keyboard users are never stranded behind the overlay. Radix does this",
+              ],
+              [
+                "Escape and an outside click dismiss a non-destructive modal",
+                "It is a pause, not a trap",
+              ],
+              [
+                "A destructive modal focuses Cancel by default",
+                "Enter must never trigger the destructive action by accident",
+              ],
+              [
+                "For high-stakes deletes, gate the action on typing the resource name",
+                "A second, deliberate act for an irreversible one",
+              ],
+              [
+                "On error, keep focus inside; on success, close and return focus",
+                "The user retries where the problem is, or resumes where they were",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock label="Content">
+          <DocsTable
+            head={["Part", "Rule", "Right", "Wrong"]}
+            rows={[
+              [
+                "Title",
+                "Title Case statement, never a question",
+                "Delete Project",
+                "Delete project?",
+              ],
+              [
+                "Description",
+                "Sentence case, one to three sentences, consequence first",
+                "Every deployment is removed.",
+                "Are you sure you want to do this?",
+              ],
+              [
+                "Action button",
+                "Verb + Noun, matching the title's verb",
+                "Delete Project",
+                "Confirm, OK, Yes",
+              ],
+              [
+                "Dismiss button",
+                "Always literally Cancel",
+                "Cancel",
+                "Close, No, Go back",
+              ],
+              ["Acknowledge-only", "A single Done", "Done", "OK"],
+              [
+                "Irreversible",
+                "End the description with the fact",
+                "This cannot be undone.",
+                "This may be permanent.",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <BestPractice
+          items={[
+            <>
+              One decision per modal. If the body needs a heading of its own,
+              the flow has outgrown a modal and wants a page.
+            </>,
+            <>
+              The action button matches the title verb exactly, and the success
+              toast pairs with it: Delete Project, then Project deleted.
+            </>,
+            <>
+              Destructive actions use the <Token>error</Token> button and focus
+              Cancel. Never make the destructive button the default.
+            </>,
+            <>
+              Never stack modals. A modal that opens another modal has turned a
+              decision into a wizard.
+            </>,
+            <>
+              Leave the title to Radix for accessibility:{" "}
+              <Token>ModalTitle</Token> is wired to{" "}
+              <Token>aria-labelledby</Token>, so it is announced on open. Keep
+              Cancel literal so the dismissal label never changes.
             </>,
           ]}
         />

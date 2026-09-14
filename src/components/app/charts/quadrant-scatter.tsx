@@ -151,7 +151,7 @@ export function QuadrantScatter({ people }: { people: Person[] }) {
                 role="status"
                 className={cn(
                   "pointer-events-none absolute z-30 w-[190px] rounded-[var(--radius)]",
-                  "surface-tertiary elevated border border-[var(--border-subtle)]",
+                  "surface-tertiary elevated-sm border border-[var(--border-subtle)]",
                   "px-2.5 py-2 animate-fade-in",
                 )}
                 style={{

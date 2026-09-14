@@ -199,6 +199,14 @@
   --border-structural: rgb(0 0 0 / 0.12);
   --shadow-elevated: 0 2px 4px rgb(0 0 0 / 0.05),
     0 8px 20px -6px rgb(0 0 0 / 0.09);
+  /* The elevation ladder. Three rungs, each a louder statement that the
+     surface has left the page: a tooltip barely lifts, a menu clearly
+     floats, a modal sits over everything. Built on Geist's ladder, which has
+     a fourth for fullscreen takeovers — nothing here is one yet. */
+  --shadow-elevated-sm: 0 1px 2px rgb(0 0 0 / 0.05), 0 4px 8px -2px rgb(0 0 0 / 0.07);
+  --shadow-elevated-lg: 0 2px 4px rgb(0 0 0 / 0.04), 0 12px 24px -6px rgb(0 0 0 / 0.1),
+    0 32px 64px -16px rgb(0 0 0 / 0.16);
+  --ds-overlay: rgb(0 0 0 / 0.4);
 
   --ds-shadow-border-base: 0 0 0 1px #00000014;
   --ds-shadow-border-inset: inset 0 0 0 1px #00000014;
@@ -355,6 +363,12 @@
   --border-structural: rgb(255 255 255 / 0.13);
   --shadow-elevated: 0 2px 4px rgb(0 0 0 / 0.5),
     0 12px 28px -8px rgb(0 0 0 / 0.6);
+  /* Dark needs far heavier shadows to read at all: a shadow has to be darker
+     than a surface that is already near-black. */
+  --shadow-elevated-sm: 0 1px 2px rgb(0 0 0 / 0.5), 0 4px 8px -2px rgb(0 0 0 / 0.4);
+  --shadow-elevated-lg: 0 2px 4px rgb(0 0 0 / 0.5), 0 12px 24px -6px rgb(0 0 0 / 0.55),
+    0 32px 64px -16px rgb(0 0 0 / 0.7);
+  --ds-overlay: rgb(0 0 0 / 0.6);
 
   --ds-shadow-border-base: 0 0 0 1px #ffffff25;
   --ds-shadow-border-inset: inset 0 0 0 1px #ffffff1a;
@@ -826,6 +840,16 @@
      never to a card. Compose it: `surface-tertiary elevated`. */
   .elevated {
     box-shadow: var(--shadow-elevated);
+  }
+
+  /* The small rung: tooltips, which sit a few pixels off their trigger. */
+  .elevated-sm {
+    box-shadow: var(--shadow-elevated-sm);
+  }
+
+  /* The large rung: modals, which sit over an overlay and everything else. */
+  .elevated-lg {
+    box-shadow: var(--shadow-elevated-lg);
   }
 
   /* Staggered entrance. `--i` is the card's index; `both` holds the start

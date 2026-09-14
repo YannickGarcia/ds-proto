@@ -183,8 +183,10 @@ Change a dial and this whole table moves with it.
 | Token | Light | Dark |
 | --- | --- | --- |
 | `--shadow-elevated` | 0 2px 4px rgb(0 0 0 / 0.05), 0 8px 20px -6px rgb(0 0 0 / … | 0 2px 4px rgb(0 0 0 / 0.5), 0 12px 28px -8px rgb(0 0 0 / … |
+| `--shadow-elevated-lg` | 0 2px 4px rgb(0 0 0 / 0.04), 0 12px 24px -6px rgb(0 0 0 /… | 0 2px 4px rgb(0 0 0 / 0.5), 0 12px 24px -6px rgb(0 0 0 / … |
+| `--shadow-elevated-sm` | 0 1px 2px rgb(0 0 0 / 0.05), 0 4px 8px -2px rgb(0 0 0 / 0… | 0 1px 2px rgb(0 0 0 / 0.5), 0 4px 8px -2px rgb(0 0 0 / 0.4) |
 | `--surface-sheen` | linear-gradient( 180deg, rgb(255 255 255 / 0.28) 0%, rgb(… | linear-gradient( 180deg, rgb(255 255 255 / 0.016) 0%, rgb… |
 
 ## Other
 
-`--ds-shadow-2xl`, `--ds-shadow-2xs`, `--ds-shadow-border-base`, `--ds-shadow-border-inset`, `--ds-shadow-large`, `--ds-shadow-medium`, `--ds-shadow-small`, `--ds-shadow-xl`, `--ds-shadow-xs`, `--neutral-gray-100`, `--neutral-gray-200`, `--neutral-gray-300`, `--neutral-gray-400`, `--neutral-gray-500`, `--neutral-surface-primary`, `--neutral-surface-secondary`, `--neutral-surface-tertiary`
+`--ds-overlay`, `--ds-shadow-2xl`, `--ds-shadow-2xs`, `--ds-shadow-border-base`, `--ds-shadow-border-inset`, `--ds-shadow-large`, `--ds-shadow-medium`, `--ds-shadow-small`, `--ds-shadow-xl`, `--ds-shadow-xs`, `--neutral-gray-100`, `--neutral-gray-200`, `--neutral-gray-300`, `--neutral-gray-400`, `--neutral-gray-500`, `--neutral-surface-primary`, `--neutral-surface-secondary`, `--neutral-surface-tertiary`

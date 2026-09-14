@@ -84,9 +84,13 @@ Two separate decisions. A surface is a colour; elevation is a shadow.
 - Controls take the secondary **token** directly, not the
   `.surface-secondary` utility — the sheen falls off over 120px and cannot
   read on a 32px control.
-- **`.elevated` is the only shadow** and means "this left the document flow".
-  Compose it: a menu is `surface-tertiary elevated`, a card is
-  `surface-secondary` alone. Never shadow a card.
+- **Elevation is a three-rung ladder**, and only floating surfaces get a rung:
+  `elevated-sm` for tooltips, `elevated` for menus, popovers and select
+  lists, `elevated-lg` for modals — the one surface not anchored to a
+  trigger, and the only one over `--ds-overlay`. Compose with a surface:
+  `surface-tertiary elevated-lg`. A card is `surface-secondary` alone; never
+  shadow a card. Geist's fourth rung (fullscreen) is omitted until a
+  takeover exists.
 - Hover and selected states are alpha fills over the level already there,
   never a fourth level.
 

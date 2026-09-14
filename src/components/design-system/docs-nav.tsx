@@ -42,6 +42,7 @@ export const DOCS_NAV: DocsNavGroup[] = [
       { label: "Empty state", href: "#component-empty-state" },
       { label: "Input", href: "#component-input" },
       { label: "Menu", href: "#component-menu" },
+      { label: "Modal", href: "#component-modal" },
       { label: "Pagination", href: "#component-pagination" },
       { label: "Popover", href: "#component-popover" },
       { label: "Segmented control", href: "#component-segmented" },
