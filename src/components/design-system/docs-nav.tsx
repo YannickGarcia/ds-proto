@@ -41,6 +41,7 @@ export const DOCS_NAV: DocsNavGroup[] = [
       { label: "Collapsible", href: "#component-collapsible" },
       { label: "Empty state", href: "#component-empty-state" },
       { label: "Input", href: "#component-input" },
+      { label: "Link", href: "#component-link" },
       { label: "Menu", href: "#component-menu" },
       { label: "Modal", href: "#component-modal" },
       { label: "Pagination", href: "#component-pagination" },

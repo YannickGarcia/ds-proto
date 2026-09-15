@@ -12,6 +12,7 @@ export {
   ArrowClockwise,
   ArrowCounterClockwise,
   ArrowDownRight,
+  ArrowRight,
   ArrowSquareOut,
   ArrowUpRight,
   ArrowsClockwise,

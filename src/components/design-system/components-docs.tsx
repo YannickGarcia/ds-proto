@@ -58,6 +58,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { InlineLink, TextLink } from "@/components/ui/text-link";
 import {
   Menu,
   MenuContent,
@@ -696,6 +697,155 @@ text   → --ds-{hue}-900`}
             <>
               Use <Token>autoFocus</Token> almost never — only for a single
               primary field on desktop.
+            </>,
+          ]}
+        />
+      </DocsEntry>
+
+      {/* ---------------------------------------------------------------- */}
+      <DocsEntry
+        id="component-link"
+        title="Link"
+        description="Text that navigates. Isolated text interactions come in three kinds, and the kind — not the destination — decides the treatment: an action gets a background, navigation in content underlines, and a link inside prose is underlined from the start. There is no link colour."
+      >
+        <DocsBlock
+          label="Three kinds"
+          hint="Ask what the element is doing where it sits. The same destination can be any of the three: 'Sync log' is a control in a page header, a text link under a list, and an inline link in a sentence."
+        >
+          <DocsTable
+            head={["Kind", "Use", "At rest", "On hover"]}
+            rows={[
+              [
+                "Action — or navigation where a control would sit",
+                <Token key="a">Button variant=&quot;tertiary&quot;</Token>,
+                "No background, secondary text",
+                "--ds-gray-alpha-100 background, text to primary",
+              ],
+              [
+                "Navigation in content",
+                <Token key="b">TextLink</Token>,
+                "Plain text, primary or secondary by role",
+                "Underline",
+              ],
+              [
+                "A link inside prose",
+                <Token key="c">InlineLink</Token>,
+                "Underlined, inheriting the paragraph",
+                "Underline darkens to the text colour",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock label="Examples">
+          <Example>
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+                <TextLink href="#component-link">acme/web-app</TextLink>
+                <TextLink href="#component-link" variant="subtle">
+                  Integrations
+                </TextLink>
+                <TextLink href="#component-link" arrow>
+                  View all repositories
+                </TextLink>
+                <TextLink href="https://github.com" external>
+                  Open on GitHub
+                </TextLink>
+                <Button variant="tertiary">Clear filters</Button>
+              </div>
+              <p className="max-w-[56ch] text-copy-default text-secondary">
+                Two repositories were skipped because of missing permissions.{" "}
+                <InlineLink href="#component-link">Review access</InlineLink> to
+                include them in the next sync.
+              </p>
+            </div>
+          </Example>
+        </DocsBlock>
+
+        <DocsBlock label="Props">
+          <DocsTable
+            head={["Prop", "Type", "Default"]}
+            rows={[
+              ["variant", "default | subtle", "default"],
+              [
+                "external",
+                "boolean — new tab, rel=noreferrer, external icon",
+                "false",
+              ],
+              ["arrow", "boolean — trailing arrow for a next step", "false"],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock label="Usage">
+          <Snippet
+            code={`// A table row's name — the row's subject
+<TextLink href={\`/repos/\${id}\`}>{name}</TextLink>
+
+// A breadcrumb or supporting navigation
+<TextLink href="/integrations" variant="subtle">Integrations</TextLink>
+
+// Leaving the product
+<TextLink href={githubUrl} external>Open on GitHub</TextLink>
+
+// Navigation that sits where a control would — a button, not a link style
+<Button variant="tertiary" asChild>
+  <Link href="/sync-log">Sync log</Link>
+</Button>
+
+// Inside a sentence
+<p>Two repositories were skipped. <InlineLink href="/access">Review access</InlineLink>.</p>`}
+          />
+        </DocsBlock>
+
+        <DocsBlock
+          label="Why no link colour"
+          hint="Blue would be a fourth accent beside the brand green and the status hues, and green would read as success or as the primary button. Neither Geist nor Linear colours standalone links in product UI. Inside prose, colour alone would not work anyway: primary against secondary text is about 2.2:1, below the 3:1 WCAG asks for, so the underline has to do it."
+        >
+          <DocsTable
+            head={["Pairing", "Contrast", "Enough on colour alone?"]}
+            rows={[
+              [
+                "Primary link in secondary prose, light",
+                "≈ 2.1:1",
+                "No — underline required",
+              ],
+              [
+                "Primary link in secondary prose, dark",
+                "≈ 2.2:1",
+                "No — underline required",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <BestPractice
+          items={[
+            <>
+              Links go somewhere, buttons do something. If it changes state —
+              save, delete, clear filters, open a modal — it is a{" "}
+              <Token>Button</Token>, whatever it looks like.
+            </>,
+            <>
+              When navigation sits where a control would — a page header, a card
+              header, a banner action, an empty state — make it a tertiary
+              button wrapping a <Token>Link</Token>. It should behave like the
+              controls around it, not like text.
+            </>,
+            <>
+              Never put a background pill on a link inside a table or a
+              breadcrumb. It collides with the row&rsquo;s own hover; the
+              underline is the quieter and clearer signal.
+            </>,
+            <>
+              Link text must make sense read alone. &ldquo;View all
+              repositories&rdquo;, not &ldquo;Click here&rdquo; — screen reader
+              users often navigate by the list of links.
+            </>,
+            <>
+              Mark anything that leaves the product with <Token>external</Token>
+              . The icon sets the expectation of a new tab before the click, not
+              after.
             </>,
           ]}
         />

@@ -1,16 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { TextLink } from "@/components/ui/text-link";
 import { Badge } from "@/components/ui/badge";
 import { Banner } from "@/components/ui/banner";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {
-  Menu,
-  MenuContent,
-  MenuItem,
-  MenuTrigger,
-} from "@/components/ui/menu";
+import { Menu, MenuContent, MenuItem, MenuTrigger } from "@/components/ui/menu";
 import { Tooltip } from "@/components/ui/tooltip";
 import {
   CaretDown,
@@ -72,16 +68,12 @@ export function IntegrationsListing() {
             severity="warning"
             title="Two GitHub organizations restrict OAuth access"
             onDismiss={() => banners.dismiss("restricted")}
-            action={
-              <Button variant="secondary">
-                Request approval
-              </Button>
-            }
+            action={<Button variant="secondary">Request approval</Button>}
           >
             <code className="text-label-xs-mono">acme-security</code> and{" "}
             <code className="text-label-xs-mono">acme-finance</code> require an
-            administrator to approve the Proto app before their repositories
-            can be read.
+            administrator to approve the Proto app before their repositories can
+            be read.
           </Banner>
         ) : null}
 
@@ -103,12 +95,12 @@ export function IntegrationsListing() {
                       className="flex items-center gap-4 px-4 py-3"
                     >
                       <ProviderIcon provider={item.id} />
-                      <Link
+                      <TextLink
                         href={item.href}
-                        className="truncate text-label-default font-medium text-primary underline-offset-2 outline-none hover:underline focus-visible:shadow-[var(--ds-focus-ring)]"
+                        className="truncate text-label-default font-medium"
                       >
                         {item.name}
-                      </Link>
+                      </TextLink>
                       <HealthBadge
                         state={item.health}
                         reason={item.healthReason}
@@ -167,9 +159,7 @@ function AvailableCategory({
 }) {
   return (
     <div>
-      <h3 className="text-label-default font-medium text-primary">
-        {label}
-      </h3>
+      <h3 className="text-label-default font-medium text-primary">{label}</h3>
       <p className="mt-1 max-w-[76ch] text-copy-sm text-pretty text-secondary">
         {blurb}
       </p>
@@ -259,10 +249,7 @@ function ConnectAction({ item }: { item: (typeof AVAILABLE)[number] }) {
   }
 
   return (
-    <Button
-      variant="secondary"
-      prefix={<PlugsConnected aria-hidden="true" />}
-    >
+    <Button variant="secondary" prefix={<PlugsConnected aria-hidden="true" />}>
       Connect
     </Button>
   );

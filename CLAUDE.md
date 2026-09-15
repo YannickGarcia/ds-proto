@@ -139,6 +139,19 @@ That is why a tertiary button and a nav item behave identically.
 - **Disabled** keeps the shape and drops the contrast, so layout never shifts.
 - There is no pressed state.
 
+### Links and text actions
+
+Isolated text interactions come in three kinds, and the kind decides the
+treatment. **An action**, or navigation sitting where a control would, is a
+tertiary `Button` (wrap a `Link` with `asChild`) — background on hover.
+**Navigation in content** — table row names, breadcrumbs, "View all" — is
+`TextLink`: plain text, underline on hover, never a background pill, which
+would collide with a row's own hover. **A link inside prose** is
+`InlineLink`, underlined at rest. There is no link colour: blue would be a
+fourth accent, green reads as success, and colour alone fails WCAG's 3:1
+against body text anyway. `external` adds a new tab and an icon; `arrow`
+marks a next step.
+
 ### Borders, radius, icons
 
 - **Borders are one device pixel.** `--border-width` is 0.5px at 2dppx and

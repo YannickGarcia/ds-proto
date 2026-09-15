@@ -1356,6 +1356,12 @@ export function Foundations() {
             head={["Family", "At rest", "Hover", "Examples"]}
             rows={[
               [
+                "Text link",
+                "Plain text, no background",
+                "Underline",
+                "Table row names, breadcrumbs, View all — navigation in content",
+              ],
+              [
                 "Transparent",
                 "No background",
                 <Token key="a">--ds-gray-alpha-100</Token>,

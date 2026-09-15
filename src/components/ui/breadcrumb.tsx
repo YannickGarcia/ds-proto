@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TextLink } from "@/components/ui/text-link";
 import type { ReactNode } from "react";
 import { CaretRight } from "@/components/icons";
 import { cn } from "@/lib/utils";
@@ -22,26 +22,24 @@ export function Breadcrumb({
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
-            <li key={`${item.label}`} className="flex min-w-0 items-center gap-1">
+            <li
+              key={`${item.label}`}
+              className="flex min-w-0 items-center gap-1"
+            >
               {item.href && !isLast ? (
-                <Link
+                <TextLink
                   href={item.href}
-                  className={cn(
-                    "truncate rounded-[4px] px-1 py-0.5 text-secondary outline-none",
-                    "transition-colors duration-100 hover:text-primary",
-                    "focus-visible:shadow-[var(--ds-focus-ring)]",
-                  )}
+                  variant="subtle"
+                  className="truncate px-1 py-0.5"
                 >
                   {item.label}
-                </Link>
+                </TextLink>
               ) : (
                 <span
                   aria-current={isLast ? "page" : undefined}
                   className={cn(
                     "truncate px-1 py-0.5",
-                    isLast
-                      ? "text-primary"
-                      : "text-secondary",
+                    isLast ? "text-primary" : "text-secondary",
                   )}
                 >
                   {item.label}

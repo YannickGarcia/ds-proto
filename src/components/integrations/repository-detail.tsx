@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { TextLink } from "@/components/ui/text-link";
 import { useMemo, useState } from "react";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -33,7 +34,6 @@ import {
 } from "@/components/ui/table";
 import { Tooltip } from "@/components/ui/tooltip";
 import {
-  ArrowSquareOut,
   CaretUpDown,
   ClockCounterClockwise,
   DotsThree,
@@ -111,17 +111,10 @@ export function RepositoryDetail({
       ]}
       titleIcon={<ProviderIcon provider="github" size="lg" />}
       title={
-        <a
-          href={`https://github.com/${owner}/${repo}`}
-          className="inline-flex items-center gap-1.5 rounded-[4px] outline-none hover:underline focus-visible:shadow-[var(--ds-focus-ring)]"
-        >
+        <TextLink href={`https://github.com/${owner}/${repo}`} external>
           <span className="text-secondary">{owner}/</span>
           {repo}
-          <ArrowSquareOut
-            aria-hidden="true"
-            className="size-4 text-tertiary"
-          />
-        </a>
+        </TextLink>
       }
       actions={
         <>
@@ -176,9 +169,7 @@ export function RepositoryDetail({
         <HealthPanel scope={`${owner}/${repo}`} status="ok" />
 
         <StaffOnly>
-          <h2 className="text-h5 text-primary">
-            Fetch diagnostics
-          </h2>
+          <h2 className="text-h5 text-primary">Fetch diagnostics</h2>
           <dl className="mt-3 grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
             {[
               ["Last fetch id", "fch_9f21c4a8"],
@@ -298,7 +289,9 @@ export function RepositoryDetail({
                     <TableRow>
                       <TableHeaderCell>State</TableHeaderCell>
                       <TableHeaderCell>Author</TableHeaderCell>
-                      <TableHeaderCell className="min-w-[300px]">Name</TableHeaderCell>
+                      <TableHeaderCell className="min-w-[300px]">
+                        Name
+                      </TableHeaderCell>
                       <TableHeaderCell>Branches</TableHeaderCell>
                       <TableHeaderCell>Created</TableHeaderCell>
                       <TableHeaderCell>Updated</TableHeaderCell>
@@ -328,20 +321,22 @@ export function RepositoryDetail({
                             </span>
                           </TableCell>
                           <TableCell className="max-w-[380px]">
-                            <Link
+                            <TextLink
                               href={`/integrations/github/${owner}/${repo}`}
-                              className="block truncate rounded-[4px] outline-none hover:underline focus-visible:shadow-[var(--ds-focus-ring)]"
+                              className="block truncate"
                             >
                               {pr.title}{" "}
-                              <span className="text-secondary">
-                                #{pr.id}
-                              </span>
-                            </Link>
+                              <span className="text-secondary">#{pr.id}</span>
+                            </TextLink>
                           </TableCell>
                           <TableCell className="whitespace-nowrap text-secondary">
-                            <span className="text-label-xs-mono">{pr.source}</span>
+                            <span className="text-label-xs-mono">
+                              {pr.source}
+                            </span>
                             <span className="px-1">→</span>
-                            <span className="text-label-xs-mono">{pr.target}</span>
+                            <span className="text-label-xs-mono">
+                              {pr.target}
+                            </span>
                           </TableCell>
                           <TableCell className="whitespace-nowrap text-secondary">
                             {pr.createdAt}
@@ -417,14 +412,14 @@ function RepoSwitcher({ current }: { current: string }) {
   return (
     <Menu>
       <MenuTrigger asChild>
-        <Button
-          variant="secondary"
-          suffix={<CaretUpDown aria-hidden="true" />}
-        >
+        <Button variant="secondary" suffix={<CaretUpDown aria-hidden="true" />}>
           Switch repository
         </Button>
       </MenuTrigger>
-      <MenuContent align="start" className="max-h-[320px] w-[300px] overflow-y-auto overscroll-contain">
+      <MenuContent
+        align="start"
+        className="max-h-[320px] w-[300px] overflow-y-auto overscroll-contain"
+      >
         {grouped.map((group) => (
           <div key={group.instance.id}>
             <MenuLabel>{group.instance.label}</MenuLabel>

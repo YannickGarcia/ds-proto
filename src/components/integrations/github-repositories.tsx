@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { TextLink } from "@/components/ui/text-link";
 import { Fragment, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Banner } from "@/components/ui/banner";
@@ -277,13 +278,9 @@ export function GithubRepositories() {
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
                   {inst.kind === "self-hosted" ? (
-                    <Button variant="tertiary">
-                      Edit instance
-                    </Button>
+                    <Button variant="tertiary">Edit instance</Button>
                   ) : null}
-                  <Button variant="secondary">
-                    Add repository
-                  </Button>
+                  <Button variant="secondary">Add repository</Button>
                 </div>
               </div>
             ))}
@@ -379,10 +376,7 @@ export function GithubRepositories() {
                   title="No repositories match these filters"
                   description="Try a different search term, or clear the filters to see everything."
                   action={
-                    <Button
-                      variant="secondary"
-                      onClick={clearFilters}
-                    >
+                    <Button variant="secondary" onClick={clearFilters}>
                       Clear filters
                     </Button>
                   }
@@ -505,10 +499,7 @@ function InstanceGroup({
         <TableCell colSpan={8}>
           <div className="flex flex-wrap items-center gap-2">
             {kind === "cloud" ? (
-              <Cloud
-                aria-hidden="true"
-                className="size-4 text-secondary"
-              />
+              <Cloud aria-hidden="true" className="size-4 text-secondary" />
             ) : (
               <HardDrives
                 aria-hidden="true"
@@ -606,13 +597,10 @@ function RepoRow({
   return (
     <TableRow interactive>
       <TableCell className="pl-12">
-        <Link
-          href={`/integrations/github/${repo.owner}/${repo.name}`}
-          className="rounded-[4px] outline-none hover:underline focus-visible:shadow-[var(--ds-focus-ring)]"
-        >
+        <TextLink href={`/integrations/github/${repo.owner}/${repo.name}`}>
           <span className="text-secondary">{repo.owner}/</span>
           <span className="font-medium">{repo.name}</span>
-        </Link>
+        </TextLink>
       </TableCell>
       <TableCell className="tabular-nums">
         <Tooltip
