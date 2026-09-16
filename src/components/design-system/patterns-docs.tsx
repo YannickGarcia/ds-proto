@@ -1,10 +1,8 @@
 "use client";
 
-import {
-  ArrowUpRight,
-  Check,
-} from "@/components/icons";
+import { ArrowUpRight, Check } from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
+import { InfoTip } from "@/components/ui/info-tip";
 import { Card } from "@/components/ui/card";
 import {
   BestPractice,
@@ -35,14 +33,20 @@ export function PatternsDocs() {
             <Card className="gap-0 px-4 py-4">
               <div className="mb-2.5 flex min-h-8 items-start justify-between gap-2">
                 <span className="min-w-0 text-label-overline text-secondary">
-                  Agentic
+                  <InfoTip label="Agentic">
+                    Share of PR and review delivery completed by AI agents
+                    working on their own.
+                  </InfoTip>
                 </span>
-                <Badge variant="green" className="tabular-nums gap-0.5 pr-2 pl-1.5">
+                <Badge
+                  variant="green"
+                  className="tabular-nums gap-0.5 pr-2 pl-1.5"
+                >
                   <ArrowUpRight aria-hidden="true" className="size-3" />
                   +8pp
                 </Badge>
               </div>
-              <span className="tabular-nums block text-h1 text-primary">
+              <span className="tabular-nums mt-auto block text-h1 text-primary">
                 82%
               </span>
               <span className="mt-1 block text-copy-sm text-secondary">
@@ -52,14 +56,17 @@ export function PatternsDocs() {
             <Card className="gap-0 px-4 py-4">
               <div className="mb-2.5 flex min-h-8 items-start justify-between gap-2">
                 <span className="min-w-0 text-label-overline text-secondary">
-                  Excess spend
+                  <InfoTip label="Excess spend">
+                    AI spend above each person&rsquo;s budget limit, summed
+                    across the team.
+                  </InfoTip>
                 </span>
                 <Badge variant="green" className="gap-1 pr-2 pl-1.5">
                   <Check aria-hidden="true" className="size-3" />
                   Within limits
                 </Badge>
               </div>
-              <span className="tabular-nums block text-h1 text-primary">
+              <span className="tabular-nums mt-auto block text-h1 text-primary">
                 $0
               </span>
               <span className="mt-1 block text-copy-sm text-secondary">
@@ -76,20 +83,81 @@ export function PatternsDocs() {
           <DocsTable
             head={["Situation", "Variant", "Example"]}
             rows={[
-              ["Movement in the direction we want", <Badge key="a" variant="green">+8pp</Badge>, "Agentic share rising"],
-              ["Movement against us", <Badge key="b" variant="amber">+15%</Badge>, "AI cost rising"],
-              ["Movement with no valence", <Badge key="c">+12pp</Badge>, "Top model share shifting"],
-              ["Governance status, no delta", <Badge key="d" variant="green">On track</Badge>, "People in budget"],
+              [
+                "Movement in the direction we want",
+                <Badge key="a" variant="green">
+                  +8pp
+                </Badge>,
+                "Agentic share rising",
+              ],
+              [
+                "Movement against us",
+                <Badge key="b" variant="amber">
+                  +15%
+                </Badge>,
+                "AI cost rising",
+              ],
+              [
+                "Movement with no valence",
+                <Badge key="c">+12pp</Badge>,
+                "Top model share shifting",
+              ],
+              [
+                "Governance status, no delta",
+                <Badge key="d" variant="green">
+                  On track
+                </Badge>,
+                "People in budget",
+              ],
             ]}
           />
         </DocsBlock>
 
         <BestPractice
           items={[
-            <>Give the label row a <Token>min-h-8</Token> so cards whose label wraps to two lines keep their values on one baseline.</>,
-            <>Uppercase 11px label, 32px value, 13px sub-label. The value is the only thing meant to be read at a glance.</>,
-            <>Never colour a delta by its sign alone. Decide what “better” means for that metric first.</>,
-            <>Tabular figures on every value and delta, or the row will not scan.</>,
+            <>
+              Give the label row a <Token>min-h-8</Token> so cards whose label
+              wraps to two lines keep their values on one baseline.
+            </>,
+            <>
+              Uppercase 11px label, 32px value, 13px sub-label. The value is the
+              only thing meant to be read at a glance.
+            </>,
+            <>
+              Never colour a delta by its sign alone. Decide what “better” means
+              for that metric first.
+            </>,
+            <>
+              Tabular figures on every value and delta, or the row will not
+              scan.
+            </>,
+            <>
+              The badge sits top right, always. When a card gets too narrow for
+              the label, its info tip and the badge on one row, the grid gives
+              way — not the card: six across only from 1536px, then three, two,
+              and one on a phone.
+            </>,
+            <>
+              Anchor the value to the bottom of the card with{" "}
+              <Token>mt-auto</Token>. Cards in a row stretch to one height, so
+              values share a baseline even when one label wraps and another does
+              not.
+            </>,
+            <>
+              Every KPI carries an <Token>InfoTip</Token> straight after its
+              label. The label is two or three words by necessity; the tip is
+              where the definition lives, so the card never has to grow a
+              sentence.
+            </>,
+            <>
+              Place the tip after the label, never beside the value or in the
+              corner. It explains the metric, not the number, and the corner
+              belongs to the delta.
+            </>,
+            <>
+              Write the tip as a definition: what is counted, over what, and
+              which direction is good when the badge alone does not say.
+            </>,
           ]}
         />
       </DocsEntry>
@@ -104,10 +172,26 @@ export function PatternsDocs() {
           <DocsTable
             head={["Part", "Type", "Content"]}
             rows={[
-              [<Token key="a">ChartCardHeader</Token>, "heading-14", "The question, plus controls, share and info actions"],
-              [<Token key="b">ChartCardHeadline</Token>, "heading-16 + copy-13", "The answer, with its sub-line on the same baseline"],
-              [<Token key="c">ChartCardBody</Token>, "—", "The chart and its legend"],
-              [<Token key="d">ChartCardFooter</Token>, "copy-13", "How to read it, or a caveat"],
+              [
+                <Token key="a">ChartCardHeader</Token>,
+                "heading-14",
+                "The question, plus controls, share and info actions",
+              ],
+              [
+                <Token key="b">ChartCardHeadline</Token>,
+                "heading-16 + copy-13",
+                "The answer, with its sub-line on the same baseline",
+              ],
+              [
+                <Token key="c">ChartCardBody</Token>,
+                "—",
+                "The chart and its legend",
+              ],
+              [
+                <Token key="d">ChartCardFooter</Token>,
+                "copy-13",
+                "How to read it, or a caveat",
+              ],
             ]}
           />
         </DocsBlock>
@@ -142,9 +226,18 @@ export function PatternsDocs() {
 
         <BestPractice
           items={[
-            <>Question, answer, evidence, caveat. Every card follows the same four beats, which is what lets a reader skim nine of them.</>,
-            <>Header actions go in one order: view controls, then share, then info.</>,
-            <>The info tooltip carries the methodology. Keep it out of the visible card.</>,
+            <>
+              Question, answer, evidence, caveat. Every card follows the same
+              four beats, which is what lets a reader skim nine of them.
+            </>,
+            <>
+              Header actions go in one order: view controls, then share, then
+              info.
+            </>,
+            <>
+              The info tooltip carries the methodology. Keep it out of the
+              visible card.
+            </>,
           ]}
         />
       </DocsEntry>
@@ -159,18 +252,38 @@ export function PatternsDocs() {
           <DocsTable
             head={["Control", "Component", "Behaviour"]}
             rows={[
-              ["Scope", "Popover + search + cohort shortcuts", "Multi-select; the trigger shows the count, not the names"],
-              ["Period", "Menu of presets + custom range", "Flanked by previous / next stepper buttons"],
+              [
+                "Scope",
+                "Popover + search + cohort shortcuts",
+                "Multi-select; the trigger shows the count, not the names",
+              ],
+              [
+                "Period",
+                "Menu of presets + custom range",
+                "Flanked by previous / next stepper buttons",
+              ],
             ]}
           />
         </DocsBlock>
 
         <BestPractice
           items={[
-            <>Summarise the selection on the trigger — “12 people”, not a list of chips that reflows the header.</>,
-            <>Offer cohort shortcuts (Everyone, per team) above the individual list; most selections are a group.</>,
-            <>Pair a preset menu with steppers. Presets cover the common case, steppers cover “the week before that”.</>,
-            <>Keep global filters visible across tab changes, so it is obvious they still apply.</>,
+            <>
+              Summarise the selection on the trigger — “12 people”, not a list
+              of chips that reflows the header.
+            </>,
+            <>
+              Offer cohort shortcuts (Everyone, per team) above the individual
+              list; most selections are a group.
+            </>,
+            <>
+              Pair a preset menu with steppers. Presets cover the common case,
+              steppers cover “the week before that”.
+            </>,
+            <>
+              Keep global filters visible across tab changes, so it is obvious
+              they still apply.
+            </>,
           ]}
         />
       </DocsEntry>
@@ -185,21 +298,44 @@ export function PatternsDocs() {
           <DocsTable
             head={["Element", "Treatment"]}
             rows={[
-              ["Group heading", "11px uppercase, 0.04em tracking, --ds-gray-700"],
+              [
+                "Group heading",
+                "11px uppercase, 0.04em tracking, --ds-gray-700",
+              ],
               ["Item", "32px row, 6px radius, 16px icon at 1.75 stroke"],
-              ["Active item", "--ds-gray-alpha-200 fill, medium weight, gray-1000 icon"],
-              ["Nested group", "Collapsible, guided by a --border-structural rule"],
-              ["Account row", "Avatar, name, email; opens the account menu upward"],
+              [
+                "Active item",
+                "--ds-gray-alpha-200 fill, medium weight, gray-1000 icon",
+              ],
+              [
+                "Nested group",
+                "Collapsible, guided by a --border-structural rule",
+              ],
+              [
+                "Account row",
+                "Avatar, name, email; opens the account menu upward",
+              ],
             ]}
           />
         </DocsBlock>
 
         <BestPractice
           items={[
-            <>Mark the active item with a fill and weight, not the accent. Reserve brand colour for the brand mark.</>,
-            <>Group headings label, they do not act. Never make them clickable.</>,
-            <>Nested items drop their icon and rely on the guide rule for indentation, so the hierarchy reads without extra colour.</>,
-            <>Preferences — theme, account, sign out — belong in the account menu, not the header.</>,
+            <>
+              Mark the active item with a fill and weight, not the accent.
+              Reserve brand colour for the brand mark.
+            </>,
+            <>
+              Group headings label, they do not act. Never make them clickable.
+            </>,
+            <>
+              Nested items drop their icon and rely on the guide rule for
+              indentation, so the hierarchy reads without extra colour.
+            </>,
+            <>
+              Preferences — theme, account, sign out — belong in the account
+              menu, not the header.
+            </>,
           ]}
         />
       </DocsEntry>
@@ -229,17 +365,31 @@ export function PatternsDocs() {
               ["Container", "max 1440px, 24px gutter → 32px at lg"],
               ["Header", "sticky, 85% page tint with a backdrop blur"],
               ["Section rhythm", "48px between sections, 16px between cards"],
-              ["Scroll offset", "scroll-mt-28 on anchors so the header never covers a target"],
+              [
+                "Scroll offset",
+                "scroll-mt-28 on anchors so the header never covers a target",
+              ],
             ]}
           />
         </DocsBlock>
 
         <BestPractice
           items={[
-            <>Blur the header rather than painting it opaque — content should read as passing underneath.</>,
-            <>Include a skip link as the first focusable element on the page.</>,
-            <>Every anchor target needs a scroll margin equal to the header height, or deep links land under it.</>,
-            <>Use <Token>env(safe-area-inset-left)</Token> in the gutter so full-bleed layouts clear a notch.</>,
+            <>
+              Blur the header rather than painting it opaque — content should
+              read as passing underneath.
+            </>,
+            <>
+              Include a skip link as the first focusable element on the page.
+            </>,
+            <>
+              Every anchor target needs a scroll margin equal to the header
+              height, or deep links land under it.
+            </>,
+            <>
+              Use <Token>env(safe-area-inset-left)</Token> in the gutter so
+              full-bleed layouts clear a notch.
+            </>,
           ]}
         />
       </DocsEntry>

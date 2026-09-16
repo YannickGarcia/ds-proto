@@ -152,6 +152,17 @@ fourth accent, green reads as success, and colour alone fails WCAG's 3:1
 against body text anyway. `external` adds a new tab and an icon; `arrow`
 marks a next step.
 
+### Info tips
+
+An info icon that explains a short label is `InfoTip`, placed straight after
+the label. It renders the label text itself and holds the last word and the
+icon in one non-breaking group, so a wrapping label breaks at the previous
+word and never strands the icon — a word joiner does not do this, because a
+line may always break before an inline box. It explains the metric, not the
+value, so it never sits beside a number or in a corner. It takes no
+background, unlike a chart card's `InfoAction`, a 32px tertiary button among
+header controls. Every KPI card has one.
+
 ### Borders, radius, icons
 
 - **Borders are one device pixel.** `--border-width` is 0.5px at 2dppx and

@@ -57,6 +57,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { InfoTip } from "@/components/ui/info-tip";
 import { Input } from "@/components/ui/input";
 import { InlineLink, TextLink } from "@/components/ui/text-link";
 import {
@@ -1680,6 +1681,40 @@ text   → --ds-{hue}-900`}
                   </Tooltip>
                 ),
               },
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock
+          label="Info tip"
+          hint="The inline form of a tooltip: an info icon inside a line of text, explaining the label it follows. Use it when a label is too short to be self-explanatory — a KPI name, a column header, a setting. It differs from a chart card's info action, which is a 32px tertiary button among header controls; the inline tip takes no background and stays the size of the glyph."
+        >
+          <Example>
+            <div className="flex flex-wrap items-center gap-10">
+              <span className="text-label-overline text-secondary">
+                <InfoTip label="Excess spend">
+                  AI spend above each person&rsquo;s budget limit, summed across
+                  the team.
+                </InfoTip>
+              </span>
+              <span className="text-label-sm text-secondary">
+                <InfoTip label="Synced until">
+                  The most recent date with complete pull request data.
+                </InfoTip>
+              </span>
+            </div>
+          </Example>
+          <DocsTable
+            head={["Where", "Use"]}
+            rows={[
+              [
+                "Inside a line of text — a label, a column header",
+                <Token key="a">InfoTip</Token>,
+              ],
+              [
+                "Among controls in a header",
+                "InfoAction — a 32px tertiary button",
+              ],
             ]}
           />
         </DocsBlock>

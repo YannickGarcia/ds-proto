@@ -1,19 +1,17 @@
 "use client";
 
-import {
-  ArrowDownRight,
-  ArrowUpRight,
-  Check,
-  Minus,
-} from "@/components/icons";
+import { ArrowDownRight, ArrowUpRight, Check, Minus } from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { InfoTip } from "@/components/ui/info-tip";
 import { cn } from "@/lib/utils";
 
 type Sentiment = "favourable" | "unfavourable" | "neutral";
 
 interface KpiCard {
   label: string;
+  /** What the metric measures — shown in the label's info tip. */
+  description: string;
   value: string;
   subLabel: string;
   delta?: { value: string; direction: "up" | "down"; sentiment: Sentiment };
@@ -27,36 +25,48 @@ interface KpiCard {
 const CARDS: KpiCard[] = [
   {
     label: "Agentic",
+    description:
+      "Share of PR and review delivery completed by AI agents working on their own, rather than by people or people assisted by AI.",
     value: "82%",
     subLabel: "of PR & review delivery",
     delta: { value: "+8pp", direction: "up", sentiment: "favourable" },
   },
   {
     label: "AI cost",
+    description:
+      "Total spend on AI coding tools for the selected people in this period, across every model and seat.",
     value: "$270",
     subLabel: "in this period",
     delta: { value: "+15%", direction: "up", sentiment: "unfavourable" },
   },
   {
     label: "Efficiency",
+    description:
+      "AI cost divided by delivery points: what each point of delivered work cost in AI spend. Lower is better.",
     value: "$0.95",
     subLabel: "$/point",
     delta: { value: "+2%", direction: "up", sentiment: "unfavourable" },
   },
   {
     label: "People in budget",
+    description:
+      "Share of people whose AI spend stayed within their individual budget for this period.",
     value: "100%",
     subLabel: "12 of 12",
     status: "On track",
   },
   {
     label: "Excess spend",
+    description:
+      "AI spend above each person's budget limit, summed across the team. Zero means nobody went over.",
     value: "$0",
     subLabel: "above budget limits",
     status: "Within limits",
   },
   {
     label: "Top model",
+    description:
+      "The model that processed the largest share of AI tokens this period, with its share of the total.",
     value: "Claude Opus 5",
     subLabel: "50% of AI tokens",
     delta: { value: "+12pp", direction: "up", sentiment: "neutral" },
@@ -69,9 +79,15 @@ const sentimentVariant = {
   neutral: "gray-subtle",
 } as const;
 
+/**
+ * Six across only from 2xl (1536px). Below that a card is too narrow to hold
+ * the label, its info tip and the badge on one row — the longest pair needs
+ * about 153px of inner width — and the badge belongs top right, so the grid
+ * gives way instead: three across, then two, then one on a phone.
+ */
 export function KpiRow() {
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-6">
       {CARDS.map((card, index) => {
         const Arrow =
           card.delta?.direction === "up"
@@ -88,7 +104,7 @@ export function KpiRow() {
           >
             <div className="mb-2.5 flex min-h-8 items-start justify-between gap-2">
               <span className="min-w-0 text-label-overline text-secondary">
-                {card.label}
+                <InfoTip label={card.label}>{card.description}</InfoTip>
               </span>
               {card.delta ? (
                 <Badge
@@ -109,7 +125,7 @@ export function KpiRow() {
 
             <span
               className={cn(
-                "tabular-nums block truncate text-primary",
+                "tabular-nums mt-auto block truncate text-primary",
                 card.value.length > 6 ? "text-h3" : "text-h1",
               )}
               title={card.value}
