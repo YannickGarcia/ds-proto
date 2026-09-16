@@ -79,15 +79,9 @@ const sentimentVariant = {
   neutral: "gray-subtle",
 } as const;
 
-/**
- * Six across only from 2xl (1536px). Below that a card is too narrow to hold
- * the label, its info tip and the badge on one row — the longest pair needs
- * about 153px of inner width — and the badge belongs top right, so the grid
- * gives way instead: three across, then two, then one on a phone.
- */
 export function KpiRow() {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-6">
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
       {CARDS.map((card, index) => {
         const Arrow =
           card.delta?.direction === "up"
@@ -102,25 +96,35 @@ export function KpiRow() {
             className="animate-enter gap-0 px-4 py-4"
             style={{ ["--i" as string]: index }}
           >
-            <div className="mb-2.5 flex min-h-8 items-start justify-between gap-2">
-              <span className="min-w-0 text-label-overline text-secondary">
-                <InfoTip label={card.label}>{card.description}</InfoTip>
-              </span>
+            {/* The badge floats top right and the label wraps around it:
+                beside the badge while its words fit, underneath once they
+                don't. Floats cannot overlap text, so no label, badge or
+                card width can make them collide. The badge comes first in
+                the markup because a float only affects what follows it.
+                -my-0.5 trims the 20px badge to one 16px label line, so from
+                the second line on the label has the full card width. */}
+            <div className="mb-2.5 min-h-8 flow-root">
               {card.delta ? (
                 <Badge
                   variant={sentimentVariant[card.delta.sentiment]}
-                  className="tabular-nums gap-0.5 pr-2 pl-1.5"
+                  className="tabular-nums float-right -my-0.5 ml-2 gap-0.5 pr-2 pl-1.5"
                 >
                   <Arrow className="size-3" />
                   {card.delta.value}
                 </Badge>
               ) : null}
               {card.status ? (
-                <Badge variant="green" className="gap-1 pr-2 pl-1.5">
+                <Badge
+                  variant="green"
+                  className="float-right -my-0.5 ml-2 gap-1 pr-2 pl-1.5"
+                >
                   <Check className="size-3" />
                   {card.status}
                 </Badge>
               ) : null}
+              <span className="text-label-overline text-secondary">
+                <InfoTip label={card.label}>{card.description}</InfoTip>
+              </span>
             </div>
 
             <span

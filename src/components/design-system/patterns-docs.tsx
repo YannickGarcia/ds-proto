@@ -31,20 +31,20 @@ export function PatternsDocs() {
         <DocsBlock label="Example">
           <div className="grid max-w-[560px] grid-cols-2 gap-4">
             <Card className="gap-0 px-4 py-4">
-              <div className="mb-2.5 flex min-h-8 items-start justify-between gap-2">
-                <span className="min-w-0 text-label-overline text-secondary">
+              <div className="mb-2.5 min-h-8 flow-root">
+                <Badge
+                  variant="green"
+                  className="tabular-nums float-right -my-0.5 ml-2 gap-0.5 pr-2 pl-1.5"
+                >
+                  <ArrowUpRight aria-hidden="true" className="size-3" />
+                  +8pp
+                </Badge>
+                <span className="text-label-overline text-secondary">
                   <InfoTip label="Agentic">
                     Share of PR and review delivery completed by AI agents
                     working on their own.
                   </InfoTip>
                 </span>
-                <Badge
-                  variant="green"
-                  className="tabular-nums gap-0.5 pr-2 pl-1.5"
-                >
-                  <ArrowUpRight aria-hidden="true" className="size-3" />
-                  +8pp
-                </Badge>
               </div>
               <span className="tabular-nums mt-auto block text-h1 text-primary">
                 82%
@@ -54,17 +54,20 @@ export function PatternsDocs() {
               </span>
             </Card>
             <Card className="gap-0 px-4 py-4">
-              <div className="mb-2.5 flex min-h-8 items-start justify-between gap-2">
-                <span className="min-w-0 text-label-overline text-secondary">
+              <div className="mb-2.5 min-h-8 flow-root">
+                <Badge
+                  variant="green"
+                  className="float-right -my-0.5 ml-2 gap-1 pr-2 pl-1.5"
+                >
+                  <Check aria-hidden="true" className="size-3" />
+                  Within limits
+                </Badge>
+                <span className="text-label-overline text-secondary">
                   <InfoTip label="Excess spend">
                     AI spend above each person&rsquo;s budget limit, summed
                     across the team.
                   </InfoTip>
                 </span>
-                <Badge variant="green" className="gap-1 pr-2 pl-1.5">
-                  <Check aria-hidden="true" className="size-3" />
-                  Within limits
-                </Badge>
               </div>
               <span className="tabular-nums mt-auto block text-h1 text-primary">
                 $0
@@ -132,10 +135,14 @@ export function PatternsDocs() {
               scan.
             </>,
             <>
-              The badge sits top right, always. When a card gets too narrow for
-              the label, its info tip and the badge on one row, the grid gives
-              way — not the card: six across only from 1536px, then three, two,
-              and one on a phone.
+              The badge floats top right and the label wraps around it — beside
+              the badge while its words fit, underneath once they do not. A
+              float cannot overlap text, so no combination of label, badge and
+              card width can make them collide, and the row stays six across on
+              desktop. Put the badge first in the markup: a float only affects
+              what comes after it. Give it -my-0.5 so it occupies exactly one
+              label line; from the second line on, the label gets the full card
+              width.
             </>,
             <>
               Anchor the value to the bottom of the card with{" "}
