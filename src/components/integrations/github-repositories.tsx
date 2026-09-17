@@ -59,6 +59,7 @@ import { useMounted } from "@/lib/use-mounted";
 import { cn } from "@/lib/utils";
 import { IntegrationCharts } from "./integration-charts";
 import { HealthPanel } from "./health-panel";
+import { InstanceCards, InstanceList } from "./instance-list";
 import {
   IntegrationsPage,
   Section,
@@ -253,38 +254,15 @@ export function GithubRepositories() {
           title="Instances"
           description="The cloud account and any GitHub Enterprise Server you have added."
         >
-          <Card className="divide-y divide-[var(--border-subtle)] overflow-hidden">
-            {INSTANCES.map((inst) => (
-              <div
-                key={inst.id}
-                className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3"
-              >
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-[7px] bg-[var(--ds-gray-alpha-100)] text-secondary">
-                  {inst.kind === "cloud" ? (
-                    <Cloud aria-hidden="true" className="size-4" />
-                  ) : (
-                    <HardDrives aria-hidden="true" className="size-4" />
-                  )}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-label-default font-medium text-primary">
-                    {inst.label}
-                  </p>
-                  <p className="mt-0.5 truncate text-label-xs-mono text-secondary">
-                    {inst.urls.internal
-                      ? `${inst.urls.internal} · ${inst.urls.public}`
-                      : inst.urls.public}
-                  </p>
-                </div>
-                <div className="flex shrink-0 items-center gap-2">
-                  {inst.kind === "self-hosted" ? (
-                    <Button variant="tertiary">Edit instance</Button>
-                  ) : null}
-                  <Button variant="secondary">Add repository</Button>
-                </div>
-              </div>
-            ))}
-          </Card>
+          <InstanceList />
+        </Section>
+
+        {/* Exploration: the same instances as cards, to compare with the list. */}
+        <Section
+          title="Instances — cards"
+          description="Layout exploration with the same content as the list above."
+        >
+          <InstanceCards />
         </Section>
 
         <HealthPanel scope="the GitHub connection and every connected repository" />
