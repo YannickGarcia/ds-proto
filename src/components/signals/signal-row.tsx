@@ -81,97 +81,105 @@ export function SignalRow({
         aria-labelledby={`${titleId}-title`}
         className="scroll-mt-28 border-b border-[var(--border-subtle)]"
       >
+        {/* The hover covers the whole row, open or closed — it is one
+            object. Only the header toggles it. */}
         <div
-          onClick={(event) => {
-            if ((event.target as HTMLElement).closest("button, a, textarea"))
-              return;
-            onOpenChange(!open);
-          }}
           className={cn(
-            "-mx-3 grid cursor-pointer grid-cols-1 gap-x-10 gap-y-4 rounded-md px-3 py-6",
+            "-mx-3 rounded-md px-3",
             "transition-colors duration-150 hover:bg-[var(--ds-gray-alpha-100)]",
-            // Fixed outer columns, so every row's chart gets the same width
-            // and the four share one time axis: today lines up down the page.
-            "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)_232px] lg:items-center",
           )}
         >
-          <div className="min-w-0">
-            <h2
-              id={`${titleId}-title`}
-              className="flex items-center gap-2 text-h4 text-primary"
-            >
-              <StatusGlyph status={read.status} />
-              <span>
-                <InfoTip label={metric.label}>{metric.definition}</InfoTip>
-              </span>
-            </h2>
-            {plan && progress ? (
-              <div className="mt-2 pl-6">
-                <p className="flex min-w-0 items-center gap-1.5 text-copy-sm text-primary">
-                  <Flag
-                    aria-hidden="true"
-                    className="size-3.5 shrink-0 text-secondary"
-                  />
-                  <span className="sr-only">Plan: </span>
-                  <span className="truncate" title={plan.text}>
-                    {plan.text}
-                  </span>
+          <div
+            onClick={(event) => {
+              if ((event.target as HTMLElement).closest("button, a, textarea"))
+                return;
+              onOpenChange(!open);
+            }}
+            className={cn(
+              "grid cursor-pointer grid-cols-1 gap-x-10 gap-y-4 py-6",
+              // Fixed outer columns, so every row's chart gets the same width
+              // and the four share one time axis: today lines up down the page.
+              "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)_232px] lg:items-center",
+            )}
+          >
+            <div className="min-w-0">
+              <h2
+                id={`${titleId}-title`}
+                className="flex items-center gap-2 text-h4 text-primary"
+              >
+                <StatusGlyph status={read.status} />
+                <span>
+                  <InfoTip label={metric.label}>{metric.definition}</InfoTip>
+                </span>
+              </h2>
+              {plan && progress ? (
+                <div className="mt-2 pl-6">
+                  <p className="flex min-w-0 items-center gap-1.5 text-copy-sm text-primary">
+                    <Flag
+                      aria-hidden="true"
+                      className="size-3.5 shrink-0 text-secondary"
+                    />
+                    <span className="sr-only">Plan: </span>
+                    <span className="truncate" title={plan.text}>
+                      {plan.text}
+                    </span>
+                  </p>
+                  <p className="mt-0.5 text-copy-sm text-secondary">
+                    <span className={PLAN_STATE_TEXT[progress.state]}>
+                      {PLAN_STATE_LABEL[progress.state]}
+                    </span>
+                    {" · "}
+                    {progress.line}
+                  </p>
+                </div>
+              ) : (
+                <p className="mt-2 pl-6 text-copy-sm text-pretty text-secondary">
+                  {signalLine(metric, read)}
                 </p>
-                <p className="mt-0.5 text-copy-sm text-secondary">
-                  <span className={PLAN_STATE_TEXT[progress.state]}>
-                    {PLAN_STATE_LABEL[progress.state]}
-                  </span>
-                  {" · "}
-                  {progress.line}
+              )}
+            </div>
+
+            <SignalChart metric={metric} series={series} read={read} />
+
+            <div className="flex items-center gap-4 pl-6 lg:justify-end lg:pl-0">
+              <StatusChip status={read.status} />
+              <div className="min-w-[84px] text-right">
+                <p className="text-label-default text-primary tabular-nums">
+                  {metric.format(read.recent)}
+                </p>
+                <p className="mt-0.5 text-label-xs text-tertiary tabular-nums">
+                  target {metric.format(metric.target)}
                 </p>
               </div>
-            ) : (
-              <p className="mt-2 pl-6 text-copy-sm text-pretty text-secondary">
-                {signalLine(metric, read)}
-              </p>
-            )}
-          </div>
-
-          <SignalChart metric={metric} series={series} read={read} />
-
-          <div className="flex items-center gap-4 pl-6 lg:justify-end lg:pl-0">
-            <StatusChip status={read.status} />
-            <div className="min-w-[84px] text-right">
-              <p className="text-label-default text-primary tabular-nums">
-                {metric.format(read.recent)}
-              </p>
-              <p className="mt-0.5 text-label-xs text-tertiary tabular-nums">
-                target {metric.format(metric.target)}
-              </p>
+              <CollapsibleTrigger asChild>
+                <Button
+                  variant="tertiary"
+                  shape="square"
+                  aria-label={`${open ? "Hide" : "Investigate"} ${metric.label}`}
+                  className="ml-auto lg:ml-0"
+                >
+                  <CaretDown
+                    aria-hidden="true"
+                    className={cn(
+                      "transition-transform duration-200",
+                      open && "rotate-180",
+                    )}
+                  />
+                </Button>
+              </CollapsibleTrigger>
             </div>
-            <CollapsibleTrigger asChild>
-              <Button
-                variant="tertiary"
-                shape="square"
-                aria-label={`${open ? "Hide" : "Investigate"} ${metric.label}`}
-                className="ml-auto lg:ml-0"
-              >
-                <CaretDown
-                  aria-hidden="true"
-                  className={cn(
-                    "transition-transform duration-200",
-                    open && "rotate-180",
-                  )}
-                />
-              </Button>
-            </CollapsibleTrigger>
           </div>
-        </div>
 
-        <CollapsibleContent>
-          <SignalDetails
-            metric={metric}
-            plan={plan}
-            onSetAction={onSetAction}
-            onRemoveAction={onRemoveAction}
-            onOpenWho={onOpenWho}
-          />
-        </CollapsibleContent>
+          <CollapsibleContent>
+            <SignalDetails
+              metric={metric}
+              plan={plan}
+              onSetAction={onSetAction}
+              onRemoveAction={onRemoveAction}
+              onOpenWho={onOpenWho}
+            />
+          </CollapsibleContent>
+        </div>
       </section>
     </Collapsible>
   );
