@@ -77,6 +77,10 @@ export function PatternsDocs() {
             head={["Part", "Treatment"]}
             rows={[
               [
+                "Row",
+                "The whole header is the target, with the transparent family's hover, --ds-gray-alpha-100. The chevron is its one accessible trigger. Fixed side columns give every chart the same width, so the last week lines up down the page",
+              ],
+              [
                 "Glyph",
                 "Status hue, filled. Arrows point the way performance moves, not the number: cycle time falling is an arrow up",
               ],

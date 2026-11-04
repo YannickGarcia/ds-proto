@@ -85,7 +85,13 @@ export function SignalRow({
               return;
             onOpenChange(!open);
           }}
-          className="grid cursor-pointer grid-cols-1 gap-x-10 gap-y-4 py-6 lg:grid-cols-[minmax(240px,1fr)_minmax(320px,1.5fr)_auto] lg:items-center"
+          className={cn(
+            "-mx-3 grid cursor-pointer grid-cols-1 gap-x-10 gap-y-4 rounded-md px-3 py-6",
+            "transition-colors duration-150 hover:bg-[var(--ds-gray-alpha-100)]",
+            // Fixed outer columns, so every row's chart gets the same width
+            // and the four share one time axis: today lines up down the page.
+            "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)_232px] lg:items-center",
+          )}
         >
           <div className="min-w-0">
             <h2
