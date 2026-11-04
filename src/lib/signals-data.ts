@@ -403,11 +403,11 @@ export function signalLine(metric: Metric, read: SignalRead): string {
         : `${capitalise(goodSide(metric))} for ${read.streak} straight weeks, and still improving.`;
     case "getting-there":
       return read.weeksToCross !== null && read.weeksToCross <= 26
-        ? `${distance} ${badSide(metric)}, but closing — on pace to reach it in ~${read.weeksToCross} weeks.`
+        ? `${distance} ${badSide(metric)}, but closing — on pace to reach it around ${weekLabel(LAST + read.weeksToCross)}.`
         : `${distance} ${badSide(metric)}, but closing slowly.`;
     case "at-risk":
       return read.weeksToCross !== null && read.weeksToCross <= 26
-        ? `${capitalise(goodSide(metric))}, but slipping — on pace to cross it in ~${read.weeksToCross} weeks.`
+        ? `${capitalise(goodSide(metric))}, but slipping — on pace to cross it around ${weekLabel(LAST + read.weeksToCross)}.`
         : `${capitalise(goodSide(metric))}, but slipping.`;
     case "regressing":
       return `${distance} ${badSide(metric)} and moving away — ${metric.formatDelta(Math.abs(read.change))} worse ${baseline(read)}.`;

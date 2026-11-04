@@ -20,7 +20,8 @@ import { STATUS_TONE } from "./status";
  * last quarter — which takes the status colour, because that is the reading
  * the status is made from, with its distance from the dashed target shaded.
  * The dotted line is the 26-week fitted trend, carried into a hatched projection, and a ring
- * marks where it meets the target when that falls inside the projection.
+ * marks where it meets the target when that falls inside the projection,
+ * dated in the axis row: an estimate worth having, so it is given.
  */
 const SLOTS = WEEK_COUNT + PROJECTION_WEEKS;
 const PAD_TOP = 8;
@@ -82,6 +83,12 @@ export function SignalChart({
     read.weeksToCross !== null && read.weeksToCross <= PROJECTION_WEEKS
       ? LAST + read.weeksToCross
       : null;
+  // The estimate is dated, in the axis row under its ring — unless it would
+  // crowd the last reading's label, when it goes above the ring instead.
+  const crossX = crossAt !== null ? x(crossAt) : 0;
+  const crossDate = crossAt !== null ? `~${weekLabel(crossAt)}` : null;
+  const crowded = crossAt !== null && crossX - x(LAST) < 56;
+  const crossAnchor = crossX > width - 28 ? "end" : "middle";
 
   const onPointer = (event: React.PointerEvent<SVGRectElement>) => {
     const box = event.currentTarget.getBoundingClientRect();
@@ -99,7 +106,7 @@ export function SignalChart({
           height={height}
           className="block overflow-visible"
           role="img"
-          aria-label={`${metric.label} over ${WEEK_COUNT} weeks: ${metric.format(read.recent)} over the ${focus.phrase}, against a target of ${metric.format(metric.target)}.`}
+          aria-label={`${metric.label} over ${WEEK_COUNT} weeks: ${metric.format(read.recent)} over the ${focus.phrase}, against a target of ${metric.format(metric.target)}.${crossDate ? ` The trend reaches the target around ${crossDate.slice(1)}.` : ""}`}
         >
           <defs>
             <pattern
@@ -215,6 +222,17 @@ export function SignalChart({
           >
             {weekLabel(LAST)}
           </text>
+          {crossDate ? (
+            <text
+              x={crossAnchor === "end" ? width : crossX}
+              y={crowded ? yTarget - 7 : height - 3}
+              textAnchor={crossAnchor}
+              className="text-label-xs tabular-nums"
+              style={{ fill: tone.text }}
+            >
+              {crossDate}
+            </text>
+          ) : null}
 
           {hover !== null ? (
             <g pointerEvents="none">

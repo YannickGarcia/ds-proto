@@ -91,7 +91,7 @@ export function PatternsDocs() {
               ],
               [
                 "Chart",
-                "History in gray, the focus window in the status hue with its distance from the dashed target shaded, the dotted 26-week trend carried into a hatched projection, and a ring where it meets the target",
+                "History in gray, the focus window in the status hue with its distance from the dashed target shaded, the dotted 26-week trend carried into a hatched projection, and a ring where it meets the target, dated in the axis row (~Jan 11)",
               ],
               [
                 "Chip",
