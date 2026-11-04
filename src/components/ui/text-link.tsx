@@ -39,6 +39,14 @@ const variants = {
 
 export type TextLinkVariant = keyof typeof variants;
 
+/**
+ * The same treatment for a `<button>` that navigates within the page — a
+ * drill-down breadcrumb, say — so it cannot drift from the real link.
+ */
+export function textLinkClasses(variant: TextLinkVariant = "default") {
+  return cn(base, variants[variant]);
+}
+
 type TextLinkProps = Omit<ComponentProps<"a">, "href"> & {
   href: string;
   variant?: TextLinkVariant;

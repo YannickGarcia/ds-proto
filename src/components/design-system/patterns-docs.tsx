@@ -1,9 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import { ArrowUpRight, Check } from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import { InfoTip } from "@/components/ui/info-tip";
 import { Card } from "@/components/ui/card";
+import { SignalRow } from "@/components/signals/signal-row";
+import { StatusGlyph } from "@/components/signals/status";
+import { WhoSheet, type WhoTarget } from "@/components/signals/who-sheet";
+import {
+  CELEBRATES,
+  LAST,
+  METRIC_BY_ID,
+  STATUS_LABEL,
+  WHO_HEADING,
+  type SignalStatus,
+} from "@/lib/signals-data";
 import {
   BestPractice,
   DocsBlock,
@@ -22,6 +34,105 @@ export function PatternsDocs() {
       title="Patterns"
       intro="Compositions built from the primitives. These carry product decisions — what a colour means, how a card is ordered — so they belong in the system rather than in a single page."
     >
+      {/* ---------------------------------------------------------------- */}
+      <DocsEntry
+        id="pattern-signal"
+        title="Signal"
+        description="Where a metric sits against its target and which way it is heading, in one row. A signal is not the latest number: it reads the last four weeks against the target, and the slope of the whole six months. A metric below target that is closing in is a different message from one sliding away, and the row says which."
+      >
+        <DocsBlock
+          label="Example"
+          hint="The live row from the Signals page. Click it to expand why, who and what to do, then open the breakdown from the who list."
+        >
+          <SignalSpecimen />
+        </DocsBlock>
+
+        <DocsBlock
+          label="Statuses"
+          hint="Position decides the side, trend decides the word. A slope under a tenth of a percent of the target per week counts as flat."
+        >
+          <DocsTable
+            head={[
+              "Status",
+              "Last 4 weeks",
+              "26-week trend",
+              "Who heading",
+              "Celebrates",
+            ]}
+            rows={SIGNAL_RULES.map(([status, position, trend]) => [
+              <span key={status} className="inline-flex items-center gap-2">
+                <StatusGlyph status={status} />
+                {STATUS_LABEL[status]}
+              </span>,
+              position,
+              trend,
+              WHO_HEADING[status],
+              CELEBRATES[status] ? "Yes" : "No",
+            ])}
+          />
+        </DocsBlock>
+
+        <DocsBlock label="Anatomy">
+          <DocsTable
+            head={["Part", "Treatment"]}
+            rows={[
+              [
+                "Glyph",
+                "Status hue, filled. Arrows point the way performance moves, not the number: cycle time falling is an arrow up",
+              ],
+              ["Name", "text-h4, with an InfoTip defining the metric"],
+              [
+                "Line",
+                "One computed sentence — or, once a plan is set, the plan and how it is doing",
+              ],
+              [
+                "Chart",
+                "History in gray, the last four weeks in the status hue with their distance from the dashed target shaded, the dotted 26-week trend carried into a hatched projection, and a ring where it meets the target",
+              ],
+              [
+                "Chip",
+                "The status in words, neutral — the glyph already carries the colour",
+              ],
+              [
+                "Value",
+                "text-label-default with the target beneath. Deliberately small: the signal leads, not the number",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <BestPractice
+          items={[
+            <>
+              Hold everything back that is not the signal. Why, who and what
+              open on request, and the people behind a number open one level
+              further, in a <Token>Sheet</Token>.
+            </>,
+            <>
+              Compute the line from the same series the chart draws. Written by
+              hand, the words and the line will disagree within a week.
+            </>,
+            <>
+              Once a plan is set, it replaces the line. What the team agreed to
+              do matters more than the description of the chart beside it.
+            </>,
+            <>
+              Drill down level by level — company, tribe, team, person. At 1,500
+              engineers, names on the first screen are noise.
+            </>,
+            <>
+              Celebrate by name when a signal is on track or getting there.
+              Split every level into doing well and behind, and put the good
+              news first when the signal is good.
+            </>,
+            <>
+              Keep the four rows in the same order every week. Sorting by status
+              would move them, and position is how a reader finds a metric.
+            </>,
+          ]}
+        />
+      </DocsEntry>
+
       {/* ---------------------------------------------------------------- */}
       <DocsEntry
         id="pattern-kpi"
@@ -401,5 +512,39 @@ export function PatternsDocs() {
         />
       </DocsEntry>
     </DocsSection>
+  );
+}
+
+const SIGNAL_RULES: [SignalStatus, string, string][] = [
+  ["on-track", "On the target's good side", "Improving or flat"],
+  ["at-risk", "On the target's good side", "Worsening"],
+  ["getting-there", "On the wrong side", "Improving"],
+  ["regressing", "On the wrong side", "Flat or worsening"],
+];
+
+/** A real row, with its plan kept local so the specimen never edits the page's plan. */
+function SignalSpecimen() {
+  const [open, setOpen] = useState(false);
+  const [action, setAction] = useState<string | null>(null);
+  const [who, setWho] = useState<WhoTarget | null>(null);
+  return (
+    <div className="border-y border-[var(--border-subtle)]">
+      <SignalRow
+        metric={METRIC_BY_ID.cost}
+        open={open}
+        onOpenChange={setOpen}
+        plan={action ? { text: action, setWeek: LAST + 1 } : undefined}
+        onSetAction={setAction}
+        onRemoveAction={() => setAction(null)}
+        onOpenWho={(nodeId) => setWho({ metricId: "cost", nodeId })}
+      />
+      <WhoSheet
+        target={who}
+        onNavigate={(nodeId) =>
+          setWho((value) => (value ? { ...value, nodeId } : value))
+        }
+        onClose={() => setWho(null)}
+      />
+    </div>
   );
 }

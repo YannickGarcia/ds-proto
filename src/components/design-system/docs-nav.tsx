@@ -48,6 +48,7 @@ export const DOCS_NAV: DocsNavGroup[] = [
       { label: "Popover", href: "#component-popover" },
       { label: "Segmented control", href: "#component-segmented" },
       { label: "Select", href: "#component-select" },
+      { label: "Sheet", href: "#component-sheet" },
       { label: "Skeleton", href: "#component-skeleton" },
       { label: "Switch", href: "#component-switch" },
       { label: "Table", href: "#component-table" },
@@ -60,6 +61,7 @@ export const DOCS_NAV: DocsNavGroup[] = [
     title: "Patterns",
     href: "#patterns",
     items: [
+      { label: "Signal", href: "#pattern-signal" },
       { label: "KPI card", href: "#pattern-kpi" },
       { label: "Chart card", href: "#pattern-chart-card" },
       { label: "Scope & period", href: "#pattern-scope" },

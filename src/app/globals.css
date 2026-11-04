@@ -718,6 +718,11 @@
   --animate-fade-in: fade-in var(--ds-motion-popover-duration)
     var(--ds-motion-timing-swift);
   --animate-fade-out: fade-out var(--ds-motion-popover-duration) ease;
+  /* A sheet decelerates instead of using the swift curve: that one overshoots,
+     and a panel pinned to the edge that overshoots shows a gap behind it. */
+  --animate-sheet-in: sheet-in var(--ds-motion-overlay-duration)
+    cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-sheet-out: sheet-out var(--ds-motion-popover-duration) ease-in;
 }
 
 @keyframes scale-in {
@@ -746,6 +751,24 @@
   }
   to {
     opacity: 0;
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes sheet-out {
+  from {
+    transform: none;
+  }
+  to {
+    transform: translateX(100%);
   }
 }
 
@@ -847,7 +870,8 @@
     box-shadow: var(--shadow-elevated-sm);
   }
 
-  /* The large rung: modals, which sit over an overlay and everything else. */
+  /* The large rung: modals and sheets, which sit over an overlay and
+     everything else. */
   .elevated-lg {
     box-shadow: var(--shadow-elevated-lg);
   }

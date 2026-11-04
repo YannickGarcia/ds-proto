@@ -38,6 +38,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Sheet,
+  SheetBody,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Switch } from "@/components/ui/switch";
 import {
@@ -58,7 +67,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { InfoTip } from "@/components/ui/info-tip";
-import { Input } from "@/components/ui/input";
+import { Input, Textarea } from "@/components/ui/input";
 import { InlineLink, TextLink } from "@/components/ui/text-link";
 import {
   Menu,
@@ -302,6 +311,20 @@ text   → --ds-{hue}-900`}
               ]}
             />
           </Example>
+        </DocsBlock>
+
+        <DocsBlock
+          label="Inside a drill-down"
+          hint="When going up a level changes state rather than the URL — the Signals breakdown sheet — a crumb takes onSelect instead of href. It renders a button with the subtle text-link treatment, so the two kinds cannot drift apart."
+        >
+          <Snippet
+            code={`<Breadcrumb
+  items={path.map((node) => ({
+    label: node.name,
+    onSelect: () => drillTo(node.id),
+  }))}
+/>`}
+          />
         </DocsBlock>
 
         <BestPractice
@@ -658,6 +681,26 @@ text   → --ds-{hue}-900`}
                 prefix={<MagnifyingGlass aria-hidden="true" />}
               />
               <Input defaultValue="Disabled" disabled />
+            </div>
+          </Example>
+        </DocsBlock>
+
+        <DocsBlock
+          label="Textarea"
+          hint="The same field for text that runs past one line — an action in a plan, a note. It is the one field outside the 32px form scale: it starts at two lines and grows with its content, so it never sits level with a button in a row. Its actions go underneath."
+        >
+          <Example>
+            <div className="max-w-[420px]">
+              <label
+                htmlFor="docs-textarea"
+                className="mb-1.5 block text-label-sm text-secondary"
+              >
+                Action
+              </label>
+              <Textarea
+                id="docs-textarea"
+                defaultValue="Start a 24-hour first-review rotation in Data and Payments."
+              />
             </div>
           </Example>
         </DocsBlock>
@@ -1411,6 +1454,115 @@ text   → --ds-{hue}-900`}
             <>
               Give every trigger an <Token>aria-label</Token>: the visible text
               is the value, not the field.
+            </>,
+          ]}
+        />
+      </DocsEntry>
+
+      {/* ---------------------------------------------------------------- */}
+      <DocsEntry
+        id="component-sheet"
+        title="Sheet"
+        description="A panel that slides in from the right to go deeper into something without leaving the page — a breakdown, a detail view, a drill-down. Where a Modal asks for a decision, a Sheet is for exploring. It shares the Modal's rung: a tertiary surface with elevated-lg over --ds-overlay, because it is the other surface not anchored to a trigger."
+      >
+        <DocsBlock label="Example">
+          <Example>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="secondary">Open breakdown</Button>
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>
+                    Delivery<span className="text-secondary"> by tribe</span>
+                  </SheetTitle>
+                  <SheetDescription>
+                    Who moves the signal, one level at a time.
+                  </SheetDescription>
+                </SheetHeader>
+                <SheetBody>
+                  <p className="text-copy-default text-secondary">
+                    The body scrolls on its own; the header, with the title and
+                    any breadcrumb, stays put.
+                  </p>
+                </SheetBody>
+              </SheetContent>
+            </Sheet>
+          </Example>
+        </DocsBlock>
+
+        <DocsBlock label="Anatomy">
+          <DocsTable
+            head={["Part", "Role", "Styling"]}
+            rows={[
+              [
+                <Token key="a">SheetContent</Token>,
+                "The panel, and the overlay behind it",
+                "surface-tertiary, elevated-lg, full height, max 560px, hairline left edge, --ds-overlay",
+              ],
+              [
+                <Token key="b">SheetHeader</Token>,
+                "Title, description or breadcrumb, and the close button",
+                "20px top, 24px sides, hairline bottom; does not scroll",
+              ],
+              [
+                <Token key="c">SheetTitle</Token>,
+                "What is being explored",
+                "text-h4, primary — a level below a modal title, because a sheet is read, not decided",
+              ],
+              [
+                <Token key="d">SheetDescription</Token>,
+                "Optional context",
+                "text-copy-sm, secondary",
+              ],
+              [
+                <Token key="e">SheetBody</Token>,
+                "The content; scrolls on its own",
+                "24px sides, 20px top and bottom",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <DocsBlock label="Modal or sheet">
+          <DocsTable
+            head={["", "Modal", "Sheet"]}
+            rows={[
+              [
+                "Purpose",
+                "A decision the page waits for",
+                "Exploring something in depth",
+              ],
+              ["Footer", "Cancel and the action", "None — nothing to confirm"],
+              ["Width", "540px, centred", "560px, pinned right, full height"],
+              ["Entrance", "Scales in, swift curve", "Slides in, decelerates"],
+              [
+                "Navigation inside",
+                "Never",
+                "Yes — drill down, with a breadcrumb to go back up",
+              ],
+            ]}
+          />
+        </DocsBlock>
+
+        <BestPractice
+          items={[
+            <>
+              Keep the page it came from meaningful behind it. The overlay dims
+              rather than hides, so the reader never loses where they were.
+            </>,
+            <>
+              A drill-down inside a sheet changes its content in place and shows
+              the path in a <Token>Breadcrumb</Token> with{" "}
+              <Token>onSelect</Token> crumbs. Do not stack a second sheet.
+            </>,
+            <>
+              Long lists fold to the first six, with a &ldquo;Show all&rdquo; —
+              but only when more than two rows would be hidden.
+            </>,
+            <>
+              It has no footer. If the reader must confirm something, that part
+              is a modal.
             </>,
           ]}
         />

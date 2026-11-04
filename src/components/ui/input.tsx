@@ -65,3 +65,33 @@ export function Input({
     </div>
   );
 }
+
+/**
+ * Textarea — the Input's field treatment for text that runs to more than one
+ * line. It is the one field exempt from the 32px form scale: it grows with
+ * its content (`field-sizing: content`) from `rows` lines, so it is never
+ * meant to sit level with a button in a row.
+ */
+export function Textarea({
+  className,
+  rows = 2,
+  ...props
+}: ComponentProps<"textarea">) {
+  return (
+    <textarea
+      data-slot="textarea"
+      data-focus-managed=""
+      rows={rows}
+      className={cn(
+        "block w-full resize-none rounded-[var(--radius)] [field-sizing:content]",
+        "border border-[var(--ds-gray-alpha-400)] bg-[var(--ds-surface-secondary)] px-3 py-1.5",
+        "text-copy-default text-primary outline-none placeholder:text-tertiary",
+        "transition-[border-color,box-shadow] duration-150",
+        "focus:border-[var(--ds-gray-alpha-600)] focus:shadow-[var(--ds-focus-border)]",
+        "disabled:cursor-not-allowed disabled:text-disabled",
+        className,
+      )}
+      {...props}
+    />
+  );
+}

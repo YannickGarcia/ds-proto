@@ -1,4 +1,4 @@
-import { TextLink } from "@/components/ui/text-link";
+import { TextLink, textLinkClasses } from "@/components/ui/text-link";
 import type { ReactNode } from "react";
 import { CaretRight } from "@/components/icons";
 import { cn } from "@/lib/utils";
@@ -6,6 +6,11 @@ import { cn } from "@/lib/utils";
 export interface Crumb {
   label: ReactNode;
   href?: string;
+  /**
+   * For a trail inside the page — a drill-down in a panel — where going up a
+   * level changes state rather than the URL. Renders a button styled as the link.
+   */
+  onSelect?: () => void;
 }
 
 /** Breadcrumb — the trail only. The page title is a heading, not a crumb. */
@@ -34,6 +39,17 @@ export function Breadcrumb({
                 >
                   {item.label}
                 </TextLink>
+              ) : item.onSelect && !isLast ? (
+                <button
+                  type="button"
+                  onClick={item.onSelect}
+                  className={cn(
+                    textLinkClasses("subtle"),
+                    "truncate px-1 py-0.5",
+                  )}
+                >
+                  {item.label}
+                </button>
               ) : (
                 <span
                   aria-current={isLast ? "page" : undefined}

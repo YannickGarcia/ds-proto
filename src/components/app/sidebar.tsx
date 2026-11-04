@@ -57,7 +57,7 @@ interface NavSection {
 }
 
 const SECTIONS: NavSection[] = [
-  { items: [{ label: "Signals", icon: Broadcast }] },
+  { items: [{ label: "Signals", icon: Broadcast, href: "/signals" }] },
   {
     title: "AI adoption",
     items: [

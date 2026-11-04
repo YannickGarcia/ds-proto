@@ -1090,7 +1090,7 @@ export function Foundations() {
               [
                 "Large",
                 <Token key="c">elevated-lg</Token>,
-                "Modal",
+                "Modal, sheet",
                 "Sits over an overlay and everything else. The only rung that is not anchored to a trigger",
               ],
             ]}
@@ -1118,9 +1118,9 @@ export function Foundations() {
               ],
               [
                 <Token key="c">elevated-lg</Token>,
-                "Surfaces that block the page and are not anchored to a trigger: modals, confirmation dialogs",
+                "Surfaces that block the page and are not anchored to a trigger: modals and confirmation dialogs, and sheets for exploring something in depth",
                 "Menus that feel important, or anything that should let the page stay usable",
-                "surface-tertiary, rounded-xl (12px), --ds-overlay, scale-in, focus trap",
+                "surface-tertiary, --ds-overlay, focus trap; a modal is rounded-xl and scales in, a sheet is square to the edge it slides from",
               ],
             ]}
           />
@@ -1140,7 +1140,7 @@ export function Foundations() {
               ],
               [
                 "Is it anchored to a trigger?",
-                "elevated-lg — it is a modal",
+                "elevated-lg — a modal to decide, a sheet to explore",
                 "Continue",
               ],
               [
@@ -1160,6 +1160,7 @@ export function Foundations() {
             code={`/* Tooltip */  <div className="surface-tertiary elevated-sm" />
 /* Menu */     <div className="surface-tertiary elevated" />
 /* Modal */    <div className="surface-tertiary elevated-lg" />
+/* Sheet */    <div className="surface-tertiary elevated-lg" />
 /* Card */     <div className="surface-secondary" />`}
           />
         </DocsBlock>
@@ -1185,7 +1186,7 @@ export function Foundations() {
               {
                 cls: "surface-tertiary elevated-lg",
                 name: "elevated-lg",
-                note: "Modal.",
+                note: "Modal, sheet.",
               },
             ].map((item) => (
               <div
@@ -1203,7 +1204,7 @@ export function Foundations() {
 
         <DocsBlock
           label="The overlay"
-          hint="A modal is the only element that dims the page. --ds-overlay is 40% black in light and 60% in dark, where the page is already near-black and a lighter wash would not register. No blur: a blurred page reads as a loading state, not a paused one."
+          hint="A modal or a sheet is the only element that dims the page. --ds-overlay is 40% black in light and 60% in dark, where the page is already near-black and a lighter wash would not register. No blur: a blurred page reads as a loading state, not a paused one."
         >
           <DocsTable
             head={["Token", "Light", "Dark"]}
@@ -1235,7 +1236,7 @@ export function Foundations() {
             <>
               Ask two questions in order. Has it left the flow? If not, no rung.
               If so, is it anchored to a trigger? Tooltips and menus are; a
-              modal is not, and that is what earns it the top rung.
+              modal or a sheet is not, and that is what earns it the top rung.
             </>,
             <>
               Three rungs is the whole ladder. Two floating surfaces on the same
@@ -1505,6 +1506,11 @@ disabled:cursor-not-allowed`}
                 "Overlay entrance",
                 "200ms popover / 300ms overlay",
                 "Menus, popovers, dialogs",
+              ],
+              [
+                "Sheet entrance",
+                "300ms, cubic-bezier(.32,.72,0,1)",
+                "Sheets. They decelerate instead: the swift curve overshoots, and a panel pinned to the edge would show a gap behind it",
               ],
               ["Card entrance", "340ms, 30ms stagger", "Page load sequence"],
             ]}

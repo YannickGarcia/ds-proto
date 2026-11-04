@@ -86,8 +86,9 @@ Two separate decisions. A surface is a colour; elevation is a shadow.
   read on a 32px control.
 - **Elevation is a three-rung ladder**, and only floating surfaces get a rung:
   `elevated-sm` for tooltips, `elevated` for menus, popovers and select
-  lists, `elevated-lg` for modals — the one surface not anchored to a
-  trigger, and the only one over `--ds-overlay`. Compose with a surface:
+  lists, `elevated-lg` for modals and sheets — the two surfaces not anchored
+  to a trigger, and the only ones over `--ds-overlay`. A modal is for a
+  decision, a sheet for exploring in depth. Compose with a surface:
   `surface-tertiary elevated-lg`. A card is `surface-secondary` alone; never
   shadow a card. Geist's fourth rung (fullscreen) is omitted until a
   takeover exists.
@@ -163,6 +164,18 @@ value, so it never sits beside a number or in a corner. It takes no
 background, unlike a chart card's `InfoAction`, a 32px tertiary button among
 header controls. Every KPI card has one.
 
+### Signals
+
+A signal is a metric's position against its target and its direction, not
+its latest value. Status reads the **last four weeks' average** against the
+target and the **slope of a line fitted through all 26 weeks**: on track,
+at risk (good side, worsening), getting there (wrong side, improving),
+regressing. Every sentence, ranking and plan reading is computed in
+`src/lib/signals-data.ts` from the same series the chart draws — never write
+one by hand. The page discloses in steps: a row (status, one line, chart),
+then why / who / what in place, then a `Sheet` drilling Company › Tribe ›
+Team › Person. A plan action replaces the row's line once set.
+
 ### Borders, radius, icons
 
 - **Borders are one device pixel.** `--border-width` is 0.5px at 2dppx and
@@ -226,6 +239,7 @@ src/components/ui/             the component library
 src/components/design-system/  the /design-system page
 src/components/app/            the analytics screen
 src/components/integrations/   the integrations screens
+src/components/signals/        the Signals page; data in src/lib/signals-data.ts
 src/components/charts/         vendored chart source, patched
 src/lib/utils.ts               cn() and the tailwind-merge registrations
 docs/tokens.md                 generated token reference — npm run tokens
