@@ -171,7 +171,9 @@ its latest value. Status reads the **average over a focus window** — the last
 four weeks or the last quarter, a segmented control at the top of the page,
 held in `?window=` and a context every row and the sheet read — against the
 target, and the **slope of a line fitted through all 26 weeks**, which the
-window never changes: on track,
+window never changes. Momentum — the window against the one before it —
+only changes the line ("…improving over six months, but 0.3 pts worse than
+the four weeks before"), never the status: on track,
 at risk (good side, worsening), getting there (wrong side, improving),
 regressing. Every sentence, ranking and plan reading is computed in
 `src/lib/signals-data.ts` from the same series the chart draws — never write

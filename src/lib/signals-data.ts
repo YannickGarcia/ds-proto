@@ -7,7 +7,9 @@
  *   or the last quarter — against the target. Never one week, so a single
  *   noisy reading cannot flip a status.
  * - **Trend**: the slope of a straight line fitted through all 26 weeks —
- *   the secular trend. A metric can sit below target and still be getting
+ *   the secular trend. It sets the status; the window's own direction
+ *   against the window before (momentum) only changes the wording, so a
+ *   four-week dip in a good six months is reported without being alarmed. A metric can sit below target and still be getting
  *   closer, and that is a different message from one sliding away.
  *
  * Everything here is mocked but deterministic, and computed rather than
@@ -100,6 +102,11 @@ export interface Metric {
   /** The company curve the mock is built around, for t in 0..1. */
   curve: (t: number) => number;
   /**
+   * Weeks that departed from the curve — a summer slowdown, an incident —
+   * by week index, as a fraction of the target in the better direction.
+   */
+  events: Record<number, number>;
+  /**
    * How each tribe departs from the company, as a fraction of the target in
    * the *better* direction: [level today, improvement across six months].
    */
@@ -121,10 +128,24 @@ export const METRICS: Metric[] = [
     unit: "pts / contributor / wk",
     format: fixed(1, " pts"),
     formatDelta: fixed(1, " pts"),
-    why: "Platform and Mobile ship the most per person since they started splitting large pull requests. Payments is still below target, slowed by the ledger migration.",
+    why: "Platform and Mobile ship the most per person since they started splitting large pull requests. The last four weeks dipped across most tribes during the October incident freeze; the six-month trend is intact.",
     suggestion:
       "Share Platform's pull-request splitting guide with Payments, and pair one Platform reviewer with them for a month.",
     curve: (t) => 2.55 + 0.85 * t,
+    // Summer slowdown, a strong September, then the October incident freeze:
+    // the last four weeks dip while the six-month trend holds.
+    events: {
+      13: -0.05,
+      14: -0.08,
+      15: -0.04,
+      19: 0.03,
+      20: 0.05,
+      21: 0.04,
+      22: -0.06,
+      23: -0.09,
+      24: -0.11,
+      25: -0.1,
+    },
     tribes: {
       platform: [0.12, 0.1],
       mobile: [0.09, 0.06],
@@ -150,6 +171,7 @@ export const METRICS: Metric[] = [
     suggestion:
       "Start a 24-hour first-review rotation in Data and Payments, like the one Core API runs.",
     curve: (t) => (t < 0.8 ? 7.3 - 1.1 * t : 6.42 - 4.4 * (t - 0.8)),
+    events: { 9: -0.05, 10: -0.03, 16: 0.04 },
     tribes: {
       "core-api": [0.1, 0.14],
       growth: [0.06, 0.12],
@@ -175,6 +197,7 @@ export const METRICS: Metric[] = [
     suggestion:
       "Cap AI agent spend per point in Data and Infrastructure at the company average, and review the cap monthly.",
     curve: (t) => 97 + 17 * t ** 1.6,
+    events: { 7: -0.04, 17: -0.05, 18: -0.03 },
     tribes: {
       platform: [0.06, 0.04],
       growth: [0.05, 0.06],
@@ -200,6 +223,8 @@ export const METRICS: Metric[] = [
     suggestion:
       "Add a release checklist and a rollback drill to Payments and Mobile before their next major release.",
     curve: (t) => 12.3 + 3.5 * t ** 1.2,
+    // Two incident-heavy releases in September.
+    events: { 8: 0.05, 19: -0.1, 20: -0.07 },
     tribes: {
       "core-api": [0.12, 0.1],
       platform: [0.1, 0.08],
@@ -258,6 +283,11 @@ export interface SignalRead {
   streak: number;
   /** The focus window against the same span at the start, in the better direction. */
   change: number;
+  /**
+   * The focus window against the window just before it, in the better
+   * direction: short-term momentum, read against the six-month trend.
+   */
+  momentum: number;
   /** Weeks in the focus window the read was taken over. */
   weeks: number;
 }
@@ -314,6 +344,8 @@ export function readSeries(
   }
 
   const change = (recent - mean(series.slice(0, weeks))) * s;
+  const before = series.slice(Math.max(0, n - 2 * weeks), n - weeks);
+  const momentum = before.length ? (recent - mean(before)) * s : 0;
 
   return {
     status,
@@ -325,6 +357,7 @@ export function readSeries(
     weeksToCross,
     streak,
     change,
+    momentum,
     weeks,
   };
 }
@@ -346,6 +379,23 @@ const capitalise = (text: string) => text[0].toUpperCase() + text.slice(1);
 /** The one line under a signal. Computed, so it always matches the chart. */
 export function signalLine(metric: Metric, read: SignalRead): string {
   const distance = metric.formatDelta(Math.abs(read.gap));
+
+  // When the focus window moves against the six-month trend, say so — but
+  // in the line, not the status. A dip is news; it is not yet a regression.
+  const trending = Math.abs(read.improving) >= metric.target * 0.001;
+  const turn = metric.target * 0.02;
+  const lately = `${metric.formatDelta(Math.abs(read.momentum))} ${read.momentum >= 0 ? "better" : "worse"} than ${read.weeks >= 13 ? "the quarter before" : "the four weeks before"}`;
+  if (trending && read.improving > 0 && read.momentum < -turn) {
+    return read.gap >= 0
+      ? `${capitalise(goodSide(metric))} and improving over six months, but ${lately}.`
+      : `${distance} ${badSide(metric)} and closing over six months, but ${lately}.`;
+  }
+  if (trending && read.improving < 0 && read.momentum > turn) {
+    return read.gap >= 0
+      ? `${capitalise(goodSide(metric))} but slipping over six months, though ${lately}.`
+      : `${distance} ${badSide(metric)} and moving away over six months, though ${lately}.`;
+  }
+
   switch (read.status) {
     case "on-track":
       return read.streak >= WEEK_COUNT
@@ -661,6 +711,19 @@ function rng(seed: string) {
 const gauss = (next: () => number) =>
   (next() + next() + next() + next() - 2) * 1.73;
 
+/**
+ * Week-to-week swings that carry over: a good week tends to follow a good
+ * week. Independent noise would average away in a company of 1,500 and leave
+ * every line unrealistically smooth; this keeps the bumps at every level.
+ */
+function wobble(next: () => number, sd: number, carry = 0.45) {
+  let e = 0;
+  return Array.from(
+    { length: WEEK_COUNT },
+    () => (e = carry * e + gauss(next) * sd),
+  );
+}
+
 type Offset = [number, number];
 
 /** Shift offsets so their headcount-weighted mean is zero. */
@@ -749,9 +812,10 @@ function buildOrg(): Map<string, OrgNode> {
     const base = Array.from({ length: WEEK_COUNT }, (_, i) =>
       metric.curve(i / LAST),
     );
-    const companyNoise = rng(`${metric.id}/company`);
+    const companySwing = wobble(rng(`${metric.id}/company`), 0.028);
     const companyCurve = base.map(
-      (value) => value + gauss(companyNoise) * scale * 0.012,
+      (value, i) =>
+        value + s * scale * (metric.events[i] ?? 0) + scale * companySwing[i],
     );
 
     const tribeIds = company.children;
@@ -762,6 +826,7 @@ function buildOrg(): Map<string, OrgNode> {
 
     tribeIds.forEach((tribeId, ti) => {
       const tribe = nodes.get(tribeId)!;
+      const tribeSwing = wobble(rng(`${metric.id}/${tribeId}/swing`), 0.03);
       const teamRng = rng(`${metric.id}/${tribeId}`);
       const teamOffsets = centre(
         tribe.children.map(() => [
@@ -773,6 +838,7 @@ function buildOrg(): Map<string, OrgNode> {
 
       tribe.children.forEach((teamId, mi) => {
         const members = peopleByTeam.get(teamId)!;
+        const teamSwing = wobble(rng(`${metric.id}/${teamId}/swing`), 0.04);
         const personRng = rng(`${metric.id}/${teamId}`);
         const personOffsets = centre(
           members.map(() => [gauss(personRng) * 0.16, gauss(personRng) * 0.08]),
@@ -788,8 +854,8 @@ function buildOrg(): Map<string, OrgNode> {
             // `gain` is the extra improvement across six months, so the
             // departure is smaller in the past by that much.
             const departure = level + gain * (i / LAST - 1);
-            const raw =
-              value + s * scale * departure + gauss(noise) * scale * 0.035;
+            const swing = tribeSwing[i] + teamSwing[i] + gauss(noise) * 0.08;
+            const raw = value + s * scale * departure + scale * swing;
             return Math.max(scale * 0.05, raw);
           });
         });

@@ -130,6 +130,13 @@ export function PatternsDocs() {
               news first when the signal is good.
             </>,
             <>
+              A dip against a good six months is news, not a regression. When
+              the window moves against the 26-week trend, the line says so —
+              &ldquo;improving over six months, but 0.3 pts worse than the four
+              weeks before&rdquo; — and the status stays where the trend puts
+              it.
+            </>,
+            <>
               The window changes what is averaged, never the trend. Four weeks
               answers how we are doing now; a quarter, how the quarter went. The
               26-week slope is the long view both are read against, so switching
