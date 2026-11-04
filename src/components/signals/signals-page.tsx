@@ -7,14 +7,20 @@ import {
   METRICS,
   METRIC_BY_ID,
   PLAN_STATE_LABEL,
+  WINDOWS,
   getNode,
   planProgress,
   weekLabel,
+  windowOf,
   LAST,
   type MetricId,
+  type WindowValue,
 } from "@/lib/signals-data";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { textLinkClasses } from "@/components/ui/text-link";
+import { useSearchParam } from "@/lib/use-search-param";
 import { useSignalPlan } from "@/lib/use-signal-plan";
+import { SignalWindowProvider } from "./signal-window";
 import { PLAN_STATE_TEXT, SignalRow } from "./signal-row";
 import { WhoSheet, type WhoTarget } from "./who-sheet";
 
@@ -32,6 +38,18 @@ export function SignalsPage() {
   const [who, setWho] = useState<WhoTarget | null>(null);
   const company = getNode("company");
 
+  // The window is deep-linked through `?window=`, so a shared link opens in
+  // the same reading.
+  const urlWindow = useSearchParam("window");
+  const [override, setOverride] = useState<WindowValue | null>(null);
+  const focus = windowOf(override ?? urlWindow);
+  const selectWindow = (next: WindowValue) => {
+    setOverride(next);
+    const url = new URL(window.location.href);
+    url.searchParams.set("window", next);
+    window.history.replaceState(null, "", url);
+  };
+
   const setRowOpen = (id: MetricId, next: boolean) =>
     setOpen((value) =>
       next ? [...value, id] : value.filter((item) => item !== id),
@@ -46,53 +64,71 @@ export function SignalsPage() {
 
   return (
     <AppShell>
-      <div className="min-w-0 flex-1">
-        <PageHeader>
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-5 pb-4">
-            <h1 className="flex items-center gap-2 text-h2 text-primary">
-              <Broadcast aria-hidden="true" className="size-5 text-secondary" />
-              Signals
-            </h1>
-            <p className="text-label-sm text-tertiary">
-              Company · {company.headcount.toLocaleString("en-US")} engineers ·
-              week of {weekLabel(LAST)}
+      <SignalWindowProvider value={focus}>
+        <div className="min-w-0 flex-1">
+          <PageHeader>
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-5 pb-4">
+              <h1 className="flex items-center gap-2 text-h2 text-primary">
+                <Broadcast
+                  aria-hidden="true"
+                  className="size-5 text-secondary"
+                />
+                Signals
+              </h1>
+              <div className="flex flex-wrap items-center gap-4">
+                <p className="text-label-sm text-tertiary">
+                  Company · {company.headcount.toLocaleString("en-US")}{" "}
+                  engineers · week of {weekLabel(LAST)}
+                </p>
+                <SegmentedControl
+                  aria-label="Read signals over"
+                  value={focus.value}
+                  onValueChange={selectWindow}
+                  options={WINDOWS.map(({ value, label }) => ({
+                    value,
+                    label,
+                  }))}
+                />
+              </div>
+            </div>
+          </PageHeader>
+
+          <main id="main-content" className={`${SHELL} pt-2 pb-16`}>
+            <PlanSummary plan={plan} onJump={jumpTo} />
+
+            <div className="mt-4 border-t border-[var(--border-subtle)]">
+              {METRICS.map((metric) => (
+                <SignalRow
+                  key={metric.id}
+                  metric={metric}
+                  open={open.includes(metric.id)}
+                  onOpenChange={(next) => setRowOpen(metric.id, next)}
+                  plan={plan[metric.id]}
+                  onSetAction={(text) => setAction(metric.id, text)}
+                  onRemoveAction={() => removeAction(metric.id)}
+                  onOpenWho={(nodeId) =>
+                    setWho({ metricId: metric.id, nodeId })
+                  }
+                />
+              ))}
+            </div>
+
+            <p className="mt-4 max-w-[72ch] text-copy-xs text-tertiary">
+              Each signal reads the {focus.phrase} against the target (dashed),
+              and the trend across 26 weeks (dotted, carried forward into the
+              hatched projection). Updated every Monday.
             </p>
-          </div>
-        </PageHeader>
+          </main>
+        </div>
 
-        <main id="main-content" className={`${SHELL} pt-2 pb-16`}>
-          <PlanSummary plan={plan} onJump={jumpTo} />
-
-          <div className="mt-4 border-t border-[var(--border-subtle)]">
-            {METRICS.map((metric) => (
-              <SignalRow
-                key={metric.id}
-                metric={metric}
-                open={open.includes(metric.id)}
-                onOpenChange={(next) => setRowOpen(metric.id, next)}
-                plan={plan[metric.id]}
-                onSetAction={(text) => setAction(metric.id, text)}
-                onRemoveAction={() => removeAction(metric.id)}
-                onOpenWho={(nodeId) => setWho({ metricId: metric.id, nodeId })}
-              />
-            ))}
-          </div>
-
-          <p className="mt-4 max-w-[72ch] text-copy-xs text-tertiary">
-            Each signal reads the last four weeks against the target (dashed),
-            and the trend across 26 weeks (dotted, carried forward into the
-            hatched projection). Updated every Monday.
-          </p>
-        </main>
-      </div>
-
-      <WhoSheet
-        target={who}
-        onNavigate={(nodeId) =>
-          setWho((value) => (value ? { ...value, nodeId } : value))
-        }
-        onClose={() => setWho(null)}
-      />
+        <WhoSheet
+          target={who}
+          onNavigate={(nodeId) =>
+            setWho((value) => (value ? { ...value, nodeId } : value))
+          }
+          onClose={() => setWho(null)}
+        />
+      </SignalWindowProvider>
     </AppShell>
   );
 }

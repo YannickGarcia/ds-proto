@@ -10,8 +10,8 @@ import { STATUS_LABEL, type SignalStatus } from "@/lib/signals-data";
 import { cn } from "@/lib/utils";
 
 /**
- * One hue per status, used for the glyph, the last four weeks of the chart
- * and nothing else. The arrows point the way performance moves, not the way
+ * One hue per status, used for the glyph, the focus window of the chart and
+ * nothing else. The arrows point the way performance moves, not the way
  * the number moves: cycle time falling is an arrow up.
  */
 export const STATUS_TONE: Record<

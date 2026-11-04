@@ -28,6 +28,7 @@ import {
 import { cn } from "@/lib/utils";
 import { KudosButton } from "./signal-row";
 import { SignalChart, SignalSparkline } from "./signal-chart";
+import { useSignalWindow } from "./signal-window";
 import { StatusChip, StatusGlyph } from "./status";
 
 export interface WhoTarget {
@@ -95,11 +96,16 @@ function WhoContent({
   onNavigate: (nodeId: string) => void;
 }) {
   const node = getNode(nodeId);
-  const read = readSeries(node.series[metric.id], metric);
+  const { weeks } = useSignalWindow();
+  const read = readSeries(node.series[metric.id], metric, weeks);
   const path = pathTo(nodeId);
   const level = node.level === "person" ? "team" : node.level;
-  const children = readChildren(nodeId, metric);
-  const company = readSeries(getNode("company").series[metric.id], metric);
+  const children = readChildren(nodeId, metric, weeks);
+  const company = readSeries(
+    getNode("company").series[metric.id],
+    metric,
+    weeks,
+  );
 
   const doingWell = children
     .filter((child) => child.read.gap >= 0)

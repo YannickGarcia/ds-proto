@@ -38,7 +38,7 @@ export function PatternsDocs() {
       <DocsEntry
         id="pattern-signal"
         title="Signal"
-        description="Where a metric sits against its target and which way it is heading, in one row. A signal is not the latest number: it reads the last four weeks against the target, and the slope of the whole six months. A metric below target that is closing in is a different message from one sliding away, and the row says which."
+        description="Where a metric sits against its target and which way it is heading, in one row. A signal is not the latest number: it reads a focus window — the last four weeks or the last quarter, chosen at the top of the page — against the target, and the slope of the whole six months. A metric below target that is closing in is a different message from one sliding away, and the row says which."
       >
         <DocsBlock
           label="Example"
@@ -54,7 +54,7 @@ export function PatternsDocs() {
           <DocsTable
             head={[
               "Status",
-              "Last 4 weeks",
+              "Focus window",
               "26-week trend",
               "Who heading",
               "Celebrates",
@@ -91,7 +91,7 @@ export function PatternsDocs() {
               ],
               [
                 "Chart",
-                "History in gray, the last four weeks in the status hue with their distance from the dashed target shaded, the dotted 26-week trend carried into a hatched projection, and a ring where it meets the target",
+                "History in gray, the focus window in the status hue with its distance from the dashed target shaded, the dotted 26-week trend carried into a hatched projection, and a ring where it meets the target",
               ],
               [
                 "Chip",
@@ -128,6 +128,12 @@ export function PatternsDocs() {
               Celebrate by name when a signal is on track or getting there.
               Split every level into doing well and behind, and put the good
               news first when the signal is good.
+            </>,
+            <>
+              The window changes what is averaged, never the trend. Four weeks
+              answers how we are doing now; a quarter, how the quarter went. The
+              26-week slope is the long view both are read against, so switching
+              cannot turn a declining metric into an improving one.
             </>,
             <>
               Keep the four rows in the same order every week. Sorting by status

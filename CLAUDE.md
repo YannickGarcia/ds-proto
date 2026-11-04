@@ -167,8 +167,11 @@ header controls. Every KPI card has one.
 ### Signals
 
 A signal is a metric's position against its target and its direction, not
-its latest value. Status reads the **last four weeks' average** against the
-target and the **slope of a line fitted through all 26 weeks**: on track,
+its latest value. Status reads the **average over a focus window** — the last
+four weeks or the last quarter, a segmented control at the top of the page,
+held in `?window=` and a context every row and the sheet read — against the
+target, and the **slope of a line fitted through all 26 weeks**, which the
+window never changes: on track,
 at risk (good side, worsening), getting there (wrong side, improving),
 regressing. Every sentence, ranking and plan reading is computed in
 `src/lib/signals-data.ts` from the same series the chart draws — never write

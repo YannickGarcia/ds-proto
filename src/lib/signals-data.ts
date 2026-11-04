@@ -3,8 +3,9 @@
  *
  * A signal is not the latest number. It combines two readings:
  *
- * - **Position**: the last four weeks' average against the target. Four
- *   weeks, not one, so a single noisy week cannot flip a status.
+ * - **Position**: the average over the focus window — the last four weeks,
+ *   or the last quarter — against the target. Never one week, so a single
+ *   noisy reading cannot flip a status.
  * - **Trend**: the slope of a straight line fitted through all 26 weeks —
  *   the secular trend. A metric can sit below target and still be getting
  *   closer, and that is a different message from one sliding away.
@@ -51,6 +52,24 @@ export function weekLabel(index: number) {
 
 export const FIRST_MONTH =
   MONTHS[new Date(LAST_MONDAY - LAST * 7 * DAY).getUTCMonth()];
+
+/**
+ * The focus window: how many recent weeks a status averages. Four weeks
+ * answers "how are we doing now"; a quarter smooths that into "how did this
+ * quarter go". The 26-week trend is the same either way — it is the long
+ * view the window is read against.
+ */
+export const WINDOWS = [
+  { value: "4w", weeks: 4, label: "4 weeks", phrase: "last four weeks" },
+  { value: "quarter", weeks: 13, label: "Quarter", phrase: "last quarter" },
+] as const;
+
+export type WindowValue = (typeof WINDOWS)[number]["value"];
+export const DEFAULT_WINDOW = WINDOWS[0];
+
+export function windowOf(value: string | null) {
+  return WINDOWS.find((item) => item.value === value) ?? DEFAULT_WINDOW;
+}
 
 /* -------------------------------------------------------------------------- */
 /* Metrics                                                                     */
@@ -224,7 +243,7 @@ export const CELEBRATES: Record<SignalStatus, boolean> = {
 
 export interface SignalRead {
   status: SignalStatus;
-  /** Average of the last four weeks. */
+  /** Average over the focus window. */
   recent: number;
   /** recent − target, in the better direction: ≥ 0 is on the good side. */
   gap: number;
@@ -237,14 +256,20 @@ export interface SignalRead {
   weeksToCross: number | null;
   /** Consecutive weeks, counting back from the last, on the current side. */
   streak: number;
-  /** Last four weeks against the first four, in the better direction. */
+  /** The focus window against the same span at the start, in the better direction. */
   change: number;
+  /** Weeks in the focus window the read was taken over. */
+  weeks: number;
 }
 
 const mean = (values: number[]) =>
   values.reduce((sum, value) => sum + value, 0) / values.length;
 
-export function readSeries(series: number[], metric: Metric): SignalRead {
+export function readSeries(
+  series: number[],
+  metric: Metric,
+  weeks: number = DEFAULT_WINDOW.weeks,
+): SignalRead {
   const s = sense(metric);
   const n = series.length;
   const xMean = (n - 1) / 2;
@@ -258,7 +283,7 @@ export function readSeries(series: number[], metric: Metric): SignalRead {
   const slope = num / den;
   const intercept = yMean - slope * xMean;
 
-  const recent = mean(series.slice(-4));
+  const recent = mean(series.slice(-weeks));
   const gap = (recent - metric.target) * s;
   const improving = slope * s;
   // Below a tenth of a percent of the target per week, a trend is noise.
@@ -288,7 +313,7 @@ export function readSeries(series: number[], metric: Metric): SignalRead {
     streak += 1;
   }
 
-  const change = (recent - mean(series.slice(0, 4))) * s;
+  const change = (recent - mean(series.slice(0, weeks))) * s;
 
   return {
     status,
@@ -300,8 +325,17 @@ export function readSeries(series: number[], metric: Metric): SignalRead {
     weeksToCross,
     streak,
     change,
+    weeks,
   };
 }
+
+/**
+ * What `change` is measured against, in words. Over four weeks it is the
+ * start of the six months; over a quarter it is the quarter before, since
+ * the first 13 of the 26 weeks are exactly that.
+ */
+const baseline = (read: SignalRead) =>
+  read.weeks >= 13 ? "than last quarter" : `than in ${FIRST_MONTH}`;
 
 const goodSide = (metric: Metric) =>
   metric.better === "higher" ? "above target" : "under target";
@@ -326,7 +360,7 @@ export function signalLine(metric: Metric, read: SignalRead): string {
         ? `${capitalise(goodSide(metric))}, but slipping — on pace to cross it in ~${read.weeksToCross} weeks.`
         : `${capitalise(goodSide(metric))}, but slipping.`;
     case "regressing":
-      return `${distance} ${badSide(metric)} and moving away — ${metric.formatDelta(Math.abs(read.change))} worse than in ${FIRST_MONTH}.`;
+      return `${distance} ${badSide(metric)} and moving away — ${metric.formatDelta(Math.abs(read.change))} worse ${baseline(read)}.`;
   }
 }
 
@@ -816,10 +850,14 @@ export interface Ranked {
   read: SignalRead;
 }
 
-export function readChildren(id: string, metric: Metric): Ranked[] {
+export function readChildren(
+  id: string,
+  metric: Metric,
+  weeks: number = DEFAULT_WINDOW.weeks,
+): Ranked[] {
   return getNode(id).children.map((childId) => {
     const node = getNode(childId);
-    return { node, read: readSeries(node.series[metric.id], metric) };
+    return { node, read: readSeries(node.series[metric.id], metric, weeks) };
   });
 }
 
@@ -862,7 +900,7 @@ export function whoFact(
       return `${metric.formatDelta(Math.abs(read.gap))} ${read.gap >= 0 ? goodSide(metric) : badSide(metric)}`;
     case "getting-there":
     case "at-risk":
-      return `${metric.formatDelta(Math.abs(read.change))} ${read.change >= 0 ? "better" : "worse"} since ${FIRST_MONTH}`;
+      return `${metric.formatDelta(Math.abs(read.change))} ${read.change >= 0 ? "better" : "worse"} ${baseline(read)}`;
   }
 }
 

@@ -34,6 +34,7 @@ import {
 } from "@/lib/signals-data";
 import { cn } from "@/lib/utils";
 import { SignalChart } from "./signal-chart";
+import { useSignalWindow } from "./signal-window";
 import { StatusChip, StatusGlyph } from "./status";
 
 export const PLAN_STATE_TEXT: Record<PlanState, string> = {
@@ -67,8 +68,9 @@ export function SignalRow({
   onRemoveAction: () => void;
   onOpenWho: (nodeId: string) => void;
 }) {
+  const focus = useSignalWindow();
   const series = getNode("company").series[metric.id];
-  const read = readSeries(series, metric);
+  const read = readSeries(series, metric, focus.weeks);
   const progress = plan ? planProgress(metric, series, plan) : null;
   const titleId = `signal-${metric.id}`;
 
@@ -188,9 +190,13 @@ function SignalDetails({
   onRemoveAction: () => void;
   onOpenWho: (nodeId: string) => void;
 }) {
+  const focus = useSignalWindow();
   const series = getNode("company").series[metric.id];
-  const read = readSeries(series, metric);
-  const top = rankFor(read.status, readChildren("company", metric)).slice(0, 3);
+  const read = readSeries(series, metric, focus.weeks);
+  const top = rankFor(
+    read.status,
+    readChildren("company", metric, focus.weeks),
+  ).slice(0, 3);
   const celebrates = CELEBRATES[read.status];
 
   return (

@@ -9,16 +9,17 @@ import {
   type Metric,
   type SignalRead,
 } from "@/lib/signals-data";
+import { useSignalWindow } from "./signal-window";
 import { STATUS_TONE } from "./status";
 
 /**
  * The signal chart: six months of weeks, the target, and where the trend is
  * heading.
  *
- * Everything is quiet except the last four weeks, which take the status
- * colour — that is the reading the status is made from — with their distance
- * from the dashed target shaded. The dotted line is
- * the 26-week fitted trend, carried into a hatched projection, and a ring
+ * Everything is quiet except the focus window — the last four weeks or the
+ * last quarter — which takes the status colour, because that is the reading
+ * the status is made from, with its distance from the dashed target shaded.
+ * The dotted line is the 26-week fitted trend, carried into a hatched projection, and a ring
  * marks where it meets the target when that falls inside the projection.
  */
 const SLOTS = WEEK_COUNT + PROJECTION_WEEKS;
@@ -74,7 +75,8 @@ export function SignalChart({
       )
       .join("");
 
-  const split = LAST - 3;
+  const focus = useSignalWindow();
+  const split = LAST - (focus.weeks - 1);
   const yTarget = y(metric.target);
   const crossAt =
     read.weeksToCross !== null && read.weeksToCross <= PROJECTION_WEEKS
@@ -97,7 +99,7 @@ export function SignalChart({
           height={height}
           className="block overflow-visible"
           role="img"
-          aria-label={`${metric.label} over ${WEEK_COUNT} weeks: ${metric.format(read.recent)} over the last four, against a target of ${metric.format(metric.target)}.`}
+          aria-label={`${metric.label} over ${WEEK_COUNT} weeks: ${metric.format(read.recent)} over the ${focus.phrase}, against a target of ${metric.format(metric.target)}.`}
         >
           <defs>
             <pattern
@@ -263,8 +265,8 @@ export function SignalChart({
 }
 
 /**
- * The same reading at row size, for the breakdown lists: history, the last
- * four weeks in the status colour, and the target. No axis, no projection.
+ * The same reading at row size, for the breakdown lists: history, the focus
+ * window in the status colour, and the target. No axis, no projection.
  */
 export function SignalSparkline({
   metric,
@@ -294,7 +296,7 @@ export function SignalSparkline({
           `${k === 0 ? "M" : "L"}${x(from + k).toFixed(1)},${y(v).toFixed(1)}`,
       )
       .join("");
-  const split = LAST - 3;
+  const split = LAST - (useSignalWindow().weeks - 1);
 
   return (
     <svg
