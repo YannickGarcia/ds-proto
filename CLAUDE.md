@@ -168,7 +168,7 @@ header controls. Every KPI card has one.
 
 A signal is a metric's position against its target and its direction, not
 its latest value. Status reads the **average over a focus window** — the last
-four weeks or the last quarter, a segmented control at the top of the page,
+four weeks or the last quarter, a segmented control at the end of the plan line,
 held in `?window=` and a context every row and the sheet read — against the
 target, and the **slope of a line fitted through all 26 weeks**, which the
 window never changes. Momentum — the window against the one before it —

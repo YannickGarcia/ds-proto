@@ -38,7 +38,7 @@ export function PatternsDocs() {
       <DocsEntry
         id="pattern-signal"
         title="Signal"
-        description="Where a metric sits against its target and which way it is heading, in one row. A signal is not the latest number: it reads a focus window — the last four weeks or the last quarter, chosen at the top of the page — against the target, and the slope of the whole six months. A metric below target that is closing in is a different message from one sliding away, and the row says which."
+        description="Where a metric sits against its target and which way it is heading, in one row. A signal is not the latest number: it reads a focus window — the last four weeks or the last quarter, chosen at the end of the plan line — against the target, and the slope of the whole six months. A metric below target that is closing in is a different message from one sliding away, and the row says which."
       >
         <DocsBlock
           label="Example"

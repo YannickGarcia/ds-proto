@@ -75,26 +75,25 @@ export function SignalsPage() {
                 />
                 Signals
               </h1>
-              <div className="flex flex-wrap items-center gap-4">
-                <p className="text-label-sm text-tertiary">
-                  Company · {company.headcount.toLocaleString("en-US")}{" "}
-                  engineers · week of {weekLabel(LAST)}
-                </p>
-                <SegmentedControl
-                  aria-label="Read signals over"
-                  value={focus.value}
-                  onValueChange={selectWindow}
-                  options={WINDOWS.map(({ value, label }) => ({
-                    value,
-                    label,
-                  }))}
-                />
-              </div>
+              <p className="text-label-sm text-tertiary">
+                Company · {company.headcount.toLocaleString("en-US")} engineers
+                · week of {weekLabel(LAST)}
+              </p>
             </div>
           </PageHeader>
 
           <main id="main-content" className={`${SHELL} pt-2 pb-16`}>
-            <PlanSummary plan={plan} onJump={jumpTo} />
+            {/* The plan on the left, how to read it on the right: the window
+                sits with the content it changes, not in the page chrome. */}
+            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+              <PlanSummary plan={plan} onJump={jumpTo} />
+              <SegmentedControl
+                aria-label="Read signals over"
+                value={focus.value}
+                onValueChange={selectWindow}
+                options={WINDOWS.map(({ value, label }) => ({ value, label }))}
+              />
+            </div>
 
             <div className="mt-4 border-t border-[var(--border-subtle)]">
               {METRICS.map((metric) => (
