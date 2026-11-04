@@ -78,7 +78,7 @@ export function PatternsDocs() {
             rows={[
               [
                 "Row",
-                "One object: the hover, the transparent family's --ds-gray-alpha-100, covers the whole row, open or closed. The header is the click target and the chevron its one accessible trigger. Fixed side columns give every chart the same width, so the last week lines up down the page",
+                "One object: the hover, the transparent family's --ds-gray-alpha-100, covers the whole row, open or closed. The header is the click target and the chevron its one accessible trigger. Fixed side columns give every chart the same width, so the last week lines up down the page, and the open details reuse them: why under the title, who from the chart's left edge",
               ],
               [
                 "Glyph",

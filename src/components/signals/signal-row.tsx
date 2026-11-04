@@ -37,6 +37,14 @@ import { SignalChart } from "./signal-chart";
 import { useSignalWindow } from "./signal-window";
 import { StatusChip, StatusGlyph } from "./status";
 
+/**
+ * The row's columns, shared by the header and the open details so they line
+ * up: the title, the chart, then status and value. The outer two are fixed
+ * shares, so every row's chart gets the same width and the four share one
+ * time axis — today lines up down the page.
+ */
+const ROW_COLUMNS = "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)_232px]";
+
 export const PLAN_STATE_TEXT: Record<PlanState, string> = {
   working: "text-[var(--ds-green-text)]",
   stalled: "text-[var(--ds-amber-text)]",
@@ -97,9 +105,8 @@ export function SignalRow({
             }}
             className={cn(
               "grid cursor-pointer grid-cols-1 gap-x-10 gap-y-4 py-6",
-              // Fixed outer columns, so every row's chart gets the same width
-              // and the four share one time axis: today lines up down the page.
-              "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)_232px] lg:items-center",
+              ROW_COLUMNS,
+              "lg:items-center",
             )}
           >
             <div className="min-w-0">
@@ -208,68 +215,72 @@ function SignalDetails({
   const celebrates = CELEBRATES[read.status];
 
   return (
-    <div className="grid grid-cols-1 gap-x-10 gap-y-8 pb-8 pl-6 lg:grid-cols-3">
-      <div>
+    <div className={cn("grid grid-cols-1 gap-x-10 gap-y-8 pb-8", ROW_COLUMNS)}>
+      <div className="pl-6">
         <Heading>Why</Heading>
         <p className="text-copy-default text-pretty text-secondary">
           {metric.why}
         </p>
       </div>
 
-      <div>
-        <Heading>{WHO_HEADING[read.status]}</Heading>
-        <ul className="-mx-2">
-          {top.map(({ node, read: tribe }) => (
-            <li key={node.id}>
-              <button
-                type="button"
-                onClick={() => onOpenWho(node.id)}
-                className={cn(
-                  "group flex h-8 w-full items-center gap-2 rounded-md px-2 text-left",
-                  "outline-none transition-colors duration-150 hover:bg-[var(--ds-gray-alpha-100)]",
-                  "focus-visible:shadow-[var(--ds-focus-ring)]",
-                )}
-              >
-                <StatusGlyph status={tribe.status} className="size-3.5" />
-                <span className="text-label-default text-primary">
-                  {node.name}
-                </span>
-                <span className="text-label-xs text-tertiary tabular-nums">
-                  {node.headcount}
-                </span>
-                <span className="ml-auto truncate text-label-sm text-secondary tabular-nums">
-                  {whoFact(read.status, metric, tribe)}
-                </span>
-                <CaretRight
-                  aria-hidden="true"
-                  className="size-3 shrink-0 text-tertiary transition-colors group-hover:text-primary"
-                />
-              </button>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-2 flex flex-wrap items-center gap-2">
-          <Button
-            variant="tertiary"
-            size="small"
-            suffix={<ArrowRight aria-hidden="true" />}
-            onClick={() => onOpenWho("company")}
-            className="-ml-2.5"
-          >
-            All tribes, teams and people
-          </Button>
-          {celebrates ? (
-            <KudosButton names={top.map((item) => item.node.name)} />
-          ) : null}
+      {/* Who starts where the chart does; who and what share the chart's
+          and the value's columns between them. */}
+      <div className="grid grid-cols-1 gap-x-10 gap-y-8 pl-6 lg:col-span-2 lg:grid-cols-2 lg:pl-0">
+        <div>
+          <Heading>{WHO_HEADING[read.status]}</Heading>
+          <ul className="-mx-2">
+            {top.map(({ node, read: tribe }) => (
+              <li key={node.id}>
+                <button
+                  type="button"
+                  onClick={() => onOpenWho(node.id)}
+                  className={cn(
+                    "group flex h-8 w-full items-center gap-2 rounded-md px-2 text-left",
+                    "outline-none transition-colors duration-150 hover:bg-[var(--ds-gray-alpha-100)]",
+                    "focus-visible:shadow-[var(--ds-focus-ring)]",
+                  )}
+                >
+                  <StatusGlyph status={tribe.status} className="size-3.5" />
+                  <span className="text-label-default text-primary">
+                    {node.name}
+                  </span>
+                  <span className="text-label-xs text-tertiary tabular-nums">
+                    {node.headcount}
+                  </span>
+                  <span className="ml-auto truncate text-label-sm text-secondary tabular-nums">
+                    {whoFact(read.status, metric, tribe)}
+                  </span>
+                  <CaretRight
+                    aria-hidden="true"
+                    className="size-3 shrink-0 text-tertiary transition-colors group-hover:text-primary"
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <Button
+              variant="tertiary"
+              size="small"
+              suffix={<ArrowRight aria-hidden="true" />}
+              onClick={() => onOpenWho("company")}
+              className="-ml-2.5"
+            >
+              All tribes, teams and people
+            </Button>
+            {celebrates ? (
+              <KudosButton names={top.map((item) => item.node.name)} />
+            ) : null}
+          </div>
         </div>
-      </div>
 
-      <ActionColumn
-        metric={metric}
-        plan={plan}
-        onSetAction={onSetAction}
-        onRemoveAction={onRemoveAction}
-      />
+        <ActionColumn
+          metric={metric}
+          plan={plan}
+          onSetAction={onSetAction}
+          onRemoveAction={onRemoveAction}
+        />
+      </div>
     </div>
   );
 }
